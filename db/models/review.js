@@ -1,13 +1,15 @@
 'use strict'
 
-const Sequelize = require('sequelize')
+const {TEXT} = require('sequelize')
 
 module.exports = db => db.define('reviews', {
-  body: Sequelize.TEXT,
-  validate: {
-    len: {
-      args: 30,
-      msg: 'Review must be 30 characters in length'
+  body: {
+    type: TEXT,
+    validate: {
+      len: {
+        args: 30,
+        msg: 'Review must be 30 characters in length'
+      }
     }
   }
 })
