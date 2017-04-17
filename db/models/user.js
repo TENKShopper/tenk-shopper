@@ -37,7 +37,7 @@ module.exports = db => db.define('users', {
   },
   getterMethods: {
     // checks if user is a guest or not
-    isGuest() {
+    isGuest () {
       return this.email ? false : true
     },
     billingAddress () {
