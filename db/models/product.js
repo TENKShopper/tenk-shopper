@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize')
 const {STRING, TEXT, INTEGER, DECIMAL} = require('sequelize')
 
-module.exports = db => db.define('product', {
+module.exports = db => db.define('products', {
   title: {
     type: STRING,
     allowNull: false
