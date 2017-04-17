@@ -15,6 +15,8 @@ module.exports = db => db.define('product', {
     DefaultValue: 0.00
   },
 
+  inventoryQuantity: Sequelize.INTEGER,
+
   photo: {
     type: Sequelize.STRING,
     allowNull: false
