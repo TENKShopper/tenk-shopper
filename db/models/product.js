@@ -1,35 +1,36 @@
 'use strict'
 
 const Sequelize = require('sequelize')
+const {STRING, TEXT, INTEGER} = require('sequelize')
 
 module.exports = db => db.define('product', {
   title: {
-    type: Sequelize.STRING,
+    type: STRING,
     allowNull: false
   },
 
-  description : Sequelize.TEXT,
+  description : TEXT,
 
   price: {
-    type: Sequelize.INTEGER,
+    type: INTEGER,
     DefaultValue: 0.00
   },
 
-  inventoryQuantity: Sequelize.INTEGER,
+  inventory: INTEGER,
 
   photo: {
-    type: Sequelize.STRING,
+    type: STRING,
     allowNull: false
   },
 
-  gender: Sequelize.STRING,
+  gender: STRING,
 
-  clothingType: Sequelize.STRING
+  clothingType: STRING
 
 })
 
 
-// module.exports.associations = (Product, {Order, Review}) => {
-//   Product.hasMany(Review, {as: 'ProductReviews'})
-//   Product.belongsToMany(Order, {through: 'ProductOrders'})
-// }
+module.exports.associations = (Product, {Order, Review}) => {
+  Product.hasMany(Review, {as: 'ProductReviews'})
+  Product.belongsToMany(Order, {through: 'ProductOrders'})
+}
