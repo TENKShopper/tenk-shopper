@@ -2,16 +2,28 @@
 
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
-    , {STRING, VIRTUAL} = require('sequelize')
+    , {BOOLEAN, STRING, VIRTUAL} = require('sequelize')
 
 module.exports = db => db.define('users', {
-  name: STRING,
+  userName: STRING,
   email: {
     type: STRING,
     validate: {
       isEmail: true,
-      notEmpty: true,
     }
+  },
+  firstName: STRING,
+  lastName: STRING,
+  shippingAddress: STRING ,
+  creditInfo: {
+    type: INTEGER,
+    validate: {
+      isCreditCard: true
+    }
+  },
+  isAdmin: {
+    type: BOOLEAN,
+    defaultValue: false,
   },
 
   // We support oauth, so users may or may not have passwords.
@@ -20,8 +32,17 @@ module.exports = db => db.define('users', {
 }, {
   indexes: [{fields: ['email'], unique: true}],
   hooks: {
-    beforeCreate: setEmailAndPassword,
+    beforeCreate: setEmailAndPassword, checkGuest
     beforeUpdate: setEmailAndPassword,
+  },
+  getterMethods: {
+    // checks if user is a guest or not
+    isGuest() {
+      return this.email ? false : true
+    },
+    billingAddress () {
+      return {firstName, lastName, shippingAddress, creditInfo} = this
+    }
   },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
@@ -41,6 +62,7 @@ module.exports.associations = (User, {OAuth, Thing, Favorite}) => {
 }
 
 function setEmailAndPassword(user) {
+  if(!user.isGuest) return;
   user.email = user.email && user.email.toLowerCase()
   if (!user.password) return Promise.resolve(user)
 
