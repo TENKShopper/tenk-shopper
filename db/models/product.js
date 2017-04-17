@@ -1,7 +1,7 @@
 'use strict'
 
 const Sequelize = require('sequelize')
-const {STRING, TEXT, INTEGER} = require('sequelize')
+const {STRING, TEXT, INTEGER, DECIMAL} = require('sequelize')
 
 module.exports = db => db.define('product', {
   title: {
@@ -12,8 +12,8 @@ module.exports = db => db.define('product', {
   description : TEXT,
 
   price: {
-    type: INTEGER,
-    DefaultValue: 0.00
+    type: DECIMAL(10,2),
+    defaultValue: 0.00
   },
 
   inventory: INTEGER,
