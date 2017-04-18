@@ -11,26 +11,16 @@ describe('User', () => {
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
   describe('authenticate(plaintext: String) ~> Boolean', () => {
-    let testUser
-
-    before(done => {
-      User.create({ email: 'test@gmail.com', password: 'ok' })
-        .then(res => {
-          testUser = res
-          done()
-        })
-    })
-
     it('resolves true if the password matches', () => {
-      testUser.authenticate('ok')
-      .then(result => expect(result).to.be.true)
-      .catch(err => console.error('error authenticating user password', err))
+      User.create({ email: 'test@gmail.com', password: 'ok' })
+        .then(user => user.authenticate('ok'))
+        .then(result => expect(result).to.be.true)
     })
 
     it("resolves false if the password doesn't match", () => {
-      testUser.authenticate('not ok')
-      .then(result => expect(result).to.be.false)
-      .catch(err => console.error('error authenticating user password', err))
+      User.create({ email: 'test@gmail.com', password: 'ok' })
+        .then(user => user.authenticate('not ok'))
+        .then(result => expect(result).to.be.false)
     })
   })
 
