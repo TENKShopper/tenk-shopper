@@ -20,31 +20,29 @@ module.exports = db => db.define('orders', {
     }
   },
   instructions: TEXT
-}, {
-  defaultScope: {
-    include: [{ model: LineItem, Product }]
-  },
-  instanceMethods: {
-    calculateTotal: function() {
-      return LineItem.findAll({
-        where: {
-          orderId: this.id
-        }
-      })
-      .then(lineItems => {
-        return lineItems.reduce((acc, lineItem) => {
-          return acc + (lineItem.priceAtOrderTime * lineItem.quantity)
-        }, 0.00)
-      })
-      .catch(err => {
-        throw err
-      })
-    }
-  }
 })
+// {
+//   defaultScope: {
+//     include: [{ model: LineItem, Product }]
+//   },
+//   instanceMethods: {
+//     calculateTotal: function() {
+//       return LineItem.findAll({
+//         where: {
+//           orderId: this.id
+//         }
+//       })
+//       .then(lineItems =>
+//         lineItems.reduce((acc, lineItem) => acc + (lineItem.priceAtOrderTime * lineItem.quantity), 0.00))
+//       .catch(err => {
+//         throw err
+//       })
+//     }
+//   }
+// })
 
-module.exports.associations = (Order, { /* Address, */ LineItem }) => {
+module.exports.associations = (Order, { /* Address, */ LineItem, Product }) => {
   // Order.hasOne(Address, {as: 'shippingAddress'})
   // Order.hasOne(Address, {as: 'billingAddress'})
-  Order.hasMany(LineItem)
+  Order.belongsToMany(Product, { through: LineItem })
 }

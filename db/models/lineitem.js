@@ -4,17 +4,16 @@ This is a join table between Order and Product that stores priceAtOrderTime, qua
 
 */
 
-const { DECIMAL, INTEGER, STRING } = require('sequelize')
+const { FLOAT, INTEGER, STRING } = require('sequelize')
 
 module.exports = db => db.define('lineitems', {
   priceAtOrderTime: {
-    type: DECIMAL(10, 2),
+    type: FLOAT,
     defaultValue: 0.00
   },
   quantity: INTEGER,
 }, {})
 
 module.exports.associations = (LineItem, { Order, Product }) => {
-  LineItem.belongsTo(Order)
-  LineItem.hasMany(Product)
 }
+

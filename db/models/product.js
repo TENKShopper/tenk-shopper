@@ -1,6 +1,6 @@
 'use strict'
 
-const { STRING, TEXT, INTEGER, DECIMAL } = require('sequelize')
+const { STRING, TEXT, INTEGER, FLOAT } = require('sequelize')
 
 module.exports = db => db.define('products', {
   title: {
@@ -9,7 +9,7 @@ module.exports = db => db.define('products', {
   },
   description: TEXT,
   price: {
-    type: DECIMAL(10, 2),
+    type: FLOAT,
     defaultValue: 0.00
   },
   inventory: INTEGER,
@@ -23,6 +23,7 @@ module.exports = db => db.define('products', {
 },
 {})
 
-module.exports.associations = (Product, { Review }) => {
+module.exports.associations = (Product, { Review, Order, LineItem }) => {
   Product.hasMany(Review)
+  Product.belongsToMany(Order, { through: LineItem })
 }
