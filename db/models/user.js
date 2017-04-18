@@ -32,8 +32,8 @@ const optionMethods = {
 
   getterMethods: {
     // checks if user is a guest or not
-    isGuest () {
-      return this.password ? false : true
+    isGuest: function() {
+      return this.password ? false: true
     }
   },
   instanceMethods: {
@@ -57,8 +57,8 @@ module.exports.associations = (User, {OAuth, Review, Order, Address}) => {
   User.hasOne(OAuth)
   User.hasMany(Review)
   User.hasMany(Order)
-  User.hasMany(Address, {as: 'ShippingInfo'})
-  User.hasMany(Address, {as: 'BillingInfo'})
+  User.hasMany(Address, {as: 'shippingInfo'})
+  User.hasMany(Address, {as: 'billingInfo'})
 }
 
 function setEmailAndPassword(user) {

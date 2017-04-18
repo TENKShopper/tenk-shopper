@@ -4,6 +4,9 @@ const addressSchema = {
   country: {
     type: STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   firstName: {
     type: STRING
@@ -14,18 +17,30 @@ const addressSchema = {
   administrativeArea: {
     type: STRING,
     allowNull: false,
+    validate: {
+     notEmpty: true
+    }
   },
   locality: {
     type: STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   postalZipCode: {
     type: STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   streetAddress: {
     type: STRING,
     allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   premise: {
     type: STRING
@@ -34,7 +49,7 @@ const addressSchema = {
 
 const optionMethods = {
   getterMethods: {
-    fullName: function () {
+    fullName: function() {
       //gets fullname
       return this.firstName + ' ' + this.lastName
     }
