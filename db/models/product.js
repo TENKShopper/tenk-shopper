@@ -8,7 +8,7 @@ module.exports = db => db.define('product', {
     allowNull: false
   },
 
-  description : Sequelize.TEXT,
+  description: Sequelize.TEXT,
 
   price: {
     type: Sequelize.INTEGER,
