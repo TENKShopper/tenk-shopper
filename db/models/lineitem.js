@@ -4,7 +4,7 @@ This is a join table between Order and Product that stores priceAtOrderTime, qua
 
 */
 
-const { FLOAT, INTEGER, STRING } = require('sequelize')
+const { FLOAT, INTEGER } = require('sequelize')
 
 module.exports = db => db.define('lineitems', {
   priceAtOrderTime: {

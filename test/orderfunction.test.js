@@ -4,7 +4,7 @@ const db = require('APP/db')
   , { Order, Product, LineItem } = db
   , { expect } = require('chai')
 
-/* global describe it before beforeEach afterEach */
+/* global describe it before beforeEach afterEach priceAtOrderTime */
 
 describe.only('Order functionality', () => {
   before('Await database sync', () => db.didSync)
@@ -28,14 +28,17 @@ describe.only('Order functionality', () => {
   describe('Product model', () => {
 
     it('creates products successfully', () => {
-      Product.bulkCreate([blueShoes, redShoes, greenTrunks])
-        .then(data => {
-          blueShoesRow = data[0]
-          redShoesRow = data[1]
-          greenTrunksRow = data[2]
+      Product.create(blueShoes)
+        .then(createdRow => {
+          blueShoesRow = createdRow
           expect(blueShoesRow.title).to.equal('Blue Suede Shoes')
           expect(blueShoesRow.price).to.equal(35.00)
-          expect(greenTrunksRow.title).to.equal('Green Trunks')
+        })
+
+      Product.create(redShoes)
+        .then(createdRow => {
+          redShoesRow = createdRow
+          expect(redShoesRow.title).to.equal('Red Canvas Shoes')
         })
     })
 
@@ -46,8 +49,8 @@ describe.only('Order functionality', () => {
         }
       })
         .then(foundProduct => {
-          blueShoesRow = foundProduct
           expect(foundProduct.id).to.equal(1)
+          expect(foundProduct.price).to.equal(35.00)
         })
     })
   })
@@ -58,18 +61,18 @@ describe.only('Order functionality', () => {
         instructions: 'I am a dummy order',
       })
       .then(createdOrder => {
-        return createdOrder.addProduct(blueShoesRow, {
-          through: {
-            priceAtOrderTime: blueShoesRow.price,
-            quantity: 1
-          }
+        createdOrder.addProduct(blueShoesRow, {
+          priceAtOrderTime: blueShoesRow.price,
+          quantity: 1
+        })
+        .then(() => {
+          LineItem.find({ where: { product_id: 1 } })
+            .then(foundLineItem => {
+              expect(foundLineItem.priceAtOrderTime).to.equal(35.00)
+            })
         })
       })
-      .then(() => {
-        return LineItem.findAll()
-        .then(allLineItems => console.log("allLineItems", allLineItems))
-      })
-      .catch(console.error)
+        .catch(console.error)
     })
   })
 })
