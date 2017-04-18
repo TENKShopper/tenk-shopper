@@ -82,24 +82,27 @@ const products = {
   pants: ['RELAXED ANKLE PANTS', 'SKINNY STRAIGHT JEANS', 'AIRISM PILE LINED LOUNGE SHORTS'],
   shoes: ['DISNEY MAROON SLIPPERS', 'NIKE AIR MAX 90 ULTRA 2.0 BREATHE']
 }
-const descriptions = ['is fabulous!', 'great for any occasion.', 'is binary', 'classy and elegant.', 'features a soft, fluffy feel!', 'gently snug relaxed fit ideal for relaxing at home.']
+const descriptions = ['is fabulous!', 'is great for any occasion.', 'is binary', 'is classy and elegant.', 'features a soft, fluffy feel!', 'has a gently snug, relaxed fit', 'is ideal for relaxing at home.']
 const gender = ['MEN', 'WOMEN']
 const clothingType = ['shirt', 'pants', 'shoes']
-const photos = ['http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg', 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300', 'https://thumbs.dreamstime.com/x/old-shoe-boot-cartoon-clip-art-illustration-36390217.jpg']
+const photos = {
+  shirt: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
+  pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
+  shoes: 'https://thumbs.dreamstime.com/x/old-shoe-boot-cartoon-clip-art-illustration-36390217.jpg'
+}
 
 function createProduct() {
   const clothType = clothingType[Math.floor(Math.random() * clothingType.length)]
   const product = products[clothType][Math.floor(Math.random() * products[clothType].length)]
   const description = descriptions[Math.floor(Math.random() * descriptions.length)]
   const sex = gender[Math.floor(Math.random() * 2)]
-  const pic = photos[Math.floor(Math.random() * 3)]
   return {
     title: sex + ' ' + product,
     description: product + ' ' + description,
     price: Math.floor(Math.random() * 50 + 10),
     gender: sex,
     clothingType: clothType,
-    photo: pic
+    photo: photos[clothingType]
   }
 }
 

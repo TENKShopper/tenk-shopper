@@ -1,6 +1,6 @@
 const {BOOLEAN, STRING, VIRTUAL} = require('sequelize')
 
-const addressSchema = {
+module.exports = db => db.define('addresses', {
   country: {
     type: STRING,
     allowNull: false,
@@ -8,12 +8,15 @@ const addressSchema = {
       notEmpty: true
     }
   },
+
   firstName: {
     type: STRING
   },
+
   lastName: {
     type: STRING
   },
+
   administrativeArea: {
     type: STRING,
     allowNull: false,
@@ -21,6 +24,7 @@ const addressSchema = {
       notEmpty: true
     }
   },
+
   locality: {
     type: STRING,
     allowNull: false,
@@ -28,6 +32,7 @@ const addressSchema = {
       notEmpty: true
     }
   },
+
   postalZipCode: {
     type: STRING,
     allowNull: false,
@@ -35,6 +40,7 @@ const addressSchema = {
       notEmpty: true
     }
   },
+
   streetAddress: {
     type: STRING,
     allowNull: false,
@@ -42,20 +48,14 @@ const addressSchema = {
       notEmpty: true
     }
   },
+
   premise: {
     type: STRING
   }
-}
-
-const optionMethods = {
+}, {
   getterMethods: {
     fullName: function() {
       return this.firstName + ' ' + this.lastName
     }
   }
-}
-
-module.exports = db => db.define('addresses',
-  addressSchema,
-  optionMethods
-)
+})

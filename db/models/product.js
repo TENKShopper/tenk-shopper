@@ -9,14 +9,10 @@ module.exports = db => db.define('products', {
     allowNull: false
   },
 
-<<<<<<< HEAD
-  description: Sequelize.TEXT,
-=======
-  description : TEXT,
->>>>>>> master
+  description: TEXT,
 
   price: {
-    type: DECIMAL(10,2),
+    type: DECIMAL(10, 2),
     defaultValue: 0.00
   },
 
@@ -32,7 +28,6 @@ module.exports = db => db.define('products', {
   clothingType: STRING
 
 })
-
 
 module.exports.associations = (Product, {Order, Review}) => {
   Product.hasMany(Review, {as: 'ProductReviews'})

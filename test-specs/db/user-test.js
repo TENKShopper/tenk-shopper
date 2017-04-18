@@ -11,15 +11,27 @@ describe('User', () => {
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
   describe('authenticate(plaintext: String) ~> Boolean', () => {
-    it('resolves true if the password matches', () =>
-      User.create({ password: 'ok' })
-        .then(user => user.authenticate('ok'))
-        .then(result => expect(result).to.be.true))
+    let testUser
 
-    it("resolves false if the password doesn't match", () =>
-      User.create({ password: 'ok' })
-        .then(user => user.authenticate('not ok'))
-        .then(result => expect(result).to.be.false))
+    before(done => {
+      User.create({ email: 'test@gmail.com', password: 'ok' })
+        .then(res => {
+          testUser = res
+          done()
+        })
+    })
+
+    it('resolves true if the password matches', () => {
+      testUser.authenticate('ok')
+      .then(result => expect(result).to.be.true)
+      .catch(err => console.error('error authenticating user password', err))
+    })
+
+    it("resolves false if the password doesn't match", () => {
+      testUser.authenticate('not ok')
+      .then(result => expect(result).to.be.false)
+      .catch(err => console.error('error authenticating user password', err))
+    })
   })
 
   describe('isGuest option method', () => {
@@ -30,7 +42,7 @@ describe('User', () => {
   })
 
   describe('User Associations', () => {
-    before(function(done) {
+    before(done => {
       const creatingUser = User.create({email: 'kido@kido.com'})
       const creatingAddress = Address.create({country: 'USA', firstName: 'Kido Kido', lastName: 'Kido', administrativeArea: 'NY', locality: 'NYC', postalZipCode: '12345', streetAddress: '123 Kido Lane'})
 
@@ -53,5 +65,4 @@ describe('User', () => {
       })
     })
   })
-
 })
