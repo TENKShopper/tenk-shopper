@@ -20,7 +20,8 @@ module.exports = db => db.define('products', {
   gender: STRING,
   clothingType: STRING,
   size: STRING
-})
+},
+{})
 
 module.exports.associations = (Product, { Review }) => {
   Product.hasMany(Review)

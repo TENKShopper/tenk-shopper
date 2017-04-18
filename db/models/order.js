@@ -9,6 +9,7 @@ The defaultScope of this model loads OrderProduct along with each order.
 const { DECIMAL, INTEGER, STRING, TEXT, ENUM } = require('sequelize')
 
 const LineItem = require('./lineitem')
+const Product = require('./product')
 
 module.exports = db => db.define('orders', {
   shipping: ENUM('International', 'Overnight', 'Two-day', 'Standard'),
@@ -25,7 +26,7 @@ module.exports = db => db.define('orders', {
   },
   instanceMethods: {
     calculateTotal: function() {
-      return OrderProduct.findAll({
+      return LineItem.findAll({
         where: {
           orderId: this.id
         }
@@ -42,8 +43,8 @@ module.exports = db => db.define('orders', {
   }
 })
 
-module.exports.associations = (Order, { Address, LineItem }) => {
-  Order.hasOne(Address, {as: 'shippingAddress'})
-  Order.hasOne(Address, {as: 'billingAddress'})
+module.exports.associations = (Order, { /* Address, */ LineItem }) => {
+  // Order.hasOne(Address, {as: 'shippingAddress'})
+  // Order.hasOne(Address, {as: 'billingAddress'})
   Order.hasMany(LineItem)
 }

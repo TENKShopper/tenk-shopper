@@ -12,7 +12,7 @@ module.exports = db => db.define('lineitems', {
     defaultValue: 0.00
   },
   quantity: INTEGER,
-})
+}, {})
 
 module.exports.associations = (LineItem, { Order, Product }) => {
   LineItem.belongsTo(Order)
