@@ -4,35 +4,52 @@
 const bcrypt = require('bcryptjs')
     , {BOOLEAN, STRING, VIRTUAL} = require('sequelize')
 
-module.exports = db => db.define('users', {
+const accountInfo = {
   userName: STRING,
   email: {
     type: STRING,
+    defaultValue: null,
     validate: {
       isEmail: true,
     }
   },
-  firstName: STRING,
-  lastName: STRING,
-  shippingAddress: STRING ,
-  creditInfo: {
-    type: INTEGER,
+  isAdmin: {
+    type: BOOLEAN,
+    defaultValue: false
+  },
+  creditCard: {
+    type: STRING,
     validate: {
       isCreditCard: true
     }
-  },
-  isAdmin: {
-    type: BOOLEAN,
-    defaultValue: false,
-  },
-
+  }
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
   password: VIRTUAL // Note that this is a virtual, and not actually stored in DB
-}, {
+}
+
+const shippingAddress = {
+  shippingFirstName: STRING,
+  shippingLastName: STRING,
+  shippingCity: STRING,
+  shippingState: STRING,
+  shippingZip: STRING,
+  shippingPostal: STRING,
+}
+
+const billingAddress = {
+  billingFirstName: STRING,
+  billingLastName: STRING,
+  billingCity: STRING,
+  billingState: STRING,
+  billingZip: STRING,
+  billingPostal: STRING,
+}
+
+const optionMethods = {
   indexes: [{fields: ['email'], unique: true}],
   hooks: {
-    beforeCreate: setEmailAndPassword, checkGuest
+    beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
   },
   getterMethods: {
@@ -40,8 +57,11 @@ module.exports = db => db.define('users', {
     isGuest () {
       return this.email ? false : true
     },
-    billingAddress () {
-      return {firstName, lastName, shippingAddress, creditInfo} = this
+    getShippingAddress () {
+      return {shippingFirstName, shippingLastName, shippingCity, shippingState, shippingZip, shippingPostal} = this
+    }
+    getBillingAddress () {
+      return {billingFirstName, billingLastName, billingCity, billingState, billingZip, billingPostal, creditCard} = this
     }
   },
   instanceMethods: {
@@ -54,7 +74,12 @@ module.exports = db => db.define('users', {
         )
     }
   }
-})
+}
+
+module.exports = db => db.define('users',
+  Object.assign(accountInfo, shippingAddress, billingAddress),
+  optionMethods
+)
 
 module.exports.associations = (User, {OAuth, Review, Order}) => {
   User.hasOne(OAuth)
@@ -74,4 +99,8 @@ function setEmailAndPassword(user) {
       resolve(user)
     })
   )
+}
+
+function maxLength (value) {
+
 }
