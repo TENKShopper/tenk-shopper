@@ -21,4 +21,11 @@ describe('User', () => {
         .then(user => user.authenticate('not ok'))
         .then(result => expect(result).to.be.false))
   })
+
+  describe('isGuest option method', () => {
+    it('returns true if password does not exist', () => {
+      User.create({email: 'tenk@gmail.com'})
+        .then(guestUser => expect(guestUser.isGuest()).to.be.true)
+    })
+  })
 })
