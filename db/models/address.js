@@ -18,7 +18,7 @@ const addressSchema = {
     type: STRING,
     allowNull: false,
     validate: {
-     notEmpty: true
+      notEmpty: true
     }
   },
   locality: {
@@ -50,7 +50,6 @@ const addressSchema = {
 const optionMethods = {
   getterMethods: {
     fullName: function() {
-      //gets fullname
       return this.firstName + ' ' + this.lastName
     }
   }

@@ -33,7 +33,7 @@ const optionMethods = {
   getterMethods: {
     // checks if user is a guest or not
     isGuest: function() {
-      return this.password ? false: true
+      return this.password ? false : true
     }
   },
   instanceMethods: {

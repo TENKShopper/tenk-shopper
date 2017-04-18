@@ -1,12 +1,13 @@
 'use strict'
 
 const db = require('APP/db')
-    , {User, Addresses, Product, Promise} = db
+    , {User, Address, Product, Promise} = db
     , {mapValues} = require('lodash')
 
 function seedEverything() {
   const seeded = {
     users: users(),
+    addresses: addresses(),
     product: product(),
   }
 
@@ -15,12 +16,14 @@ function seedEverything() {
   return Promise.props(seeded)
 }
 
+/* --------- USERS SEED DATA ----------- */
+
 const names = ['Tina', 'Emily', 'Nate', 'Kido', 'Omri', 'Ian', 'John']
 function createUser() {
   const name = names.shift()
   const user = name + `${Math.floor(Math.random() * 100)}`
   return {
-    userName: user,
+    userName: name,
     email: `${user}@${name}.com`,
     password: '123',
     isAdmin: Math.floor(Math.random() * 2) === 0
@@ -37,6 +40,42 @@ function createUserList() {
 }
 
 const users = seed(User, createUserList())
+// Name of user does not match name of address
+
+/* --------- ADDRESS SEED DATA ----------- */
+
+const addressNames= ['Tina', 'Emily', 'Nate', 'Kido', 'Omri', 'Ian', 'John']
+const country = ['US', 'JP', 'EN']
+const administrativeArea = ['NY', 'CA', 'CT', 'NJ', 'Tokyo']
+const locality = ['NY', 'LA', 'Hartford', 'Hoboken', 'Shibuya']
+const postalZipCode = ['123', '234', '345']
+const streetAddress = ['25 Senate Pl', 'Daizawa 3-10-15', '15 Williams St', '103rd 13W', '5 Hanover St']
+
+function createAddress() {
+  const name = addressNames.shift()
+  return {
+    country: country[Math.floor(Math.random()*country.length)],
+    firstName: name,
+    lastName: name,
+    administrativeArea: administrativeArea[Math.floor(Math.random()*administrativeArea.length)],
+    locality: locality[Math.floor(Math.random()*locality.length)],
+    postalZipCode: postalZipCode[Math.floor(Math.random()*postalZipCode.length)],
+    streetAddress: streetAddress[Math.floor(Math.random()* streetAddress.length)]
+  }
+}
+
+function createAddressList() {
+  const addressList = {}
+  for (let i = 0; i < 5; i++) {
+    addressList[i] = createAddress()
+  }
+
+  return addressList
+}
+
+const addresses = seed(Address, createAddressList())
+
+/* --------- PRODUCTS SEED DATA ----------- */
 
 const products = {
   shirt: ['HIGH NECK HALF SLEEVE T-SHIRT', 'DRY YOGA SHORT-SLEEVE T-SHIRT', 'EXTRA FINE MERINO V-NECK CARDIGAN', 'PEANUTS SHORT-SLEEVE GRAPHIC TEE', 'EASY CARE OXFORD LONG SLEEVE SHIRT'],
@@ -158,6 +197,12 @@ function seed(Model, rows) {
               key,
               value: Promise.props(row)
                 .then(row => Model.create(row)
+                .then(newInstance => {
+                  if (Model === User) {
+                    return newInstance.addShippingInfo([newInstance.id])
+                    .then(() => newInstance.addShippingInfo([newInstance.id]))
+                  }
+                })
                   .catch(error => { throw new BadRow(key, row, error) })
                 )
             }
@@ -176,4 +221,4 @@ function seed(Model, rows) {
   }
 }
 
-module.exports = Object.assign(seed, {users, product})
+module.exports = Object.assign(seed, {users, product, addresses})
