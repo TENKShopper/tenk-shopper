@@ -9,7 +9,6 @@ import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import NavBar from './components/NavBar'
-import SingleProduct from './components/SingleProduct'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -26,10 +25,9 @@ const ExampleApp = connect(
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={ExampleApp}>
-        <IndexRedirect to='/homepage'/>
-        <Route =path='/homepage' component={NavBar}/>
-
+      <Route path="/">
+        <IndexRedirect to="/homepage" />
+        <Route path="/homepage" component={NavBar} />
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
