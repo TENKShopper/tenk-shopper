@@ -9,7 +9,7 @@ const request = require('supertest')
 
 /* global describe it before beforeEach afterEach priceAtOrderTime */
 
-describe('Product API', () => {
+describe.only('Product API', () => {
   before('Await database sync', () => db.didSync)
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
@@ -25,18 +25,17 @@ describe('Product API', () => {
     greenTrunks = {
       name: 'Green Trunks',
       price: 100000,
-      available: false
     }
 
-  beforeEach('add dummy data to tables', (done) => {
-    // Use Promise chaining here to ensure blueShoes has id of 1 and redShoes has id of 2
+  beforeEach('add dummy data to tables', () => {
+    // Do these synchronously to ensure blueShoes is created before redShoes.
     Product.create(blueShoes)
-    .then(() => Product.create(redShoes))
+    .then(Product.create(redShoes))
   })
 
   describe('/api/products', () => {
 
-    it('can GET all products', (done) => {
+    it('can GET all products', done => {
       request(app)
       .get('/api/products/')
       .then(res => {
@@ -44,35 +43,38 @@ describe('Product API', () => {
         expect(res.status).to.equal(200)
         done()
       })
+      .catch(done)
     })
 
-    it('can POST a new product', (done) => {
+    it('can POST a new product', done => {
       request(app)
       .post('/api/products/')
       .send(greenTrunks)
       .then(res => {
-        expect(res.body[0].name).to.equal('Green Trunks')
-        expect(res.body[1]).to.equal(true)
+        expect(res.body.name).to.equal('Green Trunks')
         expect(res.status).to.equal(201)
         done()
       })
+      .catch(done)
     })
 
   })
 
   describe('/api/products/:id', () => {
 
-    it('can GET a specific product by id', (done) => {
+    it('can GET a specific product by id', done => {
       request(app)
       .get('/api/products/1')
       .then(res => {
+        console.log(res)
         expect(res.body.name).to.equal('Blue Suede Shoes')
-        expect(res.body.available).to.equal(true)
+        expect(res.available).to.equal(true)
         done()
       })
+      .catch(done)
     })
 
-    it('can PUT to update a specific product...', (done) => {
+    xit('can PUT to update a specific product...', (done) => {
       request(app)
       .put('/api/products/1')
       .send({
@@ -84,7 +86,7 @@ describe('Product API', () => {
       })
     })
 
-    it('...and it can PUT to update that product again', (done) => {
+    xit('...and it can PUT to update that product again', (done) => {
       request(app)
       .put('/api/products/1')
       .send({

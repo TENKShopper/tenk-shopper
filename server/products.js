@@ -13,14 +13,15 @@ router.route('/')
   .catch(next)
 )
 .post((req, res, next) =>
-  Product.findOrCreate({ where: req.body })
+  Product.create(req.body)
   .then(product => res.status(201).json(product))
   .catch(next)
 )
-
+// TODO: why isn't this working in the test, but is working in Postman? foundProduct is null here.
 router.param('id', (req, res, next, id) => {
-  Product.findById(req.params.id)
+  Product.findById(id)
   .then(foundProduct => {
+    console.log('foundProduct', foundProduct)
     req.product = foundProduct
     next()
   })
