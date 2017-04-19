@@ -9,13 +9,24 @@ module.exports = db => db.define('products', {
   },
   description: TEXT,
   price: {
-    type: FLOAT,
-    defaultValue: 0.00
+    type: INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
-  inventory: INTEGER,
+  inventory: {
+    type: INTEGER,
+    validate: {
+      min: 0
+    }
+  },
   photo: {
     type: STRING,
-    defaultValue: 'http://placehold.it/500x500'
+    defaultValue: 'http://placehold.it/500x500',
+    validate: {
+      isUrl: true
+    }
   },
   gender: STRING,
   clothingType: STRING,
