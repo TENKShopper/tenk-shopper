@@ -51,10 +51,22 @@ describe('User', () => {
   })
 
   describe('User Associations', () => {
-    before(done => {
+    before(done => { // OB/IJM: not calling `done` for error case
       const creatingUser = User.create({email: 'kido@kido.com'})
       const creatingAddress = Address.create({country: 'USA', firstName: 'Kido Kido', lastName: 'Kido', administrativeArea: 'NY', locality: 'NYC', postalZipCode: '12345', streetAddress: '123 Kido Lane'})
 
+      /*
+      User.create({
+        email: 'whatever',
+        billingAddresses: [{country: 'NY'}],
+        shippingAddresses: [{country: 'NY'}]
+      }, {
+        include: [
+          {model: Address, as: 'shippingAddresses'},
+          {model: Address, as: 'billingAddresses'}
+        ]
+      })
+      */
       Promise.all([creatingUser, creatingAddress])
       .spread((user, address) => {
         user.addShippingAddress([address])

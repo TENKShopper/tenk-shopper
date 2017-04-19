@@ -33,7 +33,7 @@ module.exports = db => db.define('addresses', {
     }
   },
 
-  postalZipCode: {
+  postalZipCode: { // OB/IJM: might be some sequelize validations for this
     type: STRING,
     allowNull: false,
     validate: {
