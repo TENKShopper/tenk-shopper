@@ -31,7 +31,7 @@ describe('Order functionality', () => {
 
   describe('Product model', () => {
 
-    it('creates products with the right attributes', () => {
+    it('creates products with valid attributes', () => {
       const blueShoesPromise = Product.create(blueShoes)
       .then(createdRow => createdRow)
       const redShoesPromise = Product.create(redShoes)
@@ -47,12 +47,9 @@ describe('Order functionality', () => {
       })
     })
 
-    describe('fails products with the wrong attributes', () => {
-
+    describe('fails products with invalid attributes', () => {
       it('fails products with an empty title', (done) => {
-        Product.build({
-          title: ''
-        })
+        Product.build(improperlyNamedShoes)
         .validate()
         .then(err => {
           expect(err).to.exist
@@ -61,12 +58,8 @@ describe('Order functionality', () => {
           done()
         })
       })
-
       it('fails products with an invalid price', (done) => {
-        Product.build({
-          title: 'Improperly Priced Shoes',
-          price: -10000
-        })
+        Product.build(improperlyPricedShoes)
         .validate()
         .then(err => {
           expect(err).to.exist
@@ -75,7 +68,6 @@ describe('Order functionality', () => {
           done()
         })
       })
-
       it('fails products with an invalid photo URL', (done) => {
         Product.build({
           title: 'Shoes with Improper Photo',
@@ -89,34 +81,60 @@ describe('Order functionality', () => {
           done()
         })
       })
-
     })
-
-
-
   })
 
   describe('Order model', () => {
-
-    it('associates products with orders via the lineitems model', () => {
-      return Order.create({
+    it('creates products with valid attributes', (done) => {
+      Order.create({
+        instructions: 'I am a dummy order'
+      })
+      .then(createdOrder => {
+        expect(createdOrder.instructions).to.equal('I am a dummy order')
+        done()
+      })
+    })
+    it('fails when attempting to create products with invalid attributes', (done) => {
+      Order.create({
+        shipping: 'NotAValidShippingMethod'
+      })
+      .catch(err => {
+        expect(err).to.exist
+        expect(err.name).to.equal('SequelizeDatabaseError')
+        expect(err.message).to.equal('invalid input value for enum enum_orders_shipping: "NotAValidShippingMethod"')
+        done()
+      })
+    })
+    it('associates products with orders via the lineitems model', (done) => {
+      Order.create({
         instructions: 'I am a dummy order',
       })
       .then(createdOrder => {
         return createdOrder.addProduct(blueShoesRow, {
-          priceAtOrderTime: blueShoesRow.price,
+          orderPrice: blueShoesRow.price,
           quantity: 1
         })
       })
       .then(orderWithProductAdded => {
-        return LineItem.findAll()
+        LineItem.findAll()
         .then(lineItems => {
-          expect(lineItems[0].priceAtOrderTime).to.equal(3500)
+          const newLineItem = lineItems[0]
+          expect(newLineItem.orderPrice).to.equal(3500)
+          expect(newLineItem.quantity).to.equal(1)
+          done()
         })
       })
-      .catch(console.error)
     })
-
+    it('has withProductAndOrder scope defined, which will pull LineItem rows with associated Products and Orders', (done) => {
+      LineItem.scope('withProductAndOrder').findAll()
+      .then(lineItems => {
+        const newLineItem = lineItems[0]
+        expect(newLineItem.orderPrice).to.equal(3500)
+        expect(newLineItem.quantity).to.equal(1)
+        expect(newLineItem.product.title).to.equal('Blue Suede Shoes')
+        expect(newLineItem.order.instructions).to.equal('I am a dummy order')
+        done()
+      })
+    })
   })
-
 })
