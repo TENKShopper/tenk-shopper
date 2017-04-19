@@ -1,6 +1,16 @@
 import React from 'react'
 import {connect} from 'react-redex'
-import singleProductPresentational from './singleProductPresentational'
+
+
+  export const  SingleProduct = (props) => {
+  return (
+    <div>
+      This is a single product dummy div
+    </div>
+  )
+}
+
+
 
 const mapStateToProps =(state) =>{
   return{
@@ -9,5 +19,6 @@ const mapStateToProps =(state) =>{
 
 }
 
-const SingleProductContainer = connect(mapStateToProps)(singleProductPresentational)
-export default SingleProductContainer
+
+
+export default connect(mapStateToProps)(SingleProduct)
