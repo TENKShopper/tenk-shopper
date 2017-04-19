@@ -13,7 +13,8 @@ describe('Order functionality', () => {
 
   const blueShoes = {
       name: 'Blue Suede Shoes',
-      price: 3500
+      price: 3500,
+      photos: ['http://placehold.it/500x500']
     },
     redShoes = {
       name: 'Red Canvas Shoes',
@@ -71,13 +72,13 @@ describe('Order functionality', () => {
       it('fails products with an invalid photo URL', (done) => {
         Product.build({
           name: 'Shoes with Improper Photo',
-          photo: 'notaphotoURL'
+          photos: ['notaphotoURL']
         })
         .validate()
         .then(err => {
           expect(err).to.exist
           expect(err.errors).to.exist
-          expect(err.errors[0].path).to.equal('photo')
+          expect(err.errors[0].path).to.equal('photos')
           done()
         })
       })
