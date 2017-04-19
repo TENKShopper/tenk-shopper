@@ -6,7 +6,7 @@ const db = require('APP/db')
 
 /* global describe it before beforeEach afterEach priceAtOrderTime */
 
-describe.only('Order functionality', () => {
+describe('Order functionality', () => {
   before('Await database sync', () => db.didSync)
   // afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
