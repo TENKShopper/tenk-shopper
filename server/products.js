@@ -9,7 +9,7 @@ module.exports = require('express').Router()
         .then(products => res.json(products))
         .catch(next))
   .post('/', (req, res, next) =>
-      Product.create(req.body)
+      Product.findOrCreate(req.body)
       .then(product => res.status(201).json(product))
       .catch(next))
   .get('/:id', (req, res, next) =>
