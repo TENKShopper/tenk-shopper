@@ -12,19 +12,20 @@ describe('Order functionality', () => {
   // afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
   const blueShoes = {
-      title: 'Blue Suede Shoes',
-      price: 3500
+      name: 'Blue Suede Shoes',
+      price: 3500,
+      photos: ['http://placehold.it/500x500']
     },
     redShoes = {
-      title: 'Red Canvas Shoes',
+      name: 'Red Canvas Shoes',
       price: 4400
     },
     improperlyPricedShoes = {
-      title: 'Improperly Priced Shoes',
+      name: 'Improperly Priced Shoes',
       price: -10000
     },
     improperlyNamedShoes = {
-      title: '',
+      name: '',
     }
 
   let blueShoesRow, redShoesRow, badShoesRow
@@ -41,20 +42,20 @@ describe('Order functionality', () => {
       .spread((blueShoesInstance, redShoesInstance) => {
         blueShoesRow = blueShoesInstance
         redShoesRow = redShoesInstance
-        expect(redShoesRow.title).to.equal('Red Canvas Shoes')
-        expect(blueShoesRow.title).to.equal('Blue Suede Shoes')
+        expect(redShoesRow.name).to.equal('Red Canvas Shoes')
+        expect(blueShoesRow.name).to.equal('Blue Suede Shoes')
         expect(blueShoesRow.price).to.equal(3500)
       })
     })
 
     describe('fails products with invalid attributes', () => {
-      it('fails products with an empty title', (done) => {
+      it('fails products with an empty name', (done) => {
         Product.build(improperlyNamedShoes)
         .validate()
         .then(err => {
           expect(err).to.exist
           expect(err.errors).to.exist
-          expect(err.errors[0].path).to.equal('title')
+          expect(err.errors[0].path).to.equal('name')
           done()
         })
       })
@@ -70,14 +71,14 @@ describe('Order functionality', () => {
       })
       it('fails products with an invalid photo URL', (done) => {
         Product.build({
-          title: 'Shoes with Improper Photo',
-          photo: 'notaphotoURL'
+          name: 'Shoes with Improper Photo',
+          photos: ['notaphotoURL']
         })
         .validate()
         .then(err => {
           expect(err).to.exist
           expect(err.errors).to.exist
-          expect(err.errors[0].path).to.equal('photo')
+          expect(err.errors[0].path).to.equal('photos')
           done()
         })
       })
@@ -131,7 +132,7 @@ describe('Order functionality', () => {
         const newLineItem = lineItems[0]
         expect(newLineItem.orderPrice).to.equal(3500)
         expect(newLineItem.quantity).to.equal(1)
-        expect(newLineItem.product.title).to.equal('Blue Suede Shoes')
+        expect(newLineItem.product.name).to.equal('Blue Suede Shoes')
         expect(newLineItem.order.instructions).to.equal('I am a dummy order')
         done()
       })
