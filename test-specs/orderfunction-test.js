@@ -1,9 +1,12 @@
 'use strict'
 
-const db = require('APP/db')
-  , { Order, Product, LineItem } = db
+const request = require('supertest')
   , { expect } = require('chai')
   , Promise = require('bluebird')
+  , db = require('APP/db')
+  , { Order, Product, LineItem } = db
+  , app = require('APP/server/start')
+
 
 /* global describe it before beforeEach afterEach priceAtOrderTime */
 
@@ -26,6 +29,11 @@ describe('Order functionality', () => {
     },
     improperlyNamedShoes = {
       name: '',
+    },
+    greenTrunks = {
+      name: 'Green Trunks',
+      price: 100000,
+      available: false
     }
 
   let blueShoesRow, redShoesRow, badShoesRow
@@ -138,4 +146,31 @@ describe('Order functionality', () => {
       })
     })
   })
+
+  describe('/api/products', () => {
+    it('can GET all products', (done) => {
+      request(app)
+      .get('/api/products/')
+      .then(res => {
+        expect(res.body.length).to.equal(2)
+        expect(res.status).to.equal(200)
+        done()
+      })
+    })
+
+    it('can POST a new product', (done) => {
+      request(app)
+      .post('/api/products/')
+      .send(greenTrunks)
+      .then(res => {
+        expect(res.body[0].name).to.equal('Green Trunks')
+        expect(res.body[1]).to.equal(true)
+        expect(res.status).to.equal(201)
+        done()
+      })
+    })
+
+  })
+
+
 })
