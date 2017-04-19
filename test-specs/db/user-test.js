@@ -68,27 +68,43 @@ describe('User', () => {
   })
 
   describe('User Associations', () => {
-    before(done => {
+    let testUser
+    let testAddress
+    let testAddress2
+
+    beforeEach(done => {
       const creatingUser = User.create({email: 'kido@kido.com'})
       const creatingAddress = Address.create({country: 'USA', firstName: 'Kido Kido', lastName: 'Kido', administrativeArea: 'NY', locality: 'NYC', postalZipCode: '12345', streetAddress: '123 Kido Lane'})
+      const creatingAddress2 = Address.create({country: 'USA', firstName: 'John John', lastName: 'John', administrativeArea: 'NY', locality: 'NYC', postalZipCode: '12345', streetAddress: '123 Kido Lane'})
 
-      Promise.all([creatingUser, creatingAddress])
-      .spread((user, address) => {
-        user.setShippingAddresses([address])
-        user.setBillingAddresses([address])
+      Promise.all([creatingUser, creatingAddress, creatingAddress2])
+      .spread((user, address, address2) => {
+        testAddress = address
+        testAddress2 = address2
+        testUser = user
         done()
       })
       .catch(done)
     })
 
-    it('sets billing association correctly', (done) => {
-      User.findOne({where: {
-        email: 'kido@kido.com'
-      }})
-      .then(user => user.getBillingAddresses())
+    it('sets association correctly', (done) => {
+      testUser.setBillingAddresses(testAddress)
+      .then(() => testUser.getBillingAddresses())
       .then(billingInfo => {
         expect(billingInfo.length).to.equal(1)
         expect(billingInfo[0].fullName).to.equal('Kido Kido Kido')
+        done()
+      })
+      .catch(done)
+    })
+
+    it('can have multiple associations', (done) => {
+      testUser.setBillingAddresses(testAddress)
+      .then(() => testUser.addBillingAddresses([testAddress2]))
+      .then(() => testUser.getBillingAddresses())
+      .then((billingInfos) => {
+        expect(billingInfos.length).to.equal(2)
+        expect(billingInfos[1].fullName).to.equal('John John John')
         done()
       })
       .catch(done)
