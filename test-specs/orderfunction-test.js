@@ -175,15 +175,18 @@ describe('Order functionality', () => {
       })
     })
 
+  })
+
+  describe('/api/products/:id', () => {
     it('can GET a specific product by id', (done) => {
       request(app)
-      .get('/api/products/1')
-      .then(res => {
-        expect(res.body.name).to.equal('Blue Suede Shoes')
-        expect(res.body.available).to.equal(true)
-        done()
-      })
+        .get('/api/products/1')
+        .then(res => {
+          expect(res.body.name).to.equal('Blue Suede Shoes')
+          expect(res.body.available).to.equal(true)
+          done()
+        })
     })
-
   })
 })
+
