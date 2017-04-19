@@ -1,6 +1,4 @@
 'use strict'
-const Address = require('./address.js')
-
 // bcrypt docs: https://www.npmjs.com/package/bcrypt
 const bcrypt = require('bcryptjs')
     , {BOOLEAN, STRING, VIRTUAL} = require('sequelize')
@@ -43,12 +41,12 @@ module.exports = db => db.define('users', {
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
     authenticate(plaintext) {
-      if (this.isGuest) return false
-      return new Promise((resolve, reject) =>
+      return new Promise((resolve, reject) => {
+        if (this.isGuest) resolve(false)
         bcrypt.compare(plaintext, this.password_digest,
           (err, result) =>
             err ? reject(err) : resolve(result))
-        )
+      })
     },
   }
 })
@@ -57,8 +55,8 @@ module.exports.associations = (User, {OAuth, Review, Order, Address}) => {
   User.hasOne(OAuth)
   User.hasMany(Review)
   User.hasMany(Order)
-  User.hasMany(Address, {as: 'shippingAddress'})
-  User.hasMany(Address, {as: 'billingAddress'})
+  User.hasMany(Address, {as: 'shippingAddresses'})
+  User.hasMany(Address, {as: 'billingAddresses'})
 }
 
 function setEmailAndPassword(user) {

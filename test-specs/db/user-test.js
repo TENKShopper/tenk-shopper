@@ -19,17 +19,26 @@ describe('User', () => {
           testUser = user
           done()
         })
+        .catch(done)
     })
 
-    it('resolves true if the password matches', () =>
+    it('resolves true if the password matches', (done) => {
       testUser.authenticate('ok')
-      .then(result => expect(result).to.be.true)
-      .catch(err => console.error('Error authentication password', err)))
+      .then(result => {
+        expect(result).to.be.true
+        done()
+      })
+      .catch(done)
+    })
 
-    it("resolves false if the password doesn't match", () =>
+    it("resolves false if the password doesn't match", (done) => {
       testUser.authenticate('not ok')
-      .then(result => expect(result).to.be.false)
-      .catch(err => console.error('Error authentication password', err)))
+      .then(result => {
+        expect(result).to.be.false
+        done()
+      })
+      .catch(done)
+    })
   })
 
   describe('isGuest option method', () => {
@@ -41,13 +50,21 @@ describe('User', () => {
           guestUser = user
           done()
         })
+        .catch(done)
     })
 
-    it('returns true if password does not exist', () =>
-      expect(guestUser.isGuest).to.be.true)
+    it('returns true if password does not exist', () => {
+      expect(guestUser.isGuest).to.be.true
+    })
 
-    it('authenticate password will return false when user is a guest', () =>
-      expect(guestUser.authenticate('random')).to.be.false)
+    it('authenticate password will return false when user is a guest', (done) => {
+      guestUser.authenticate('random')
+      .then(result => {
+        expect(result).to.be.false
+        done()
+      })
+      .catch(done)
+    })
   })
 
   describe('User Associations', () => {
@@ -57,21 +74,24 @@ describe('User', () => {
 
       Promise.all([creatingUser, creatingAddress])
       .spread((user, address) => {
-        user.addShippingAddress([address])
-        user.addBillingAddress([address])
+        user.setShippingAddresses([address])
+        user.setBillingAddresses([address])
         done()
       })
+      .catch(done)
     })
 
-    it('sets billing association correctly', () => {
+    it('sets billing association correctly', (done) => {
       User.findOne({where: {
         email: 'kido@kido.com'
       }})
-      .then(user => user.getBillingAddress())
+      .then(user => user.getBillingAddresses())
       .then(billingInfo => {
         expect(billingInfo.length).to.equal(1)
         expect(billingInfo[0].fullName).to.equal('Kido Kido Kido')
+        done()
       })
+      .catch(done)
     })
   })
 })
