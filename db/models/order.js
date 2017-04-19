@@ -1,11 +1,3 @@
-/*
-
-This table stores Orders and provides an instance method for calculating the order total.
-
-The defaultScope of this model loads OrderProduct along with each order.
-
-*/
-
 const { DECIMAL, INTEGER, STRING, TEXT, ENUM } = require('sequelize')
 
 module.exports = db => db.define('orders', {

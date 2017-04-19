@@ -5,7 +5,10 @@ const { STRING, TEXT, INTEGER, FLOAT } = require('sequelize')
 module.exports = db => db.define('products', {
   title: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   description: TEXT,
   price: {
