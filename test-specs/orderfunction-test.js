@@ -57,6 +57,7 @@ describe('Order functionality', () => {
     })
 
     describe('fails products with invalid attributes', () => {
+
       it('fails products with an empty name', (done) => {
         Product.build(improperlyNamedShoes)
         .validate()
@@ -67,6 +68,7 @@ describe('Order functionality', () => {
           done()
         })
       })
+
       it('fails products with an invalid price', (done) => {
         Product.build(improperlyPricedShoes)
         .validate()
@@ -77,6 +79,7 @@ describe('Order functionality', () => {
           done()
         })
       })
+
       it('fails products with an invalid photo URL', (done) => {
         Product.build({
           name: 'Shoes with Improper Photo',
@@ -90,6 +93,7 @@ describe('Order functionality', () => {
           done()
         })
       })
+
     })
   })
 
@@ -148,6 +152,7 @@ describe('Order functionality', () => {
   })
 
   describe('/api/products', () => {
+
     it('can GET all products', (done) => {
       request(app)
       .get('/api/products/')
@@ -170,7 +175,15 @@ describe('Order functionality', () => {
       })
     })
 
+    it('can GET a specific product by id', (done) => {
+      request(app)
+      .get('/api/products/1')
+      .then(res => {
+        expect(res.body.name).to.equal('Blue Suede Shoes')
+        expect(res.body.available).to.equal(true)
+        done()
+      })
+    })
+
   })
-
-
 })
