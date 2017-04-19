@@ -57,8 +57,8 @@ describe('User', () => {
 
       Promise.all([creatingUser, creatingAddress])
       .spread((user, address) => {
-        user.addShippingInfo([address])
-        user.addBillingInfo([address])
+        user.addShippingAddress([address])
+        user.addBillingAddress([address])
         done()
       })
     })
@@ -67,7 +67,7 @@ describe('User', () => {
       User.findOne({where: {
         email: 'kido@kido.com'
       }})
-      .then(user => user.getBillingInfo())
+      .then(user => user.getBillingAddress())
       .then(billingInfo => {
         expect(billingInfo.length).to.equal(1)
         expect(billingInfo[0].fullName).to.equal('Kido Kido Kido')
