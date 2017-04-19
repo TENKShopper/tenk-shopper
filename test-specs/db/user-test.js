@@ -11,24 +11,43 @@ describe('User', () => {
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
   describe('authenticate(plaintext: String) ~> Boolean', () => {
-    it('resolves true if the password matches', () => {
-      User.create({ email: 'test@gmail.com', password: 'ok' })
-        .then(user => user.authenticate('ok'))
-        .then(result => expect(result).to.be.true)
+    let testUser
+
+    before(done => {
+      User.create({ email: 'test@test.com', password: 'ok' })
+        .then(user => {
+          testUser = user
+          done()
+        })
     })
 
-    it("resolves false if the password doesn't match", () => {
-      User.create({ email: 'test@gmail.com', password: 'ok' })
-        .then(user => user.authenticate('not ok'))
-        .then(result => expect(result).to.be.false)
-    })
+    it('resolves true if the password matches', () =>
+      testUser.authenticate('ok')
+      .then(result => expect(result).to.be.true)
+      .catch(err => console.error('Error authentication password', err)))
+
+    it("resolves false if the password doesn't match", () =>
+      testUser.authenticate('not ok')
+      .then(result => expect(result).to.be.false)
+      .catch(err => console.error('Error authentication password', err)))
   })
 
   describe('isGuest option method', () => {
-    it('returns true if password does not exist', () => {
+    let guestUser
+
+    before(done => {
       User.create({email: 'tenk@gmail.com'})
-        .then(guestUser => expect(guestUser.isGuest).to.be.true)
+        .then(user => {
+          guestUser = user
+          done()
+        })
     })
+
+    it('returns true if password does not exist', () =>
+      expect(guestUser.isGuest).to.be.true)
+
+    it('authenticate password will return false when user is a guest', () =>
+      expect(guestUser.authenticate('random')).to.be.false)
   })
 
   describe('User Associations', () => {
