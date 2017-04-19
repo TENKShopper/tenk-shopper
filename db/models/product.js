@@ -5,17 +5,31 @@ const { STRING, TEXT, INTEGER, FLOAT } = require('sequelize')
 module.exports = db => db.define('products', {
   title: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   description: TEXT,
   price: {
-    type: FLOAT,
-    defaultValue: 0.00
+    type: INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
-  inventory: INTEGER,
+  inventory: {
+    type: INTEGER,
+    validate: {
+      min: 0
+    }
+  },
   photo: {
     type: STRING,
-    defaultValue: 'http://placehold.it/500x500'
+    defaultValue: 'http://placehold.it/500x500',
+    validate: {
+      isUrl: true
+    }
   },
   gender: STRING,
   clothingType: STRING,
