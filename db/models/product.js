@@ -1,9 +1,9 @@
 'use strict'
 
-const { STRING, TEXT, INTEGER, FLOAT } = require('sequelize')
+const { STRING, TEXT, INTEGER, FLOAT, ARRAY } = require('sequelize')
 
 module.exports = db => db.define('products', {
-  title: {
+  name: {
     type: STRING,
     allowNull: false,
     validate: {
@@ -25,8 +25,8 @@ module.exports = db => db.define('products', {
     }
   },
   photo: {
-    type: STRING,
-    defaultValue: 'http://placehold.it/500x500',
+    type: ARRAY(STRING),
+    defaultValue: ['http://placehold.it/500x500'],
     validate: {
       isUrl: true
     }
