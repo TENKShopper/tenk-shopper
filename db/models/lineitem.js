@@ -11,7 +11,7 @@ module.exports = db => db.define('lineitems', {
     type: FLOAT,
     defaultValue: 0.00
   },
-  quantity: INTEGER,
+  quantity: INTEGER, // OB/IJM: consider min validation
 }, {})
 
 module.exports.associations = (LineItem, { Order, Product }) => {

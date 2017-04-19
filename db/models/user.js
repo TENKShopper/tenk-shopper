@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs')
     , {BOOLEAN, STRING, VIRTUAL} = require('sequelize')
 
 module.exports = db => db.define('users', {
-  userName: STRING,
+  userName: STRING, // OB/IJM: consider validations here
 
   email: {
     type: STRING,
@@ -43,7 +43,7 @@ module.exports = db => db.define('users', {
   instanceMethods: {
     // This method is a Promisified bcrypt.compare
     authenticate(plaintext) {
-      if (this.isGuest) return false
+      if (this.isGuest) return false // OB/IJM: probably want to return rejected promise
       return new Promise((resolve, reject) =>
         bcrypt.compare(plaintext, this.password_digest,
           (err, result) =>
@@ -57,7 +57,7 @@ module.exports.associations = (User, {OAuth, Review, Order, Address}) => {
   User.hasOne(OAuth)
   User.hasMany(Review)
   User.hasMany(Order)
-  User.hasMany(Address, {as: 'shippingAddress'})
+  User.hasMany(Address, {as: 'shippingAddress'}) // OB/IJM: watch out for pluralization
   User.hasMany(Address, {as: 'billingAddress'})
 }
 

@@ -8,12 +8,12 @@ The defaultScope of this model loads OrderProduct along with each order.
 
 const { DECIMAL, INTEGER, STRING, TEXT, ENUM } = require('sequelize')
 
-const LineItem = require('./lineitem')
+const LineItem = require('./lineitem') // OB/IJM: watch out when doing this, try `db.model` instead
 const Product = require('./product')
 
 module.exports = db => db.define('orders', {
   shipping: ENUM('International', 'Overnight', 'Two-day', 'Standard'),
-  creditCard: {
+  creditCard: { // OB/IJM: maybe don't store this, use third-party (see Stripe)
     type: INTEGER,
     validate: {
       isCreditCard: true
@@ -21,6 +21,7 @@ module.exports = db => db.define('orders', {
   },
   instructions: TEXT
 })
+// OB/IJM: dead code should be buried, less it rise up and kill us all
 // {
 //   defaultScope: {
 //     include: [{ model: LineItem, Product }]
