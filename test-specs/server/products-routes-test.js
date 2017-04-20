@@ -58,7 +58,6 @@ describe('Product API', () => {
       })
       .catch(done)
     })
-
   })
 
   describe('/api/products/:id', () => {
@@ -99,8 +98,6 @@ describe('Product API', () => {
       })
       .catch(done)
     })
-
   })
-
 })
 
