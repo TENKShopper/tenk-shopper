@@ -15,6 +15,7 @@ const app = require('APP')
     , metaModels = {
       OAuth: require('./oauth'),
       Address: require('./address'),
+      User: require('./user'),
       Order: require('./order'),
       Product: require('./product'),
       Review: require('./review'),

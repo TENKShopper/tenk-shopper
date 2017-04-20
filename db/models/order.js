@@ -1,7 +1,7 @@
 const { DECIMAL, INTEGER, STRING, TEXT, ENUM } = require('sequelize')
 
 module.exports = db => db.define('orders', {
-  shipping: ENUM('International', 'Overnight', 'Two-day', 'Standard'),
+  shipping: ENUM('International', 'Overnight', 'Two-Day', 'Standard'),
   instructions: TEXT,
   status: ENUM('Created', 'Processing', 'Cancelled', 'Completed')
 })
