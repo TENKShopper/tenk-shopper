@@ -7,7 +7,7 @@ const request = require('supertest')
 
 describe('/api/users', () => {
   before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.truncate({ force: true }))
+  afterEach('Clear the tables', () => db.sync({ force: true }))
 
   describe('GET /:userId', () =>
     describe('when not logged in', () =>

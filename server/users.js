@@ -20,14 +20,6 @@ router.param('userId', (req, res, next, userId) => {
   .catch(next)
 })
 
-router.param('addressType', (req, res, next, addressType) => {
-  if (addressType !== 'billingAddress' || addressType !== 'shippingAddress') {
-    res.sendStatus(404).end()
-  }
-  req.addressType = addressType
-  next()
-})
-
 router.route('/')
   // The forbidden middleware will fail *all* requests to list users.
   // Remove it if you want to allow anyone to list all users on the site.

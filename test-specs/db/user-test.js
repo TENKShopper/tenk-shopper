@@ -8,7 +8,7 @@ const db = require('APP/db')
 
 describe('User', () => {
   before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.truncate({ cascade: true }))
+  afterEach('Clear the tables', () => db.sync({ force: true }))
 
   describe('authenticate(plaintext: String) ~> Boolean', () => {
     let testUser
