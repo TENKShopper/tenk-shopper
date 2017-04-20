@@ -1,58 +1,54 @@
 import React from 'react'
 import {Link} from 'react-router'
-import Login from './Login'
+import {Modal, NavBar, ButtonDropdown} from 'simple-react-bootstrap'
 
-const NavBar = (props) => {
+const NavBarMain = (props) => {
   return (
-    <nav className="navbar navbar-default">
-      <div className="container-fluid">
-        <div className="navbar-header">
-          <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span className="sr-only">Toggle navigation</span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-            <span className="icon-bar"></span>
-          </button>
-          <a className="navbar-brand" href="#">Brand</a>
-        </div>
-
-        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul className="nav navbar-nav">
-            <li className="dropdown">
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> MEN <span className="caret"></span></a>
-              <ul className="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li className="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li className="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-            <li className="dropdown">
-              <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> WOMEN <span className="caret"></span></a>
-              <ul className="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li className="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li className="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
-            </li>
-          </ul>
-          <form className="navbar-form navbar-left" role="search">
-            <div className="form-group">
-              <input type="text" className="form-control" placeholder="Search" />
-            </div>
-            <button type="submit" className="btn btn-default">Submit</button>
-          </form>
-          <ul className="nav navbar-nav navbar-right">
-            <Login />
-            <li><a href="#">Link</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+      <NavBar>
+      <NavBar.Header>
+          <NavBar.Brand>
+              <a href="/homepage" style={{ cursor: 'pointer' }}>TENK</a>
+          </NavBar.Brand>
+          <NavBar.Toggle />
+      </NavBar.Header>
+      <NavBar.Nav>
+          <NavBar.Item className="class-on-item">Link 1</NavBar.Item>
+          <NavBar.Item disabled={true}>Link 2</NavBar.Item>
+          <NavBar.Dropdown toggleClassName="pointer-cursor" style={{ color: 'red' }} text="MENS">
+              <NavBar.Item>SHIRTS</NavBar.Item>
+              <NavBar.Item href="#foo">PANTS</NavBar.Item>
+              <NavBar.ItemDivider />
+              <NavBar.Item>SHOES</NavBar.Item>
+          </NavBar.Dropdown>
+          <NavBar.Dropdown toggleClassName="pointer-cursor" style={{ color: 'red' }} text="WOMENS">
+              <NavBar.Item>SHIRTS</NavBar.Item>
+              <NavBar.Item href="#foo">PANTS</NavBar.Item>
+              <NavBar.ItemDivider />
+              <NavBar.Item>SHOES</NavBar.Item>
+          </NavBar.Dropdown>
+      </NavBar.Nav>
+      <NavBar.Header>
+          <NavBar.Brand>
+              <a style={{ cursor: 'pointer' }}>SALE</a>
+          </NavBar.Brand>
+          <NavBar.Toggle />
+      </NavBar.Header>
+      <NavBar.Form className="pull-left">
+          <div className="form-group">
+              <div className="input-group">
+                      <span className="input-group-btn">
+                          <button className="btn default">Search</button>
+                      </span>
+                  <input className="form-control" placeholder="Quick title search" />
+              </div>
+          </div>
+      </NavBar.Form>
+      <NavBar.Nav className="pull-right">
+        <NavBar.Item active={true} href="/login">LOGIN</NavBar.Item>
+        <NavBar.Item active={true} href="/signup">SIGNUP</NavBar.Item>
+      </NavBar.Nav>
+  </NavBar>
   )
 }
 
-export default NavBar
+export default NavBarMain
