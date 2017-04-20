@@ -97,12 +97,12 @@ function createProduct() {
   const description = descriptions[Math.floor(Math.random() * descriptions.length)]
   const sex = gender[Math.floor(Math.random() * 2)]
   return {
-    title: sex + ' ' + product,
+    name: sex + ' ' + product,
     description: product + ' ' + description,
     price: Math.floor(Math.random() * 50 + 10),
-    gender: sex,
-    clothingType: clothType,
-    photo: photos[clothingType]
+    inventory: 50,
+    categories: [sex, clothType],
+    photos: photos[clothType]
   }
 }
 
