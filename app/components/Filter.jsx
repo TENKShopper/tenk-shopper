@@ -50,7 +50,7 @@ class FilterableProducts extends Component{
 
   render(){
     const inputValue = this.state.inputValue;
-    const filteredProducts = this.props.products.filter(product => product.name.match(inputValue))
+    const filteredProducts = this.props.products.filter(product => product.title.match(inputValue))
 
     return (
       <div>

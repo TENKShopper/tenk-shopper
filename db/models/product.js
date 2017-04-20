@@ -1,27 +1,45 @@
 'use strict'
 
-const { STRING, TEXT, INTEGER, FLOAT } = require('sequelize')
+const { STRING, TEXT, INTEGER, FLOAT, ARRAY, BOOLEAN } = require('sequelize')
 
 module.exports = db => db.define('products', {
-  title: {
+  name: {
     type: STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   description: TEXT,
   price: {
-    type: FLOAT,
-    defaultValue: 0.00
+    type: INTEGER,
+    defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
-  inventory: INTEGER,
-  photo: {
-    type: STRING,
-    defaultValue: 'http://placehold.it/500x500'
+  inventory: {
+    type: INTEGER,
+    validate: {
+      min: 0
+    }
   },
-  gender: STRING,
-  clothingType: STRING,
-  size: STRING
-},
-{})
+  photos: {
+    type: ARRAY(STRING),
+    defaultValue: ['http://placehold.it/500x500'],
+    validate: {
+      isUrl: true
+    }
+  },
+  categories: {
+    type: ARRAY(STRING),
+    defaultValue: ['Featured']
+  },
+  available: {
+    type: BOOLEAN,
+    defaultValue: true
+  }
+})
 
 module.exports.associations = (Product, { Review, Order, LineItem }) => {
   Product.hasMany(Review)
