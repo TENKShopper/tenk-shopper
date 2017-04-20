@@ -78,13 +78,13 @@ const addresses = seed(Address, createAddressList())
 /* --------- PRODUCTS SEED DATA ----------- */
 
 const products = {
-  shirt: ['HIGH NECK HALF SLEEVE T-SHIRT', 'DRY YOGA SHORT-SLEEVE T-SHIRT', 'EXTRA FINE MERINO V-NECK CARDIGAN', 'PEANUTS SHORT-SLEEVE GRAPHIC TEE', 'EASY CARE OXFORD LONG SLEEVE SHIRT'],
-  pants: ['RELAXED ANKLE PANTS', 'SKINNY STRAIGHT JEANS', 'AIRISM PILE LINED LOUNGE SHORTS'],
-  shoes: ['DISNEY MAROON SLIPPERS', 'NIKE AIR MAX 90 ULTRA 2.0 BREATHE']
+  Shirt: ['HIGH NECK HALF SLEEVE T-SHIRT', 'DRY YOGA SHORT-SLEEVE T-SHIRT', 'EXTRA FINE MERINO V-NECK CARDIGAN', 'PEANUTS SHORT-SLEEVE GRAPHIC TEE', 'EASY CARE OXFORD LONG SLEEVE SHIRT'],
+  Pants: ['RELAXED ANKLE PANTS', 'SKINNY STRAIGHT JEANS', 'AIRISM PILE LINED LOUNGE SHORTS'],
+  Shoes: ['DISNEY MAROON SLIPPERS', 'NIKE AIR MAX 90 ULTRA 2.0 BREATHE']
 }
 const descriptions = ['is fabulous!', 'is great for any occasion.', 'is binary', 'is classy and elegant.', 'features a soft, fluffy feel!', 'has a gently snug, relaxed fit', 'is ideal for relaxing at home.']
 const gender = ['MEN', 'WOMEN']
-const clothingType = ['shirt', 'pants', 'shoes']
+const clothingType = ['Shirt', 'Pants', 'Shoes']
 const photos = {
   shirt: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
   pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
@@ -101,7 +101,7 @@ function createProduct() {
     description: product + ' ' + description,
     price: Math.floor(Math.random() * 50 + 10),
     inventory: 50,
-    categories: [sex, clothType],
+    categories: [sex, clothType, 'Featured'],
     photos: photos[clothType]
   }
 }

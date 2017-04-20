@@ -1,8 +1,10 @@
 'use strict'
 
 const db = require('APP/db')
-const User = db.model('users')
-const Address = db.model('addresses')
+const User = db.model('users'),
+  Address = db.model('addresses'),
+  Order = db.model('orders'),
+  Review = db.model('reviews')
 
 const {mustBeLoggedIn, forbidden} = require('./auth.filters')
 const router = require('express').Router()
@@ -11,7 +13,13 @@ module.exports = router
 
 router.param(':userId', (req, res, next, userId) => {
   User.find({
-    where: {id: userId}
+    where: {id: userId},
+    include: [
+      {model: Address, as: 'shippingAddresses'},
+      {model: Address, as: 'billingAddresses'},
+      {model: Order, as: 'orders'},
+      {model: Review, as: 'reviews'},
+    ]
   })
   .then(targetUser => {
     if (!targetUser) return res.sendStatus(404)
@@ -21,7 +29,7 @@ router.param(':userId', (req, res, next, userId) => {
 })
 
 router.param(':addressType', (req, res, next, addressType) => {
-  if (addressType !== 'BillingAddress' || addressType !== 'ShippingAddress') {
+  if (addressType !== 'billingAddress' || addressType !== 'shippingAddress') {
     res.sendStatus(404).end()
   }
   req.addressType = addressType
@@ -36,7 +44,14 @@ router.route('/')
   // have to add a role column to the users table to support
   // the concept of admin users.
 .get(forbidden('listing users is not allowed'), (req, res, next) => {
-  User.findAll()
+  User.findAll({
+    include: [
+      {model: Address, as: 'shippingAddresses'},
+      {model: Address, as: 'billingAddresses'},
+      {model: Order, as: 'orders'},
+      {model: Review, as: 'reviews'},
+    ]
+  })
     .then(users => res.json(users))
     .catch(next)
 })
