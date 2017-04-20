@@ -26,15 +26,13 @@ module.exports = db => db.define('users', {
 }, {
   indexes: [{fields: ['email'], unique: true}],
 
-  scopes: {
-    withAllAssociations: {
-      include: [
-          { model: db.model('addresses'), as: 'billingAddresses' },
-          { model: db.model('addresses'), as: 'shippingAddresses' },
-          { model: db.model('orders') },
-          { model: db.model('reviews') },
-      ]
-    }
+  defaultScope: {
+    include: [
+        { model: db.model('addresses'), as: 'billingAddresses' },
+        { model: db.model('addresses'), as: 'shippingAddresses' },
+        { model: db.model('orders') },
+        { model: db.model('reviews') },
+    ]
   },
 
   hooks: {

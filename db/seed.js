@@ -86,9 +86,9 @@ const descriptions = ['is fabulous!', 'is great for any occasion.', 'is binary',
 const gender = ['MEN', 'WOMEN']
 const clothingType = ['Shirt', 'Pants', 'Shoes']
 const photos = {
-  shirt: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
-  pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
-  shoes: 'https://thumbs.dreamstime.com/x/old-shoe-boot-cartoon-clip-art-illustration-36390217.jpg'
+  Shirt: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
+  Pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
+  Shoes: 'https://thumbs.dreamstime.com/x/old-shoe-boot-cartoon-clip-art-illustration-36390217.jpg'
 }
 
 function createProduct() {
@@ -102,7 +102,7 @@ function createProduct() {
     price: Math.floor(Math.random() * 50 + 10),
     inventory: 50,
     categories: [sex, clothType, 'Featured'],
-    photos: photos[clothType]
+    photos: [photos[clothType]]
   }
 }
 

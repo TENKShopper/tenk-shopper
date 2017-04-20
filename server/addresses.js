@@ -16,7 +16,7 @@ router.param('addressType', (req, res, next, addressType) => {
   next()
 })
 
-router.route(':addressType')
+router.route('/:addressType')
 .get(mustBeLoggedIn, (req, res, next) => {
   req.targetUser['get' + req.addressType]()
   .then(shippingInfos => {
@@ -38,7 +38,7 @@ router.route(':addressType')
 
 /* --------- INDIVIDUAL ADDRESS ----------- */
 
-router.route(':addressType/:addressId')
+router.route('/:addressType/:addressId')
 .get(mustBeLoggedIn, (req, res, next) => {
   req.targetUser['get' + req.addressType]({id: req.params.addressId})
   .then(shippingInfos => {
