@@ -8,7 +8,7 @@ const db = require('APP/db')
 
 describe('Address', () => {
   before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.truncate({ cascade: true }))
+  afterEach('Clear the tables', () => db.sync({ force: true }))
 
   describe('address validates allowNull correctly', () => {
     it('throws an error if any field is empty', (done) => {

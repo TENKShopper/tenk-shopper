@@ -7,9 +7,9 @@ const request = require('supertest')
 
 describe('/api/users', () => {
   before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.truncate({ cascade: true }))
+  afterEach('Clear the tables', () => db.sync({ force: true }))
 
-  describe('GET /:id', () =>
+  describe('GET /:userId', () =>
     describe('when not logged in', () =>
       it('fails with a 401 (Unauthorized)', () =>
         request(app)

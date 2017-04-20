@@ -19,6 +19,7 @@ const app = require('APP')
       Order: require('./order'),
       Product: require('./product'),
       Review: require('./review'),
+      User: require('./user'),
       LineItem: require('./lineitem')
     }
     , {mapValues} = require('lodash')
