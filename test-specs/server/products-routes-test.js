@@ -10,7 +10,8 @@ const request = require('supertest')
 /* global describe it before beforeEach after afterEach priceAtOrderTime */
 
 describe('Product API', () => {
-  before('Await database sync', () => db.sync({force: true}))
+  before('Await database sync', () => db.didSync)
+  after('Sync the tables', () => db.sync({force: true}))
 
   const blueShoes = {
       name: 'Blue Suede Shoes',
@@ -31,8 +32,6 @@ describe('Product API', () => {
     Product.create(blueShoes)
     .then(() => Product.create(redShoes))
   })
-
-  after('Sync the tables', () => db.sync({force: true}))
 
   describe('/api/products', () => {
 

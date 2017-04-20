@@ -9,7 +9,7 @@ const request = require('supertest')
 /* global describe it before beforeEach after afterEach priceAtOrderTime */
 
 describe('Product model', () => {
-  before('Await database sync', () => db.sync({force: true}))
+  before('Await database sync', () => db.didSync)
   after('Sync the tables', () => db.sync({force: true}))
 
   const blueShoes = {

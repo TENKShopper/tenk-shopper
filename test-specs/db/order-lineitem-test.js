@@ -6,7 +6,7 @@ const db = require('APP/db')
 /* global describe it before beforeEach after afterEach priceAtOrderTime */
 
 describe('Order model', () => {
-  before('Await database sync', () => db.sync({force: true}))
+  before('Await database sync', () => db.didSync)
   after('Sync the tables', () => db.sync({force: true}))
 
   const blueShoesData = {
