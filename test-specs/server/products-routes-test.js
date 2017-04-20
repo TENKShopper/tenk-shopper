@@ -7,11 +7,10 @@ const request = require('supertest')
   , { Order, Product, LineItem } = db
   , app = require('APP/server/start')
 
-/* global describe it before beforeEach afterEach priceAtOrderTime */
+/* global describe it before beforeEach after afterEach priceAtOrderTime */
 
-describe.only('Product API', () => {
+describe('Product API', () => {
   before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
   const blueShoes = {
       name: 'Blue Suede Shoes',
@@ -27,11 +26,13 @@ describe.only('Product API', () => {
       price: 100000,
     }
 
-  beforeEach('add dummy data to tables', () => {
-    // Do these synchronously to ensure blueShoes is created before redShoes.
+  before('Add dummy data to tables', () => {
+    // Use promise chaining to ensure blueShoes is created before redShoes.
     Product.create(blueShoes)
-    .then(Product.create(redShoes))
+    .then(() => Product.create(redShoes))
   })
+
+  after('Clear the tables', () => db.truncate({ cascade: true }))
 
   describe('/api/products', () => {
 
@@ -66,36 +67,37 @@ describe.only('Product API', () => {
       request(app)
       .get('/api/products/1')
       .then(res => {
-        console.log(res)
         expect(res.body.name).to.equal('Blue Suede Shoes')
-        expect(res.available).to.equal(true)
+        expect(res.body.available).to.be.true
         done()
       })
       .catch(done)
     })
 
-    xit('can PUT to update a specific product...', (done) => {
+    it('can PUT to update a specific product...', (done) => {
       request(app)
       .put('/api/products/1')
       .send({
         name: 'Blue Suede Pants'
       })
       .then(res => {
-        expect(res.body[0].name).to.equal('Blue Suede Pants')
+        expect(res.body.name).to.equal('Blue Suede Pants')
         done()
       })
+      .catch(done)
     })
 
-    xit('...and it can PUT to update that product again', (done) => {
+    it('...and it can PUT to update that product again', (done) => {
       request(app)
       .put('/api/products/1')
       .send({
         name: 'Blue Suede Shoes'
       })
       .then(res => {
-        expect(res.body[0].name).to.equal('Blue Suede Shoes')
+        expect(res.body.name).to.equal('Blue Suede Shoes')
         done()
       })
+      .catch(done)
     })
 
   })

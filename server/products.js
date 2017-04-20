@@ -17,11 +17,10 @@ router.route('/')
   .then(product => res.status(201).json(product))
   .catch(next)
 )
-// TODO: why isn't this working in the test, but is working in Postman? foundProduct is null here.
+
 router.param('id', (req, res, next, id) => {
   Product.findById(id)
   .then(foundProduct => {
-    console.log('foundProduct', foundProduct)
     req.product = foundProduct
     next()
   })
@@ -31,13 +30,9 @@ router.param('id', (req, res, next, id) => {
 router.route('/:id')
 .get((req, res, next) => res.json(req.product))
 .put((req, res, next) => {
-  Product.update(req.product, {
-    where: {
-      id: req.product.id
-    }
-  })
-  .then(res => {
-    console.log('res.data', res.data)
+  req.product.update(req.body)
+  .then(updatedProduct => {
+    res.json(updatedProduct)
   })
   .catch(next)
 })
