@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redex'
+import {connect} from 'react-redux'
 
 
   export const  SingleProduct = (props) => {
