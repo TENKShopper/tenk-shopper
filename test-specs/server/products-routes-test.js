@@ -10,7 +10,7 @@ const request = require('supertest')
 /* global describe it before beforeEach after afterEach priceAtOrderTime */
 
 describe('Product API', () => {
-  before('Await database sync', () => db.didSync)
+  before('Await database sync', () => db.sync({force: true}))
 
   const blueShoes = {
       name: 'Blue Suede Shoes',
@@ -26,13 +26,13 @@ describe('Product API', () => {
       price: 100000,
     }
 
-  before('Add dummy data to tables', () => {
+  beforeEach('Add dummy data to tables', () => {
     // Use promise chaining to ensure blueShoes is created before redShoes.
     Product.create(blueShoes)
     .then(() => Product.create(redShoes))
   })
 
-  after('Clear the tables', () => db.truncate({ cascade: true }))
+  after('Sync the tables', () => db.sync({force: true}))
 
   describe('/api/products', () => {
 
@@ -40,6 +40,7 @@ describe('Product API', () => {
       request(app)
       .get('/api/products/')
       .then(res => {
+        expect(res.body[0].id).to.equal(1)
         expect(res.body.length).to.equal(2)
         expect(res.status).to.equal(200)
         done()
@@ -74,7 +75,7 @@ describe('Product API', () => {
       .catch(done)
     })
 
-    it('can PUT to update a specific product...', (done) => {
+    it('can PUT to update a specific product...', done => {
       request(app)
       .put('/api/products/1')
       .send({
@@ -87,7 +88,7 @@ describe('Product API', () => {
       .catch(done)
     })
 
-    it('...and it can PUT to update that product again', (done) => {
+    it('...and it can PUT to update that product again', done => {
       request(app)
       .put('/api/products/1')
       .send({

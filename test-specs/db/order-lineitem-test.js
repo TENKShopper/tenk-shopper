@@ -3,11 +3,11 @@ const db = require('APP/db')
   , { expect } = require('chai')
   , Promise = require('bluebird')
 
-/* global describe it before beforeEach afterEach priceAtOrderTime */
+/* global describe it before beforeEach after afterEach priceAtOrderTime */
 
 describe('Order model', () => {
-  before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.truncate({ cascade: true }))
+  before('Await database sync', () => db.sync({force: true}))
+  after('Sync the tables', () => db.sync({force: true}))
 
   const blueShoesData = {
       name: 'Blue Suede Shoes',
@@ -19,17 +19,19 @@ describe('Order model', () => {
 
   let blueShoesInstance, dummyOrderInstance
 
-  beforeEach(() => {
+  before(() => {
     const blueShoesPromise = Product.create(blueShoesData)
     .then(createdRow => createdRow)
     const dummyOrderPromise = Order.create(dummyOrderData)
     .then(createdOrder => createdOrder)
+    .catch(console.error)
 
     return Promise.all([blueShoesPromise, dummyOrderPromise])
     .then(data => {
       blueShoesInstance = data[0]
       dummyOrderInstance = data[1]
     })
+    .catch(console.error)
   })
 
   it('creates products with valid attributes', () => {
@@ -50,7 +52,7 @@ describe('Order model', () => {
 
   describe('associates products with orders via the lineitems model', () => {
 
-    beforeEach('run addProduct', () => {
+    before('run addProduct', () => {
       return dummyOrderInstance.addProduct(blueShoesInstance, {
         orderPrice: blueShoesInstance.price,
         quantity: 1
@@ -78,6 +80,7 @@ describe('Order model', () => {
         expect(newLineItem.order.instructions).to.equal('I am a dummy order')
         done()
       })
+      .catch(done)
     })
   })
 })
