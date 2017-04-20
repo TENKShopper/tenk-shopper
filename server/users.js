@@ -11,11 +11,7 @@ module.exports = router
 
 router.param(':userId', (req, res, next, userId) => {
   User.find({
-    where: {id: userId},
-    include: [
-      { model: db.model('addresses'), as: 'billingAddresses' },
-      { model: db.model('addresses'), as: 'shippingAddresses' }
-    ]
+    where: {id: userId}
   })
   .then(targetUser => {
     if (!targetUser) return res.sendStatus(404)
@@ -25,7 +21,7 @@ router.param(':userId', (req, res, next, userId) => {
 })
 
 router.param(':addressType', (req, res, next, addressType) => {
-  if (addressType !== 'billingAddress' || addressType !== 'shippingAddress') {
+  if (addressType !== 'BillingAddress' || addressType !== 'ShippingAddress') {
     res.sendStatus(404).end()
   }
   req.addressType = addressType
