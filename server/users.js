@@ -43,91 +43,81 @@ router.route('/')
   // If you want to only let admins list all the users, then you'll
   // have to add a role column to the users table to support
   // the concept of admin users.
-.get(forbidden('listing users is not allowed'), (req, res, next) => {
-  User.findAll({
-    include: [
-      {model: Address, as: 'shippingAddresses'},
-      {model: Address, as: 'billingAddresses'},
-      {model: Order, as: 'orders'},
-      {model: Review, as: 'reviews'},
-    ]
+  .get(forbidden('listing users is not allowed'), (req, res, next) => {
+    User.findAll({
+      include: [
+        {model: Address, as: 'shippingAddresses'},
+        {model: Address, as: 'billingAddresses'},
+        {model: Order, as: 'orders'},
+        {model: Review, as: 'reviews'},
+      ]
+    })
+      .then(users => res.json(users))
+      .catch(next)
   })
-    .then(users => res.json(users))
+  .post((req, res, next) => {
+    User.create(req.body)
+    .then(user => res.status(201).json(user))
     .catch(next)
-})
-
-.post((req, res, next) => {
-  User.create(req.body)
-  .then(user => res.status(201).json(user))
-  .catch(next)
-})
+  })
 
 router.route('/:userId')
-
-.get(mustBeLoggedIn, (req, res, next) => {
-  res.json(req.targetUser)
-})
-
-.put(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser.update(res.body)
-  .then(updatedUser => {
-    res.json(updatedUser)
+  .get(mustBeLoggedIn, (req, res, next) => {
+    res.json(req.targetUser)
   })
-  .catch(next)
-})
+  .put(mustBeLoggedIn, (req, res, next) => {
+    req.targetUser.update(res.body)
+    .then(updatedUser => {
+      res.json(updatedUser)
+    })
+    .catch(next)
+  })
+  .delete(forbidden('must be admin'), (req, res, next) => {
+    req.targetUser.destroy()
+    .then(() => res.sendStatus(204))
+    .catch(next)
+  })
 
-.delete(forbidden('must be admin'), (req, res, next) => {
-  req.targetUser.destroy()
-  .then(() => res.sendStatus(204))
-  .catch(next)
-})
-
-/*  -------------- ADDRESSES ------------- */
+/*  -------------- ADDRESSES ------------ */
 
 router.route('/:userId/:addressType')
-
-.get(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser['get' + req.addressMethod]()
-  .then(shippingInfos => {
-    res.json(shippingInfos)
+  .get(mustBeLoggedIn, (req, res, next) => {
+    req.targetUser['get' + req.addressType]()
+    .then(shippingInfos => {
+      res.json(shippingInfos)
+    })
+    .catch(next)
   })
-  .catch(next)
-})
-
-.post(mustBeLoggedIn, (req, res, next) => {
-  Address.create(res.body)
-  .then(newAddress => req.targetUser['add' + req.addressMethod]([newAddress]))
-  .then(() => res.json(res.body))
-  .catch(next)
-})
-
-.delete(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser['remove' + req.addressMethod]()
-  .then(() => res.sendStatus(204))
-  .catch(next)
-})
+  .post(mustBeLoggedIn, (req, res, next) => {
+    Address.create(res.body)
+    .then(newAddress => req.targetUser['add' + req.addressType]([newAddress]))
+    .then(() => res.json(res.body))
+    .catch(next)
+  })
+  .delete(mustBeLoggedIn, (req, res, next) => {
+    req.targetUser['remove' + req.addressType]()
+    .then(() => res.sendStatus(204))
+    .catch(next)
+  })
 
 /* --------- INDIVIDUAL ADDRESS ----------- */
 
 router.route('/:userId/:addressType/:addressId')
-
-.get(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser['get' + req.addressMethod]({id: req.params.addressId})
-  .then(shippingInfos => {
-    res.json(shippingInfos)
+  .get(mustBeLoggedIn, (req, res, next) => {
+    req.targetUser['get' + req.addressType]({id: req.params.addressId})
+    .then(shippingInfos => {
+      res.json(shippingInfos)
+    })
+    .catch(next)
   })
-  .catch(next)
-})
-
-.put(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser['get' + req.addressMethod]({id: req.params.addressId})
-  .then(targetAddress => targetAddress.update(req.body))
-  .then(updatedAddress => res.json(updatedAddress))
-  .catch(next)
-})
-
-.delete(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser['remove' + req.addressMethod]({id: req.params.addressId})
-  .then(() => res.sendStatus(204))
-  .catch(next)
-})
+  .put(mustBeLoggedIn, (req, res, next) => {
+    req.targetUser['get' + req.addressType]({id: req.params.addressId})
+    .then(targetAddress => targetAddress.update(req.body))
+    .then(updatedAddress => res.json(updatedAddress))
+    .catch(next)
+  })
+  .delete(mustBeLoggedIn, (req, res, next) => {
+    req.targetUser['remove' + req.addressType]({id: req.params.addressId})
+    .then(() => res.sendStatus(204))
+    .catch(next)
+  })
