@@ -25,6 +25,14 @@ module.exports = db => db.define('users', {
   password: VIRTUAL // Note that this is a virtual, and not actually stored in DB
 }, {
   indexes: [{fields: ['email'], unique: true}],
+  scopes: {
+    withBillingAndShipping: {
+      include: [
+          { model: db.model('addresses'), as: 'billingAddresses' },
+          { model: db.model('addresses'), as: 'shippingAddresses' }
+      ]
+    }
+  },
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
