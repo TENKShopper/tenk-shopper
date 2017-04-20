@@ -1,10 +1,7 @@
 import React from 'react'
 import NavBarMain from './NavBar'
 
-export const Login = ({ login }) => {
-  return (
-    <div>
-      <NavBarMain />
+export const Login = ({ login }) => (
       <div>
         <form onSubmit={evt => {
             evt.preventDefault()
@@ -15,9 +12,7 @@ export const Login = ({ login }) => {
           <input type="submit" value="Login" />
         </form>
       </div>
-    </div>
   )
-}
 
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
