@@ -1,6 +1,6 @@
 /*
 
-This is a join table between Order and Product that stores priceAtOrderTime, quantity and size for each product in your order.
+This is a join table between Order and Product that stores orderPrice and quantity for each product in your order.
 
 */
 

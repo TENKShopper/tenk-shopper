@@ -35,7 +35,7 @@ module.exports = db => db.define('products', {
     type: ARRAY(STRING),
     defaultValue: ['Featured']
   },
-  availability: {
+  available: {
     type: BOOLEAN,
     defaultValue: true
   }
