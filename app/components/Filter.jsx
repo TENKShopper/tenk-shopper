@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux'
 
+
+//need checkbox for ....
+// gender (male / female)
+// clothing type
+//size
+//???
+
+
+
+
 export const FilterInput = (props) => {
 
   const handleChange = props.handleChange;
