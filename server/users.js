@@ -16,6 +16,7 @@ router.param('userId', (req, res, next, userId) => {
   .then(targetUser => {
     if (!targetUser) return res.sendStatus(404)
     req.targetUser = targetUser
+    next()
   })
   .catch(next)
 })
@@ -27,7 +28,7 @@ router.route('/')
   // If you want to only let admins list all the users, then you'll
   // have to add a role column to the users table to support
   // the concept of admin users.
-.get(forbidden('must be admin'), (req, res, next) => {
+.get((req, res, next) => {
   User.findAll()
     .then(users => res.json(users))
     .catch(next)
@@ -39,17 +40,16 @@ router.route('/')
 })
 
 router.route('/:userId')
-.get(mustBeLoggedIn, (req, res, next) => {
-  res.json(req.targetUser)
-})
+.get(mustBeLoggedIn, (req, res, next) => res.json(req.targetUser))
 .put(mustBeLoggedIn, (req, res, next) => {
   req.targetUser.update(res.body)
   .then(updatedUser => {
-    res.json(updatedUser)
+    console.log('UPDATED USER', updatedUser)
+    res.status(201).json(updatedUser)
   })
   .catch(next)
 })
-.delete(forbidden('must be admin'), (req, res, next) => {
+.delete((req, res, next) => {
   req.targetUser.destroy()
   .then(() => res.sendStatus(204))
   .catch(next)
