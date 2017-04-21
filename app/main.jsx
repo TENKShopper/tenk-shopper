@@ -5,11 +5,16 @@ import {render} from 'react-dom'
 import {connect, Provider} from 'react-redux'
 
 import store from './store'
+
+/* ------ Components ------ */
+
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-
-import App from './App'
+import App from './components/App'
+import Multiview from './components/Multiview'
+import Products from './components/Products'
+import Users from './components/Users'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })
@@ -29,6 +34,10 @@ render(
       <Route path="/" component={App}>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Login} />
+        <Route path="/multi" component={Multiview}>
+          <Route path="/multi/products" component={Products} />
+          <Route path="/multi/users" component={Users} />
+        </Route>
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
