@@ -2,7 +2,7 @@
 
 This is the component  we'll use for the Products views.
 
-The component consists of a sidebar (2/3 col) and a display (10/9 col). It maintains local state, which tracks the inputs of the query form.
+The component consists of a sidebar (3 col) and a display (9 col). Its local state tracks the inputs of the filter form.
 
 The sidebar always renders with said query form. When the user is an admin, it renders with an additional form to add a new product.
 
@@ -19,10 +19,16 @@ import { connect } from 'react-redux'
 
 const dummyProducts = [
   {
-    name: 'Blue Suede Shoes'
+    name: 'Blue Suede Shoes',
+    categories: ['shoes', 'blue']
   },
   {
-    name: 'Red Canvas Shoes'
+    name: 'Red Canvas Shoes',
+    categories: ['shoes', 'red']
+  },
+  {
+    name: 'Green Trunks',
+    categories: ['truks', 'green']
   }
 ]
 
@@ -33,7 +39,7 @@ class ProductsFilter extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
+      nameQuery: '',
       category: '',
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
@@ -46,8 +52,8 @@ class ProductsFilter extends Component {
     return (
       <div className="products-view" >
         <div className="col-md-3">
-          {this.props.isAdmin ? this.renderNewProductWidget() : null}
-          {this.renderProductsFilter()}
+          { this.props.isAdmin ? this.renderNewProductWidget() : null }
+          { this.renderProductsFilter() }
         </div>
         <div className="col-md-9">
           { this.props.products
@@ -66,14 +72,24 @@ class ProductsFilter extends Component {
 
   renderProductsFilter() {
     return (
-      <h4>
-        <input
-          type="text"
-          placeholder="Input product name"
-          className="form-like"
-          onChange={evt => this.setState({ name: evt.target.value })}
-        />
-      </h4>
+      <div>
+        <div>
+          <div className="media-left media-middle icon-container">
+            <div className="glyphicon glyphicon-search" />
+          </div>
+          <div className="media-body media-middle">
+            <h4>Search Products</h4>
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Input product name"
+              className="form-like"
+              onChange={evt => this.setState({ nameQuery: evt.target.value })}
+            />
+          </div>
+        </div>
+      </div>
     )
   }
   renderNewProductWidget() {
@@ -121,12 +137,11 @@ class ProductsFilter extends Component {
     )
   }
 
-  /* TODO: adapt filterProducts for Categories array */
+  /* TODO: write filterProducts for Categories array */
   filterProducts(product) {
-    const nameMatch = new RegExp(this.state.name, 'i')
-    const categoryMatch = new RegExp(this.state.category, 'i')
-    return nameMatch.test(product.name) &&
-      categoryMatch.test(product.categories)
+    const nameMatch = new RegExp(this.state.nameQuery, 'i')
+    return nameMatch.test(product.name)
+    // && categoriesFilter
   }
 
   submitNewProduct(event) {
