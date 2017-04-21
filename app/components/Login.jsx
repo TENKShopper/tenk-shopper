@@ -1,64 +1,76 @@
 import React from 'react'
 import NavBarMain from './NavBar'
+import Signup from './Signup'
 
-export const Auth = ({ login }) => (
+export const Auth = (props) => (
   <div>
     <div className="col-md-6">
-      <form onSubmit={evt => {
-        evt.preventDefault()
-        login(evt.target.username.value, evt.target.password.value)
-      } }>
-        <input name="username" />
-        <input name="password" type="password" />
-        <input type="submit" value="Login" />
-      </form>
-    </div>
-    <div className="col-md-6">
-          <form className="form-horizontal" action='' method="POST">
+      <form className="form-horizontal" action='' method="POST"
+        onSubmit={evt => {
+          evt.preventDefault()
+          props.login(evt.target.username.value, evt.target.password.value)
+        } }>
       <fieldset>
         <div id="legend">
-          <legend className="">Register</legend>
+          <legend className="">Login</legend>
         </div>
         <div className="control-group">
-          <label className="control-label" for="username">Username</label>
+          <label className="control-label" htmlFor="username">Username</label>
           <div className="controls">
             <input type="text" id="username" name="username" placeholder="" className="input-xlarge"/>
-            <p className="help-block">Username can contain any letters or numbers, without spaces</p>
           </div>
         </div>
-
         <div className="control-group">
-          <label className="control-label" for="email">E-mail</label>
-          <div className="controls">
-            <input type="text" id="email" name="email" placeholder="" className="input-xlarge"/>
-            <p className="help-block">Please provide your E-mail</p>
-          </div>
-        </div>
-
-        <div className="control-group">
-          <label className="control-label" for="password">Password</label>
+          <label className="control-label" htmlFor="password">Password</label>
           <div className="controls">
             <input type="password" id="password" name="password" placeholder="" className="input-xlarge"/>
-            <p className="help-block">Password should be at least 4 characters</p>
           </div>
         </div>
-
-        <div className="control-group">
-          <label className="control-label" for="password_confirm">Password (Confirm)</label>
-          <div className="controls">
-            <input type="password" id="password_confirm" name="password_confirm" placeholder="" className="input-xlarge"/>
-            <p className="help-block">Please confirm password</p>
-          </div>
-        </div>
-
+        <br></br>
         <div className="control-group">
           <div className="controls">
-            <button className="btn btn-success">Register</button>
+            <button className="btn btn-success">Login</button>
           </div>
         </div>
       </fieldset>
     </form>
+      <div className="or buffer">
+        <div className="back-line">
+          <br></br>
+          <span>OR</span>
+        </div>
+      </div>
+      <div className="buffer oauth">
+        <p>
+          <a
+            target="_self"
+            href="/api/auth/google"
+            className="btn btn-social btn-google">
+            <i className="fa fa-google" />
+            <span>Login with Google</span>
+          </a>
+        </p>
+        <p>
+          <a
+            target="_self"
+            href="/api/auth/github"
+            className="btn btn-social btn-github">
+            <i className="fa fa-github" />
+            <span>Login with GitHub</span>
+          </a>
+        </p>
+        <p>
+          <a
+            target="_self"
+            href="/api/auth/facebook"
+            className="btn btn-social btn-facebook">
+            <i className="fa fa-facebook" />
+            <span>Login with Facebook</span>
+          </a>
+        </p>
+      </div>
     </div>
+    <Signup />
   </div>
 )
 
