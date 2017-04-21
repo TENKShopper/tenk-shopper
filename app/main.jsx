@@ -34,10 +34,8 @@ render(
       <Route path="/" component={App}>
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Login} />
-        <Route path="/multi" component={Multiview}>
-          <Route path="/multi/products" component={Products} />
-          <Route path="/multi/users" component={Users} />
-        </Route>
+        <Route path="/products" component={Products} />
+        <Route path="/users" component={Users} />
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
