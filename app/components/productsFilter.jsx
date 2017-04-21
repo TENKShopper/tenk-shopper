@@ -13,7 +13,7 @@ The display renders all the ProductItem components delineated by the Products pr
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-// import ProductItem from './productitem'
+import ProductItem from './ProductItem'
 
 /* ----- DUMMY DATA ----- */
 
@@ -21,22 +21,30 @@ const dummyProducts = [
   {
     name: 'Blue Suede Shoes',
     categories: ['shoes', 'blue'],
-    available: true
+    available: true,
+    id: 1,
+    photos: ['http://placehold.it/150x150']
   },
   {
     name: 'Red Canvas Shoes',
     categories: ['shoes', 'red'],
-    available: false
+    available: false,
+    id: 2,
+    photos: ['http://placehold.it/150x150']
   },
   {
     name: 'Green Trunks',
     categories: ['trunks', 'green'],
-    available: true
+    available: true,
+    id: 3,
+    photos: ['http://placehold.it/150x150']
   },
   {
     name: 'Black Boots',
     categories: ['shoes', 'black'],
-    available: true
+    available: true,
+    id: 4,
+    photos: ['http://placehold.it/150x150']
   }
 ]
 
@@ -66,19 +74,28 @@ class ProductsFilter extends Component {
           { this.renderProductsFilter() }
         </div>
         <div className="col-md-9">
+          {/*
           { this.props.products
             .filter(this.filterProducts)
             .map(product => <h5>{product.name}</h5>) }
-          {/* { this.products &&
-            this.products
+            */}
+
+          { this.props.products
             .filter(this.filterProducts)
-            .map(product => <ProductItem removeProduct={this.props.removeProduct} product={product} key={product.id} />) } */}
+            .map(product => {
+              return (
+                <div>
+                  <ProductItem removeProduct={this.props.removeProduct} product={product} key={product.id} />
+                </div>
+              )
+            }) }
+
         </div>
       </div>
     )
   }
 
-    /* ------ Helper Functions ------ */
+  /* ------ HELPER FUNCTIONS ------ */
 
   renderProductsFilter() {
     return (
