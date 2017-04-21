@@ -37,14 +37,14 @@ export const Auth = (props) => (
       <div className="or buffer">
         <div className="back-line">
           <br></br>
-          <span>OR</span>
+          <legend className="">OR</legend>
         </div>
       </div>
       <div className="buffer oauth">
         <p>
           <a
             target="_self"
-            href="/api/auth/google"
+            href="/api/auth/login/google"
             className="btn btn-social btn-google">
             <i className="fa fa-google" />
             <span>Login with Google</span>
@@ -53,7 +53,7 @@ export const Auth = (props) => (
         <p>
           <a
             target="_self"
-            href="/api/auth/github"
+            href="/api/auth/login/github"
             className="btn btn-social btn-github">
             <i className="fa fa-github" />
             <span>Login with GitHub</span>
@@ -62,7 +62,7 @@ export const Auth = (props) => (
         <p>
           <a
             target="_self"
-            href="/api/auth/facebook"
+            href="/api/auth/login/facebook"
             className="btn btn-social btn-facebook">
             <i className="fa fa-facebook" />
             <span>Login with Facebook</span>

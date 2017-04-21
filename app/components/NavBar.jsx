@@ -7,7 +7,7 @@ const NavBarMain = (props) => {
       <NavBar>
       <NavBar.Header>
           <NavBar.Brand>
-              <a href="/homepage" style={{ cursor: 'pointer' }}>TENK</a>
+              <a href="/" style={{ cursor: 'pointer' }}>TENK</a>
           </NavBar.Brand>
           <NavBar.Toggle />
       </NavBar.Header>
