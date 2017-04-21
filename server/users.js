@@ -28,7 +28,7 @@ router.route('/')
   // If you want to only let admins list all the users, then you'll
   // have to add a role column to the users table to support
   // the concept of admin users.
-.get('Must be admin user', (req, res, next) => {
+.get(forbidden('Must be admin user'), (req, res, next) => {
   User.findAll()
     .then(users => res.json(users))
     .catch(next)
@@ -42,7 +42,6 @@ router.route('/')
 router.route('/:userId')
 .get(mustBeLoggedIn, (req, res, next) => res.json(req.targetUser))
 .put(mustBeLoggedIn, (req, res, next) => {
-  console.log('UPDATING USER', req.body)
   req.targetUser.update(req.body)
   .then(updatedUser => {
     res.status(201).json(updatedUser)
