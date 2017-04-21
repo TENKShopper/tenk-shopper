@@ -48,36 +48,40 @@ class Multiview extends Component {
   }
 }
 
+const filterProducts = (product) => {
+  const nameMatch  = new RegExp(this.state.name, 'i');
+  const emailMatch = new RegExp(this.state.email, 'i');
+  const phoneMatch = new RegExp(this.state.phone, 'i');
+  return nameMatch.test(product.name)
+      && emailMatch.test(product.email)
+      && phoneMatch.test(product.phone);
+}
+
 const renderProductsFilter = () => {
   return (
     <div>
       { this.props.isAdmin ? this.renderNewProductWidget() : null }
       <div className= "filter">
-        <h4>Filter Products</h4>
+        <h4>Filter Products by Category</h4>
         <form className="form-group">
-          <input
+          <select
             type="text"
-            placeholder="Jean Doe"
+            placeholder="Select a category"
             className="form-like"
-            onChange={evt => this.setState({ name: evt.target.value })}
-          />
-          <input
-            type="email"
-            placeholder="email@website.com"
-            className="form-like"
-            onChange={evt => this.setState({ email: evt.target.value })}
-          />
+            onChange={evt => this.setState({ product: evt.target.value })}
+          >
+            //TODO: fill in with categories
+          </select>
         </form>
       </div>
     </div>
   )
 }
 
-
-const renderNewUserWidget() {
+const renderNewProductWidget() {
     return (
       <div className="list-group-item min-content user-item">
-        <form className="media" onSubmit={this.submit}>
+        <form className="media" onSubmit={this.submitNewProduct}>
           <div className="media-left media-middle icon-container">
             <button
               type="submit"
