@@ -33,12 +33,12 @@ class UsersFilter extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="col-xs-2">
+      <div>
+        <div className="col-md-3">
           {this.props.isAdmin ? this.renderNewUserWidget() : null}
           {this.renderUsersFilter()}
         </div>
-        <div className="col-xs-10">
+        <div className="col-md-9">
           Users go here.
           {/*
             { this.props.users &&
@@ -51,7 +51,7 @@ class UsersFilter extends Component {
     )
   }
 
-  /* ------ UsersFilter Functions ------ */
+  /* ------ Helper Functions ------ */
 
   filterUsers(user) {
     const nameMatch = new RegExp(this.state.name, 'i')

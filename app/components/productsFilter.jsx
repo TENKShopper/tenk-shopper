@@ -15,9 +15,21 @@ import { connect } from 'react-redux'
 
 // import ProductItem from './productitem'
 
+/* ----- DUMMY DATA ----- */
+
+const dummyProducts = [
+  {
+    name: 'Blue Suede Shoes'
+  },
+  {
+    name: 'Red Canvas Shoes'
+  }
+]
+
 /* ----- COMPONENT ----- */
 
 class ProductsFilter extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -29,9 +41,32 @@ class ProductsFilter extends Component {
     this.filterProducts = this.filterProducts.bind(this)
     this.submitNewProduct = this.submitNewProduct.bind(this)
   }
+
+  render() {
+    return (
+      <div className="products-view" >
+        <div className="col-md-3">
+          {this.props.isAdmin ? this.renderNewProductWidget() : null}
+          {this.renderProductsFilter()}
+        </div>
+        <div className="col-md-9">
+          { this.props.products
+            .filter(this.filterProducts)
+            .map(product => <h5>{product.name}</h5>) }
+          {/* { this.products &&
+            this.products
+            .filter(this.filterProducts)
+            .map(product => <ProductItem product={product} key={product.id} />) } */}
+        </div>
+      </div>
+    )
+  }
+
+    /* ------ Helper Functions ------ */
+
   renderProductsFilter() {
     return (
-      <h4 className="media-heading tucked">
+      <h4>
         <input
           type="text"
           placeholder="Input product name"
@@ -85,6 +120,7 @@ class ProductsFilter extends Component {
       </div>
     )
   }
+
   /* TODO: adapt filterProducts for Categories array */
   filterProducts(product) {
     const nameMatch = new RegExp(this.state.name, 'i')
@@ -92,6 +128,7 @@ class ProductsFilter extends Component {
     return nameMatch.test(product.name) &&
       categoryMatch.test(product.categories)
   }
+
   submitNewProduct(event) {
     event.preventDefault()
     const user = {
@@ -103,25 +140,7 @@ class ProductsFilter extends Component {
     event.target.name.value = ''
     event.target.email.value = ''
   }
-  render() {
-    return (
-      <div>
-        <div className="col-md-2">
-          {this.props.isAdmin ? this.renderNewProductWidget() : null}
-          {this.renderProductsFilter()}
-        </div>
-        <div className="col-md-10">
-          Products go here
-          {/*
-          { this.props.products &&
-            this.props.products
-            .filter(this.filterProducts)
-            .map(product => <ProductItem product={product} key={product.id} />)
-          */}
-        </div>
-      </div>
-    )
-  }
+
 }
 
 /* ----- CONTAINER ----- */
@@ -130,7 +149,7 @@ class ProductsFilter extends Component {
 const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
-    products: state.products
+    products: dummyProducts
   }
 }
 
