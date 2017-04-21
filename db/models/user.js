@@ -40,7 +40,7 @@ module.exports = db => db.define('users', {
   getterMethods: {
     // checks if user is a guest or not
     isGuest: function() {
-      return Boolean(!this.password)
+      return Boolean(!this.password_digest)
     }
   },
   instanceMethods: {
@@ -65,7 +65,6 @@ module.exports.associations = (User, {OAuth, Review, Order, Address}) => {
 }
 
 function setEmailAndPassword(user) {
-  if (user.isGuest) return
   user.email = user.email && user.email.toLowerCase()
   if (!user.password) return Promise.resolve(user)
   return bcrypt.hash(user.get('password'), 10)
