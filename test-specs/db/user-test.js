@@ -8,7 +8,7 @@ const db = require('APP/db')
 
 describe('User', () => {
   before('Await database sync', () => db.didSync)
-  afterEach('Clear the tables', () => db.sync({ force: true }))
+  after('Clear the tables', () => db.sync({ force: true }))
 
   describe('authenticate(plaintext: String) ~> Boolean', () => {
     let testUser
@@ -72,7 +72,7 @@ describe('User', () => {
     let testAddress
     let testAddress2
 
-    beforeEach(done => {
+    before(done => {
       const creatingUser = User.create({email: 'kido@kido.com'})
       const creatingAddress = Address.create({country: 'USA', firstName: 'Kido Kido', lastName: 'Kido', administrativeArea: 'NY', locality: 'NYC', postalZipCode: '12345', streetAddress: '123 Kido Lane'})
       const creatingAddress2 = Address.create({country: 'USA', firstName: 'John John', lastName: 'John', administrativeArea: 'NY', locality: 'NYC', postalZipCode: '12345', streetAddress: '123 Kido Lane'})
