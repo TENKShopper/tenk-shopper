@@ -132,6 +132,7 @@ describe('Users API', () => {
       request(app)
       .get('/api/users/1')
       .then(res => {
+        console.log(res.body)
         expect(res.body.userName).to.equal('blueUser')
         expect(res.body.email).to.equal('blueuser@gmail.com')
         done()
@@ -159,7 +160,7 @@ describe('Users API', () => {
         userName: 'blueUser'
       })
       .then(res => {
-        expect(res.body.shipping).to.equal('blueuser@gmail.com')
+        expect(res.body.userName).to.equal('blueUser')
         done()
       })
       .catch(done)

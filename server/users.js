@@ -42,9 +42,9 @@ router.route('/')
 router.route('/:userId')
 .get(mustBeLoggedIn, (req, res, next) => res.json(req.targetUser))
 .put(mustBeLoggedIn, (req, res, next) => {
-  req.targetUser.update(res.body)
+  console.log('UPDATING USER', req.body)
+  req.targetUser.update(req.body)
   .then(updatedUser => {
-    console.log('UPDATED USER', updatedUser)
     res.status(201).json(updatedUser)
   })
   .catch(next)
