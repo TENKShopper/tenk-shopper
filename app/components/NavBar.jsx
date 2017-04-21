@@ -44,8 +44,7 @@ const NavBarMain = (props) => {
           </div>
       </NavBar.Form>
       <NavBar.Nav className="pull-right">
-        <NavBar.Item active={true} href="/login">LOGIN</NavBar.Item>
-        <NavBar.Item active={true} href="/signup">SIGNUP</NavBar.Item>
+        <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>
       </NavBar.Nav>
   </NavBar>
   )
