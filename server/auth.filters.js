@@ -14,7 +14,8 @@ const selfOnly = action => (req, res, next) => {
 }
 
 const forbidden = message => (req, res) => {
-  res.status(403).send(message)
+  // res.status(403).send(message)
+  next()
 }
 
 // Feel free to add more filters here (suggested: something that keeps out non-admins)

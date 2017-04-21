@@ -91,7 +91,6 @@ describe('Users API', () => {
     }
 
   before('Add dummy data to tables', () => {
-    // Use promise chaining to ensure internationalUser is created before twoDayUser.
     return User.create(blueUser)
     .then(newUser => {
       return Address.create(blueAddress)
@@ -132,7 +131,6 @@ describe('Users API', () => {
       request(app)
       .get('/api/users/1')
       .then(res => {
-        console.log(res.body)
         expect(res.body.userName).to.equal('blueUser')
         expect(res.body.email).to.equal('blueuser@gmail.com')
         done()

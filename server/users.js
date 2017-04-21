@@ -28,7 +28,7 @@ router.route('/')
   // If you want to only let admins list all the users, then you'll
   // have to add a role column to the users table to support
   // the concept of admin users.
-.get((req, res, next) => {
+.get('Must be admin user', (req, res, next) => {
   User.findAll()
     .then(users => res.json(users))
     .catch(next)
@@ -49,7 +49,7 @@ router.route('/:userId')
   })
   .catch(next)
 })
-.delete((req, res, next) => {
+.delete(forbidden('Must be admin user'), (req, res, next) => {
   req.targetUser.destroy()
   .then(() => res.sendStatus(204))
   .catch(next)
