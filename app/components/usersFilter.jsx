@@ -18,6 +18,7 @@ import {connect} from 'react-redux'
 /* ----- COMPONENT ----- */
 
 class UsersFilter extends Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -29,12 +30,13 @@ class UsersFilter extends Component {
     this.filterUsers = this.filterUsers.bind(this)
     this.submitNewUser = this.submitNewUser.bind(this)
   }
+
   render() {
     return (
       <div className="container">
         <div className="col-xs-2">
-          { this.props.isAdmin ? this.renderNewUserWidget() : null }
-          { this.renderUsersFilter() }
+          {this.props.isAdmin ? this.renderNewUserWidget() : null}
+          {this.renderUsersFilter()}
         </div>
         <div className="col-xs-10">
           Users go here.
@@ -48,94 +50,98 @@ class UsersFilter extends Component {
       </div>
     )
   }
-}
 
-const filterUsers = (user) => {
-  const nameMatch = new RegExp(this.state.name, 'i')
-  const emailMatch = new RegExp(this.state.email, 'i')
-  return nameMatch.test(user.name) &&
-        emailMatch.test(user.email)
-}
+  /* ------ UsersFilter Functions ------ */
 
-const renderUsersFilter = () => {
-  return (
-    <div className="list-group-item min-content user-item">
-      <div className="media">
-        <div className="media-left media-middle icon-container">
-          <span className="glyphicon glyphicon-search" />
-        </div>
-        <div className="media-body">
-          <h4 className="media-heading tucked">
-            <input
-              type="text"
-              placeholder="Jean Doe"
-              className="form-like"
-              onChange={evt => this.setState({ name: evt.target.value })}
-            />
-          </h4>
-          <h5 className="tucked">
-            <input
-              type="email"
-              placeholder="email@website.com"
-              className="form-like"
-              onChange={evt => this.setState({ email: evt.target.value })}
-            />
-          </h5>
-        </div>
-      </div>
-    </div>
-  )
-}
+  filterUsers(user) {
+    const nameMatch = new RegExp(this.state.name, 'i')
+    const emailMatch = new RegExp(this.state.email, 'i')
+    return nameMatch.test(user.name) &&
+      emailMatch.test(user.email)
+  }
 
-const renderNewUserWidget = () => {
-  return (
-    <div>
-      <h3>Add a User</h3>
+  renderUsersFilter() {
+    return (
       <div className="list-group-item min-content user-item">
-        <form className="media" onSubmit={this.submitNewUser}>
+        <div className="media">
           <div className="media-left media-middle icon-container">
-            <button
-              type="submit"
-              className="glyphicon glyphicon-plus clickable"
-            />
+            <span className="glyphicon glyphicon-search" />
           </div>
           <div className="media-body">
             <h4 className="media-heading tucked">
               <input
-                name="name"
                 type="text"
-                required
                 placeholder="Jean Doe"
                 className="form-like"
+                onChange={evt => this.setState({ name: evt.target.value })}
               />
             </h4>
             <h5 className="tucked">
               <input
-                name="email"
                 type="email"
-                required
                 placeholder="email@website.com"
                 className="form-like"
+                onChange={evt => this.setState({ email: evt.target.value })}
               />
             </h5>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
+
+  renderNewUserWidget() {
+    return (
+      <div>
+        <h3>Add a User</h3>
+        <div className="list-group-item min-content user-item">
+          <form className="media" onSubmit={this.submitNewUser}>
+            <div className="media-left media-middle icon-container">
+              <button
+                type="submit"
+                className="glyphicon glyphicon-plus clickable"
+              />
+            </div>
+            <div className="media-body">
+              <h4 className="media-heading tucked">
+                <input
+                  name="name"
+                  type="text"
+                  required
+                  placeholder="Jean Doe"
+                  className="form-like"
+                />
+              </h4>
+              <h5 className="tucked">
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="email@website.com"
+                  className="form-like"
+                />
+              </h5>
+            </div>
+          </form>
+        </div>
+      </div>
+    )
+  }
+
+  submitNewUser(event) {
+    event.preventDefault()
+    const user = {
+      name: event.target.name.value,
+      email: event.target.email.value,
+    }
+    this.props.addUser(user)
+    // clear the inputs
+    event.target.name.value = ''
+    event.target.email.value = ''
+  }
+
 }
 
-const submitNewUser = (event) => {
-  event.preventDefault()
-  const user = {
-    name: event.target.name.value,
-    email: event.target.email.value,
-  }
-  this.props.addUser(user)
-  // clear the inputs
-  event.target.name.value = ''
-  event.target.email.value = ''
-}
 
 /* ----- CONTAINER ----- */
 
