@@ -91,6 +91,7 @@ describe('User', () => {
       testUser.setBillingAddresses(testAddress)
       .then(() => testUser.getBillingAddresses())
       .then(billingInfo => {
+        console.log(testUser)
         expect(billingInfo.length).to.equal(1)
         expect(billingInfo[0].fullName).to.equal('Kido Kido Kido')
         done()

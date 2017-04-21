@@ -59,3 +59,7 @@ module.exports = db => db.define('addresses', {
     }
   }
 })
+
+module.exports.associations = (User, {OAuth, Review, Order, Address}) => {
+  Address.belongsTo(User)
+}
