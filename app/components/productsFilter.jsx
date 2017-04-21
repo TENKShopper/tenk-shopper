@@ -20,17 +20,25 @@ import { connect } from 'react-redux'
 const dummyProducts = [
   {
     name: 'Blue Suede Shoes',
-    categories: ['shoes', 'blue']
+    categories: ['shoes', 'blue'],
+    available: true
   },
   {
     name: 'Red Canvas Shoes',
-    categories: ['shoes', 'red']
+    categories: ['shoes', 'red'],
+    available: false
   },
   {
     name: 'Green Trunks',
-    categories: ['truks', 'green']
+    categories: ['trunks', 'green'],
+    available: true
+  },
+  {
+    name:
   }
 ]
+
+const dummyCategories = ['shoes', 'blue', 'red', 'trunks', 'green']
 
 /* ----- COMPONENT ----- */
 
@@ -40,7 +48,7 @@ class ProductsFilter extends Component {
     super(props)
     this.state = {
       nameQuery: '',
-      category: '',
+      categoryQuery: '',
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
     this.renderNewProductWidget = this.renderNewProductWidget.bind(this)
@@ -62,7 +70,7 @@ class ProductsFilter extends Component {
           {/* { this.products &&
             this.products
             .filter(this.filterProducts)
-            .map(product => <ProductItem product={product} key={product.id} />) } */}
+            .map(product => <ProductItem removeProduct={this.props.removeProduct} product={product} key={product.id} />) } */}
         </div>
       </div>
     )
@@ -73,6 +81,7 @@ class ProductsFilter extends Component {
   renderProductsFilter() {
     return (
       <div>
+
         <div>
           <div className="media-left media-middle icon-container">
             <div className="glyphicon glyphicon-search" />
@@ -89,6 +98,26 @@ class ProductsFilter extends Component {
             />
           </div>
         </div>
+
+        <div>
+          <div className="media-left media-middle icon-container">
+            <div className="glyphicon glyphicon-filter" />
+          </div>
+          <div className="media-body media-middle">
+            <h4>Filter by Category</h4>
+          </div>
+          <div>
+            <select
+              placeholder="Select a category"
+              onChange={evt => this.setState({ categoryQuery: evt.target.value })}
+            >
+              { this.props.categories
+                .map(category => <option value={category}>{category}</option>)
+              }
+            </select>
+          </div>
+        </div>
+
       </div>
     )
   }
@@ -140,20 +169,23 @@ class ProductsFilter extends Component {
   /* TODO: write filterProducts for Categories array */
   filterProducts(product) {
     const nameMatch = new RegExp(this.state.nameQuery, 'i')
-    return nameMatch.test(product.name)
-    // && categoriesFilter
+    const matchesNameQuery = nameMatch.test(product.name)
+
+    if (this.state.categoryQuery.length > 1) {
+      return product.categories.includes(this.state.categoryQuery) && matchesNameQuery
+    }
+
+    return matchesNameQuery
   }
 
   submitNewProduct(event) {
     event.preventDefault()
-    const user = {
+    const product = {
       name: event.target.name.value,
-      email: event.target.email.value,
     }
-    this.props.addProduct(user)
+    this.props.addProduct(product)
     // clear the inputs
     event.target.name.value = ''
-    event.target.email.value = ''
   }
 
 }
@@ -164,13 +196,15 @@ class ProductsFilter extends Component {
 const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
-    products: dummyProducts
+    products: dummyProducts,
+    categories: dummyCategories
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     // addProduct
+    // removeProduct
   }
 }
 
