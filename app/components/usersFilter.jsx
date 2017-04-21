@@ -13,7 +13,7 @@ The display renders all the UserItem components delineated by the Users prop pas
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-import ProductItem from './productitem'
+// import UsersItem from './usersItem'
 
 /* ----- COMPONENT ----- */
 
@@ -37,11 +37,13 @@ class UsersFilter extends Component {
           { this.renderUsersFilter() }
         </div>
         <div className="col-xs-10">
-          { this.props.users &&
+          Users go here.
+          {/*
+            { this.props.users &&
             this.props.users
             .filter(this.filterUsers)
             .map(user => <UserItem user={user} key={user.id} />)
-          }
+          }*/}
         </div>
       </div>
     )
@@ -147,7 +149,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addUser
+    // addUser
   }
 }
 

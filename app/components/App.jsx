@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
+import NavBarMain from './NavBar'
 
-import NavBarMain from './components/NavBar'
-
-export default function App({children}) {
+export default function App({ children }) {
   return (
     <div id="main" className="container-fluid">
       <NavBarMain />

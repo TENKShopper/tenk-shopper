@@ -8,13 +8,12 @@ import store from './store'
 
 /* ------ Components ------ */
 
+import App from './components/App'
 import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import App from './components/App'
-import Multiview from './components/Multiview'
-import Products from './components/Products'
-import Users from './components/Users'
+import Products from './components/productsFilter'
+import Users from './components/usersFilter'
 
 const ExampleApp = connect(
   ({ auth }) => ({ user: auth })

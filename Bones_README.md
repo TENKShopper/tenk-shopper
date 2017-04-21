@@ -69,8 +69,7 @@ In two separate terminals. The vanilla `npm start` is for production — you won
 
 `/app` has the React/Redux setup. `main.jsx` is the entry point.
 
-`/db` has the Sequelize models and database setup. It'll create the database for you if it doesn't exist,
-assuming you're using postgres.
+`/db` has the Sequelize models and database setup. It'll create the database for you if it doesn't exist, assuming you're using postgres.
 
 `/server` has the Express server and routes. `start.js` is the entry point.
 
@@ -82,8 +81,7 @@ I use `require` and `module.exports` in `.js` files.
 
 I use `import` and `export` in `.jsx` files, unless `require` makes for cleaner code.
 
-I use two spaces, no semi-colons, and trailing commas where possible. I'll
-have a linter someday soon.
+I use two spaces, no semi-colons, and trailing commas where possible. I'll have a linter someday soon.
 
 ## Quick Heroku deployment
 
