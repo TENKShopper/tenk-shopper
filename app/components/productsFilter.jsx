@@ -34,7 +34,9 @@ const dummyProducts = [
     available: true
   },
   {
-    name:
+    name: 'Black Boots',
+    categories: ['shoes', 'black'],
+    available: true
   }
 ]
 
@@ -111,6 +113,7 @@ class ProductsFilter extends Component {
               placeholder="Select a category"
               onChange={evt => this.setState({ categoryQuery: evt.target.value })}
             >
+              <option value="Select a category">Select a category</option>
               { this.props.categories
                 .map(category => <option value={category}>{category}</option>)
               }
@@ -166,16 +169,17 @@ class ProductsFilter extends Component {
     )
   }
 
-  /* TODO: write filterProducts for Categories array */
+  /* TODO: think through categories */
   filterProducts(product) {
     const nameMatch = new RegExp(this.state.nameQuery, 'i')
-    const matchesNameQuery = nameMatch.test(product.name)
+          , matchesNameQuery = nameMatch.test(product.name)
+          , viewable = this.props.isAdmin ? true : product.available
 
     if (this.state.categoryQuery.length > 1) {
-      return product.categories.includes(this.state.categoryQuery) && matchesNameQuery
+      return product.categories.includes(this.state.categoryQuery) && matchesNameQuery && viewable
     }
 
-    return matchesNameQuery
+    return matchesNameQuery && viewable
   }
 
   submitNewProduct(event) {
