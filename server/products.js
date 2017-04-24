@@ -10,7 +10,7 @@ router.route('/')
 .get((req, res, next) =>
   Product.findAll()
   .then(products => res.json(products))
-  .catch(next)
+  .catch(err => next(err))
 )
 .post((req, res, next) =>
   Product.create(req.body)
