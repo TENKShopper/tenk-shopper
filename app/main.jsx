@@ -15,7 +15,7 @@ import NotFound from './components/NotFound'
 import Products from './components/productsFilter'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
-import Auth from './components/Login'
+import Auth from './components/LoginSignup'
 
 render(
   <Provider store={ store }>
@@ -23,7 +23,6 @@ render(
       <Route path="/" component={ App } >
         <IndexRedirect to="/home" />
         <Route path="/home" component={ Home } />
-        {/* Update to split Login and Signup into two separate components rendered in Auth */}
         <Route path="/authenticate" component={ Auth } />
         <Route path="/products" component={ Products } />
         <Route path="/users/:userId" component={User}>

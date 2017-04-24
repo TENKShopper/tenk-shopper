@@ -3,7 +3,7 @@ import {browserHistory} from 'react-router'
 
 const Signup = ({signup}) => (
   <div className="col-md-6">
-    <form className="form-horizontal" action='' method="POST">
+    <form className="form-horizontal" action='' method="POST"
       onSubmit={evt => {
         evt.preventDefault()
         signup(evt.target.username.value, evt.target.email.value, evt.target.password.value)
