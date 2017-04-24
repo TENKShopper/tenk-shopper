@@ -1,12 +1,12 @@
 'use strict'
 
 const path = require('path')
-const express = require('express')
-const bodyParser = require('body-parser')
-const {resolve} = require('path')
-const passport = require('passport')
-const PrettyError = require('pretty-error')
-const finalHandler = require('finalhandler')
+      , express = require('express')
+      , bodyParser = require('body-parser')
+      , {resolve} = require('path')
+      , passport = require('passport')
+      , PrettyError = require('pretty-error')
+      , finalHandler = require('finalhandler')
 // PrettyError docs: https://www.npmjs.com/package/pretty-error
 
 // Bones has a symlink from node_modules/APP to the root of the app.
@@ -15,8 +15,7 @@ const finalHandler = require('finalhandler')
 //
 // This next line requires our root index.js:
 const pkg = require('APP')
-
-const app = express()
+      , app = express()
 
 if (!pkg.isProduction && !pkg.isTesting) {
   // Logging middleware (dev only)
