@@ -16,9 +16,9 @@ export const Auth = (props) => (
           <legend className="">Login</legend>
         </div>
         <div className="control-group">
-          <label className="control-label" htmlFor="username">Username</label>
+          <label className="control-label" htmlFor="email">Email</label>
           <div className="controls">
-            <input type="text" id="username" name="username" placeholder="" className="input-xlarge"/>
+            <input type="text" id="email" name="email" placeholder="" className="input-xlarge"/>
           </div>
         </div>
         <div className="control-group">
@@ -74,6 +74,8 @@ export const Auth = (props) => (
     <Signup />
   </div>
 )
+
+/* -----------------    CONTAINER     ------------------ */
 
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'

@@ -23,6 +23,7 @@ render(
           <Route path="/users/:userId/reviews" component={User} />
           <Route path="/users/:userId/addresses" component={User} />
           <Route path="/users/:userId/settings" component={User} />
+          <IndexRedirect path="/users/:userId/orders" />
         </Route>
       </Route>
       <Route path='*' component={NotFound} />
