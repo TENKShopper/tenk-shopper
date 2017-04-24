@@ -1,3 +1,4 @@
+// OB/IJM: file naming conventions (dash v camel case)
 import axios from 'axios'
 
 /* -----------------    ACTIONS     ------------------ */
@@ -18,6 +19,7 @@ const update = product  => ({ type: UPDATE, product })
 
 /* ------------       REDUCER     ------------------ */
 
+// OB/IJM: recommend immutable.js, https://facebook.github.io/immutable-js/docs/
 export default reducer = (products = [], action) => {
   switch (action.type) {
     case INITIALIZE:
@@ -50,14 +52,14 @@ export const fetchProducts = () => dispatch => {
 // optimistic
 export const removeProduct = id => dispatch => {
   dispatch(remove(id))
-  axios.put(`/api/products/${id}`, { available: false })
+  axios.put(`/api/products/${id}`, { available: false }) // OB/IJM: maybe roll this into the updateProduct below
        .catch(err => console.error(`Making product #${id} unavailable was unsuccesful`, err))
 }
 
 export const addProduct = product => dispatch => {
   axios.post('/api/products', product)
        .then(res => dispatch(create(res.data)))
-       .catch(err => console.error(`Creating product: ${product} unsuccesful`, err))
+       .catch(err => console.error(`Creating product: ${product} unsuccesful`, err)) // OB/IJM: https://tomchentw.github.io/react-toastr/
 }
 
 export const updateProduct = (id, product) => dispatch => {

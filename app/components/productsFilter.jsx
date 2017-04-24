@@ -124,6 +124,7 @@ class ProductsFilter extends Component {
               placeholder="Select a category"
               onChange={evt => this.setState({ categoryQuery: evt.target.value })}
             >
+              {/* OB/IJM: typeaheads are neat http://ericgio.github.io/react-bootstrap-typeahead/ */}
               <option value="Select a category">Select a category</option>
               { this.props.categories
                 .map(category => <option value={category}>{category}</option>)
@@ -192,7 +193,7 @@ class ProductsFilter extends Component {
     }
     this.props.addProduct(product)
     // clear the inputs
-    event.target.name.value = ''
+    event.target.name.value = '' // OB/IJM: this mutates the DOM? if you want to zero it out, recommend setState instead
   }
 
 }

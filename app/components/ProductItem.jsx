@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
+// OB/IJM: some dead code
 // import removeProduct from './dispatchers/removeProduct'
 
 export default class ProductItem extends Component {

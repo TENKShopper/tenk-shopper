@@ -23,7 +23,7 @@ render(
         <Route path="/authenticate" component={Auth} />
         <Route path="/products" component={ Products } />
         <Route path="/users/:userId" component={User}>
-          <Route path="/users/:userId/orders" component={Orders} />
+          <Route path="/users/:userId/orders" component={Orders} /> {/* OB/IJM: can use relative routes instead of absolute if you want */}
           <Route path="/users/:userId/reviews" component={User} />
           <Route path="/users/:userId/addresses" component={User} />
           <Route path="/users/:userId/settings" component={User} />

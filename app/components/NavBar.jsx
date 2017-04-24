@@ -5,6 +5,7 @@ import {Modal, NavBar, ButtonDropdown} from 'simple-react-bootstrap'
 import WhoAmI from './WhoAmI'
 import {connect} from 'react-redux'
 
+// OB/IJM: checkout semantic (bootstrap is also a good choice): https://react.semantic-ui.com/introduction
 const NavBarMain = ({user}) => {
   return (
       <NavBar>
