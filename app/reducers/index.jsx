@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux'
-import singleProductReducer from './singleProductReducer'
-import {GET_SINGLE_PRODUCT} from '../actions/constants'
 
 const rootReducer = combineReducers({
-  singleProduct: singleProductReducer,
-  auth: require('./auth').default
+  products: require('./products-reducer').default,
+  // selectedProduct: require('./selectedProduct-reducer').default,
+  auth: require('./auth-reducer').default
 })
 
 export default rootReducer

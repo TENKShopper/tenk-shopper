@@ -1,3 +1,5 @@
+//TODO: make this a reducer for just the "selectedProduct" part of state
+
 import axios from 'axios'
 
 /* -----------------    ACTIONS     ------------------ */
@@ -17,7 +19,7 @@ const update = product  => ({ type: UPDATE, product })
 
 /* ------------       REDUCER     ------------------ */
 
-export default (products = [], action) => {
+export default (product = null, action) => {
   switch (action.type) {
     case INITIALIZE:
       return action.products
@@ -32,6 +34,7 @@ export default (products = [], action) => {
       return products.map(product => (
         action.product.id === product.id ? action.product : product
       ))
+
     default:
       return products
   }
@@ -73,3 +76,4 @@ export const makeProductUnavailable = id => dispatch => {
   axios.put(`/api/products/${id}`, { available: false })
        .catch(err => console.error(`Making product #${id} unavailable was unsuccessful`, err))
 }
+

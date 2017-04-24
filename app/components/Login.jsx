@@ -1,8 +1,8 @@
 import React from 'react'
-import {browserHistory} from 'react-router'
+import { browserHistory } from 'react-router'
 import Signup from './Signup'
 
-export const Auth = (props) => (
+const Auth = (props) => (
   <div>
     <div className="col-md-6">
       <form className="form-horizontal" action='' method="POST"
@@ -18,7 +18,8 @@ export const Auth = (props) => (
         <div className="control-group">
           <label className="control-label" htmlFor="email">Email</label>
           <div className="controls">
-            <input type="text" id="email" name="email" placeholder="" className="input-xlarge"/>
+            <input type="text" id="email" name="email" placeholder="" className="input-xlarge" />
+          </div>
         </div>
         <div className="control-group">
           <label className="control-label" htmlFor="password">Password</label>
@@ -76,10 +77,10 @@ export const Auth = (props) => (
 
 /* -----------------    CONTAINER     ------------------ */
 
-import {login} from 'APP/app/reducers/auth'
-import {connect} from 'react-redux'
+import { login } from 'APP/app/reducers/auth-reducer'
+import { connect } from 'react-redux'
 
 export default connect(
   state => ({}),
-  {login},
+  { login },
 )(Auth)

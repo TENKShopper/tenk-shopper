@@ -20,7 +20,8 @@ render(
   <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route path="/" component={ App } >
-        <Route path="/authenticate" component={Auth} />
+        {/* Update to split Login and Signup into two separate components rendered in Auth */}
+        <Route path="/authenticate" component={ Auth } />
         <Route path="/products" component={ Products } />
         <Route path="/users/:userId" component={User}>
           <Route path="/users/:userId/orders" component={Orders} />
