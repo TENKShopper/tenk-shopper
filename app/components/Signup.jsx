@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import {browserHistory} from 'react-router'
 
 export const Signup = ({signup}) => (
@@ -9,6 +10,12 @@ export const Signup = ({signup}) => (
         signup(evt.target.username.value, evt.target.email.value, evt.target.password.value)
         browserHistory.push('/')
       } }>
+=======
+
+const Signup = (props) => (
+  <div className="col-md-6">
+    <form className="form-horizontal" action='' method="POST">
+>>>>>>> 7a0a324f281e5855307209fdd01c89bca5d0f9d5
       <fieldset>
         <div id="legend">
           <legend className="">Register</legend>
@@ -35,6 +42,7 @@ export const Signup = ({signup}) => (
           </div>
         </div>
         <div className="control-group">
+<<<<<<< HEAD
           <div className="controls">
             <button className="btn btn-success">Signup</button>
           </div>
@@ -75,10 +83,25 @@ export const Signup = ({signup}) => (
           </a>
         </p>
       </div>
+=======
+          <label className="control-label" htmlFor="password_confirm">Password (Confirm)</label>
+          <div className="controls">
+            <input type="password" id="password_confirm" name="password_confirm" placeholder="" className="input-xlarge"/>
+            <p className="help-block">Please confirm password</p>
+          </div>
+        </div>
+        <div className="control-group">
+          <div className="controls">
+            <button className="btn btn-success">Register</button>
+          </div>
+        </div>
+      </fieldset>
+>>>>>>> 7a0a324f281e5855307209fdd01c89bca5d0f9d5
     </form>
   </div>
 )
 
+<<<<<<< HEAD
 /* -----------------    CONTAINER     ------------------ */
 
 import {signup} from 'APP/app/reducers/auth'
@@ -88,3 +111,6 @@ export default connect(
   state => ({}),
   {signup},
 )(Signup)
+=======
+export default Signup
+>>>>>>> 7a0a324f281e5855307209fdd01c89bca5d0f9d5

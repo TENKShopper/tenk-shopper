@@ -1,6 +1,6 @@
 import React from 'react'
-import Signup from './Signup'
 import {browserHistory} from 'react-router'
+import Signup from './Signup'
 
 export const Auth = (props) => (
   <div>
@@ -19,7 +19,6 @@ export const Auth = (props) => (
           <label className="control-label" htmlFor="email">Email</label>
           <div className="controls">
             <input type="text" id="email" name="email" placeholder="" className="input-xlarge"/>
-          </div>
         </div>
         <div className="control-group">
           <label className="control-label" htmlFor="password">Password</label>
