@@ -36,9 +36,9 @@ class ProductsFilter extends Component {
       <div className="products-view" >
         <div className="col-md-3">
           {/* TODO: create renderNewProductWidget functionality */}
-          { this.props.isAdmin? <NewProductForm /> : null }
+          { this.props.isAdmin ? <NewProductForm /> : null }
           { this.renderProductsFilter() }
-          { this.state.categoryQuery ? <RefineProductSelection /> : null }
+          { this.state.collectionQuery ? <RefineProductSelection /> : null }
         </div>
         <div className="col-md-9">
           { this.props.products
