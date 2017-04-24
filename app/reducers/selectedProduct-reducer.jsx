@@ -77,13 +77,3 @@ export const makeProductUnavailable = id => dispatch => {
        .catch(err => console.error(`Making product #${id} unavailable was unsuccessful`, err))
 }
 
-
-
-
-import {GET_SINGLE_PRODUCT} from '../actions/constants'
-
-export default function(state= {}, action){
-  switch(action.type){
-    default: return state;
-  }
-}

@@ -77,7 +77,7 @@ const Auth = (props) => (
 
 /* -----------------    CONTAINER     ------------------ */
 
-import { login } from 'APP/app/reducers/auth'
+import { login } from 'APP/app/reducers/auth-reducer'
 import { connect } from 'react-redux'
 
 export default connect(

@@ -32,7 +32,6 @@ export default (products = [], action) => {
       return products.map(product => (
         action.product.id === product.id ? action.product : product
       ))
-
     default:
       return products
   }

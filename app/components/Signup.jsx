@@ -81,7 +81,7 @@ const Signup = ({signup}) => (
 
 /* -----------------    CONTAINER     ------------------ */
 
-import {signup} from 'APP/app/reducers/auth'
+import {signup} from 'APP/app/reducers/auth-reducer'
 import {connect} from 'react-redux'
 
 export default connect(
