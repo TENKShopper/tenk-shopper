@@ -14,6 +14,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import ProductItem from './ProductItem'
+import RefineProductSelection from './RefineProductSelection'
 
 /* ----- DUMMY DATA ----- */
 
@@ -63,7 +64,7 @@ class ProductsFilter extends Component {
     super(props)
     this.state = {
       nameQuery: '',
-      categoryQuery: '',
+      categoryQuery: null,
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
     this.renderNewProductWidget = this.renderNewProductWidget.bind(this)
@@ -78,6 +79,7 @@ class ProductsFilter extends Component {
           {/* TODO: create renderNewProductWidget functionality */}
           { this.props.isAdmin? this.renderNewProductWidget() : null }
           { this.renderProductsFilter() }
+          { this.state.categoryQuery ? <RefineProductSelection /> : null }
         </div>
         <div className="col-md-9">
           { this.props.products
@@ -85,7 +87,7 @@ class ProductsFilter extends Component {
             .map(product => {
               return (
                 <div>
-                  <ProductItem removeProduct={this.props.removeProduct} product={product} key={product.id} />
+                  <ProductItem key={product.id} removeProduct={this.props.removeProduct} product={product} />
                 </div>
               )
             }) }
@@ -136,34 +138,10 @@ class ProductsFilter extends Component {
             </select>
           </div>
         </div>
-
-        <div>
-          <h4>Refine Selection</h4>
-          <form>
-            <label>Gender</label>
-            <input
-              name="selectsMale"
-              type="checkbox"
-              value="Male"
-              onChange={ this.handleCheckboxChange }
-            />
-            <input
-              name="selectsFemale"
-              type="checkbox"
-              value="Female"
-              onChange={ this.handleCheckboxChange }
-            />
-            <input
-              name="selectsUnisex"
-              type="checkbox"
-              value="Unisex"
-              onChange={ this.handleCheckboxChange }
-            />
-          </form>
-        </div>
       </div>
     )
   }
+
   renderNewProductWidget() {
     return (
       <div>
@@ -207,7 +185,7 @@ class ProductsFilter extends Component {
           , matchesNameQuery = nameMatch.test(product.name)
           , viewable = this.props.isAdmin ? true : product.available
 
-    if (this.state.categoryQuery.length > 1) {
+    if (this.state.categoryQuery) {
       return product.categories.includes(this.state.categoryQuery) && matchesNameQuery && viewable
     }
 
