@@ -202,8 +202,8 @@ function seed(Model, rows) {
                 .then(row => Model.create(row)
                 .then(newInstance => {
                   if (Model === User) {
-                    return newInstance.addShippingInfo([newInstance.id])
-                    .then(() => newInstance.addShippingInfo([newInstance.id]))
+                    return newInstance.addShippingAddresses([newInstance.id])
+                    .then(() => newInstance.addShippingAddresses([newInstance.id]))
                   }
                 })
                   .catch(error => { throw new BadRow(key, row, error) })

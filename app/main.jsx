@@ -9,32 +9,25 @@ import store from './store'
 /* ------ Components ------ */
 
 import App from './components/App'
-import Login from './components/Login'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/productsFilter'
-import Users from './components/usersFilter'
-
-const ExampleApp = connect(
-  ({ auth }) => ({ user: auth })
-)(
-  ({ user, children }) =>
-    <div>
-      <nav>
-        {user ? <WhoAmI/> : <Login/>}
-      </nav>
-      {children}
-    </div>
-)
+import User from './components/User'
+import Orders from './components/Orders'
+import Auth from './components/Login'
 
 render(
   <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route path="/" component={ App } >
-        <Route path="/login" component={ Login } />
-        <Route path="/signup" component={ Login } />
+        <Route path="/authenticate" component={Auth} />
         <Route path="/products" component={ Products } />
-        <Route path="/users" component={ Users } />
+        <Route path="/users/:userId" component={User}>
+          <Route path="/users/:userId/orders" component={Orders} />
+          <Route path="/users/:userId/reviews" component={User} />
+          <Route path="/users/:userId/addresses" component={User} />
+          <Route path="/users/:userId/settings" component={User} />
+        </Route>
       </Route>
       <Route path='*' component={ NotFound } />
     </Router>
