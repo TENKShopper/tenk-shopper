@@ -71,7 +71,8 @@ class ProductsFilter extends Component {
     return (
       <div className="products-view" >
         <div className="col-md-3">
-          { this.props.isAdmin ? this.renderNewProductWidget() : null }
+          {/* TODO: create renderNewProductWidget functionality */}
+          { this.props.isAdmin? this.renderNewProductWidget() : null }
           { this.renderProductsFilter() }
         </div>
         <div className="col-md-9">
