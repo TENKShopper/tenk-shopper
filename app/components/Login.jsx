@@ -1,13 +1,13 @@
 import React from 'react'
 import {browserHistory} from 'react-router'
 
-export const Login = (props) => (
+export const Login = ({ login }) => (
   <div>
     <div className="col-md-6">
       <form className="form-horizontal" action='' method="POST"
         onSubmit={evt => {
           evt.preventDefault()
-          props.login(evt.target.username.value, evt.target.password.value)
+          login(evt.target.email.value, evt.target.password.value)
           browserHistory.push('/')
         } }>
       <fieldset>
