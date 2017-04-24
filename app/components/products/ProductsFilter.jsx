@@ -15,6 +15,7 @@ import { connect } from 'react-redux'
 
 import ProductItem from './ProductItem'
 import RefineProductSelection from './RefineProductSelection'
+import NewProductForm from './NewProductForm'
 
 /* ----- DUMMY DATA ----- */
 
@@ -67,9 +68,7 @@ class ProductsFilter extends Component {
       categoryQuery: null,
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
-    this.renderNewProductWidget = this.renderNewProductWidget.bind(this)
     this.filterProducts = this.filterProducts.bind(this)
-    this.submitNewProduct = this.submitNewProduct.bind(this)
   }
 
   render() {
@@ -77,7 +76,7 @@ class ProductsFilter extends Component {
       <div className="products-view" >
         <div className="col-md-3">
           {/* TODO: create renderNewProductWidget functionality */}
-          { this.props.isAdmin? this.renderNewProductWidget() : null }
+          { this.props.isAdmin? <NewProductForm /> : null }
           { this.renderProductsFilter() }
           { this.state.categoryQuery ? <RefineProductSelection /> : null }
         </div>
@@ -142,43 +141,6 @@ class ProductsFilter extends Component {
     )
   }
 
-  renderNewProductWidget() {
-    return (
-      <div>
-        <h3>Add a User</h3>
-        <div className="list-group-item min-content user-item">
-          <form className="media" onSubmit={this.submitNewProduct}>
-            <div className="media-left media-middle icon-container">
-              <button
-                type="submit"
-                className="glyphicon glyphicon-plus clickable"
-              />
-            </div>
-            <div className="media-body">
-              <h4 className="media-heading tucked">
-                <input
-                  name="name"
-                  type="text"
-                  required
-                  placeholder="Input new product name"
-                  className="form-like"
-                />
-              </h4>
-              <h5 className="tucked">
-                <textarea
-                  name="description"
-                  required
-                  placeholder="Input new product description"
-                  className="form-like"
-                />
-              </h5>
-            </div>
-          </form>
-        </div>
-      </div>
-    )
-  }
-
   /* TODO: think through categories */
   filterProducts(product) {
     const nameMatch = new RegExp(this.state.nameQuery, 'i')
@@ -190,16 +152,6 @@ class ProductsFilter extends Component {
     }
 
     return matchesNameQuery && viewable
-  }
-
-  submitNewProduct(event) {
-    event.preventDefault()
-    const product = {
-      name: event.target.name.value,
-    }
-    this.props.addProduct(product)
-    // clear the inputs
-    event.target.name.value = ''
   }
 
 }
