@@ -54,4 +54,4 @@ router.route('/:userId')
   .catch(next)
 })
 
-router.use('/:userId/address', require('./addresses'))
+router.use('/:userId/addresses', require('./addresses'))

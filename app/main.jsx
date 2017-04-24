@@ -12,6 +12,7 @@ import App from './components/App'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/productsFilter'
+import ShoppingCart from './components/shopping-cart'
 import User from './components/User'
 import Orders from './components/Orders'
 import Auth from './components/Login'
@@ -29,6 +30,7 @@ render(
           <Route path="/users/:userId/addresses" component={User} />
           <Route path="/users/:userId/settings" component={User} />
         </Route>
+        <Route path="/shoppingCart" component={ ShoppingCart } />
       </Route>
       <Route path='*' component={ NotFound } />
     </Router>
