@@ -9,25 +9,30 @@ import store from './store'
 /* ------ Components ------ */
 
 import App from './components/App'
+import Home from './components/Home'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/productsFilter'
-import User from './components/User'
-import Orders from './components/Orders'
-import Auth from './components/Login'
+import User from './components/user/User'
+import Orders from './components/user/Orders'
+import Addresses from './components/user/Addresses'
+import EditAddress from './components/user/EditAddress'
+import Auth from './components/LoginSignup'
 
 render(
   <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route path="/" component={ App } >
-        {/* Update to split Login and Signup into two separate components rendered in Auth */}
+        <IndexRedirect to="/home" />
+        <Route path="/home" component={ Home } />
         <Route path="/authenticate" component={ Auth } />
         <Route path="/products" component={ Products } />
         <Route path="/users/:userId" component={User}>
-          <Route path="/users/:userId/orders" component={Orders} />
-          <Route path="/users/:userId/reviews" component={User} />
-          <Route path="/users/:userId/addresses" component={User} />
-          <Route path="/users/:userId/settings" component={User} />
+          <Route path="orders" component={Orders} />
+          <Route path="reviews" component={User} />
+          <Route path="addresses" component={Addresses} />
+          <Route path="addresses/editAddress" component={EditAddress} />
+          <Route path="settings" component={User} />
         </Route>
       </Route>
       <Route path='*' component={ NotFound } />

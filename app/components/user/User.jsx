@@ -6,8 +6,7 @@ import UserSidebar from './UserSidebar'
 const User = ({ user, logout, children }) => (
   <div>
     <UserSidebar />
-    <div className="vr"></div>
-    <div className="col-md-6">
+    <div className="col-md-9">
       {children}
     </div>
   </div>
