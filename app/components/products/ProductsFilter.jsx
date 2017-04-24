@@ -25,15 +25,13 @@ class ProductsFilter extends Component {
     super(props)
     this.state = {
       nameQuery: '',
-      categoryQuery: null,
+      collectionQuery: null,
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
     this.filterProducts = this.filterProducts.bind(this)
   }
 
   render() {
-    console.log("this.props.products", this.props.products)
-    console.log("this.props.collections", this.props.collections)
     return (
       <div className="products-view" >
         <div className="col-md-3">
@@ -90,7 +88,7 @@ class ProductsFilter extends Component {
           <div>
             <select
               placeholder="Select a collection"
-              onChange={evt => this.setState({ categoryQuery: evt.target.value })}
+              onChange={evt => this.setState({ collectionQuery: evt.target.value })}
             >
               <option value="Display all">Select a collection</option>
               { this.props.collections
@@ -126,12 +124,9 @@ const mapStateToProps = (state) => {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
     products: state.products,
     collections: state.products ? state.products.map(product => product.collections)
-      // [['Spring 17'], ['Fall 16'], ['Spring 17']]
       .reduce((flatArray, collectionArray) => {
         return flatArray.concat(...collectionArray)
-      },
-      [])
-      // ['Spring 17', 'Fall 16', 'Spring 17']
+      }, [])
       .filter((collection, index, origArray) => origArray.indexOf(collection) === index) : null
   }
 }
