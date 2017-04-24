@@ -20,7 +20,7 @@ import ProductItem from './ProductItem'
 const dummyProducts = [
   {
     name: 'Blue Suede Shoes',
-    categories: ['shoes', 'blue'],
+    categories: ['Spring 17'],
     available: true,
     id: 1,
     photos: ['http://placehold.it/150x150'],
@@ -28,28 +28,32 @@ const dummyProducts = [
   },
   {
     name: 'Red Canvas Shoes',
-    categories: ['shoes', 'red'],
+    categories: ['Spring 17'],
     available: false,
     id: 2,
     photos: ['http://placehold.it/150x150']
   },
   {
     name: 'Green Trunks',
-    categories: ['trunks', 'green'],
+    categories: ['Spring 17'],
+    gender: 'Male',
+    size: 'L',
     available: true,
     id: 3,
     photos: ['http://placehold.it/150x150']
   },
   {
     name: 'Black Boots',
-    categories: ['shoes', 'black'],
+    categories: ['Winter 16'],
+    gender: 'Unisex',
+    size: 'L',
     available: true,
     id: 4,
     photos: ['http://placehold.it/150x150']
   }
 ]
 
-const dummyCategories = ['shoes', 'blue', 'red', 'trunks', 'green']
+const dummyCategories = ['Spring 17', 'Winter 16']
 
 /* ----- COMPONENT ----- */
 
@@ -101,7 +105,7 @@ class ProductsFilter extends Component {
             <div className="glyphicon glyphicon-search" />
           </div>
           <div className="media-body media-middle">
-            <h4>Search Products</h4>
+            <h4>Search by Product Name</h4>
           </div>
           <div>
             <input
@@ -118,11 +122,11 @@ class ProductsFilter extends Component {
             <div className="glyphicon glyphicon-filter" />
           </div>
           <div className="media-body media-middle">
-            <h4>Filter by Category</h4>
+            <h4>Filter by Collection</h4>
           </div>
           <div>
             <select
-              placeholder="Select a category"
+              placeholder="Select a collection"
               onChange={evt => this.setState({ categoryQuery: evt.target.value })}
             >
               <option value="Select a category">Select a category</option>
@@ -133,6 +137,30 @@ class ProductsFilter extends Component {
           </div>
         </div>
 
+        <div>
+          <h4>Refine Selection</h4>
+          <form>
+            <label>Gender</label>
+            <input
+              name="selectsMale"
+              type="checkbox"
+              value="Male"
+              onChange={ this.handleCheckboxChange }
+            />
+            <input
+              name="selectsFemale"
+              type="checkbox"
+              value="Female"
+              onChange={ this.handleCheckboxChange }
+            />
+            <input
+              name="selectsUnisex"
+              type="checkbox"
+              value="Unisex"
+              onChange={ this.handleCheckboxChange }
+            />
+          </form>
+        </div>
       </div>
     )
   }

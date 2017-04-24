@@ -1,6 +1,6 @@
 'use strict'
 
-const { STRING, TEXT, INTEGER, FLOAT, ARRAY, BOOLEAN } = require('sequelize')
+const { STRING, TEXT, INTEGER, FLOAT, ARRAY, BOOLEAN, ENUM } = require('sequelize')
 
 module.exports = db => db.define('products', {
   name: {
@@ -31,9 +31,19 @@ module.exports = db => db.define('products', {
       isUrl: true
     }
   },
-  categories: {
+  collections: {
     type: ARRAY(STRING),
-    defaultValue: ['Featured']
+    defaultValue: ['Spring 17']
+  },
+  gender: {
+    type: ENUM('Male', 'Female', 'Unisex'),
+    defaultValue: 'Unisex'
+  },
+  size: {
+    type: ENUM('S', 'M', 'L'),
+  },
+  type: {
+    type: ENUM('Shirts', 'Pants', 'Shoes')
   },
   available: {
     type: BOOLEAN,
