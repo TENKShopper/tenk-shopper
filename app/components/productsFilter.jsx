@@ -23,7 +23,8 @@ const dummyProducts = [
     categories: ['shoes', 'blue'],
     available: true,
     id: 1,
-    photos: ['http://placehold.it/150x150']
+    photos: ['http://placehold.it/150x150'],
+    price: '$35.00'
   },
   {
     name: 'Red Canvas Shoes',
@@ -74,12 +75,6 @@ class ProductsFilter extends Component {
           { this.renderProductsFilter() }
         </div>
         <div className="col-md-9">
-          {/*
-          { this.props.products
-            .filter(this.filterProducts)
-            .map(product => <h5>{product.name}</h5>) }
-            */}
-
           { this.props.products
             .filter(this.filterProducts)
             .map(product => {
@@ -89,7 +84,6 @@ class ProductsFilter extends Component {
                 </div>
               )
             }) }
-
         </div>
       </div>
     )
@@ -163,14 +157,6 @@ class ProductsFilter extends Component {
                   className="form-like"
                 />
               </h4>
-              <h5 className="tucked">
-                <textarea
-                  name="description"
-                  required
-                  placeholder="Input new product description"
-                  className="form-like"
-                />
-              </h5>
               <h5 className="tucked">
                 <textarea
                   name="description"

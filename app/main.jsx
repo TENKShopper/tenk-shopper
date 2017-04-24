@@ -1,8 +1,8 @@
 'use strict'
 import React from 'react'
-import {Router, Route, IndexRedirect, browserHistory} from 'react-router'
-import {render} from 'react-dom'
-import {connect, Provider} from 'react-redux'
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+import { render } from 'react-dom'
+import { connect, Provider } from 'react-redux'
 
 import store from './store'
 
@@ -28,15 +28,15 @@ const ExampleApp = connect(
 )
 
 render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App} >
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Login} />
-        <Route path="/products" component={Products} />
-        <Route path="/users" component={Users} />
+  <Provider store={ store }>
+    <Router history={ browserHistory }>
+      <Route path="/" component={ App } >
+        <Route path="/login" component={ Login } />
+        <Route path="/signup" component={ Login } />
+        <Route path="/products" component={ Products } />
+        <Route path="/users" component={ Users } />
       </Route>
-      <Route path='*' component={NotFound} />
+      <Route path='*' component={ NotFound } />
     </Router>
   </Provider>,
   document.getElementById('main')
