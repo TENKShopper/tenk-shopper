@@ -46,11 +46,7 @@ const NavBarMain = ({user}) => {
           </div>
       </NavBar.Form>
       <NavBar.Nav className="pull-right">
-<<<<<<< HEAD
         {user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>}
-=======
-        <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>
->>>>>>> 7a0a324f281e5855307209fdd01c89bca5d0f9d5
       </NavBar.Nav>
   </NavBar>
   )
