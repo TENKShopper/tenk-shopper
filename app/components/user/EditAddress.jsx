@@ -1,21 +1,27 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
-const EditAddress = ({ user, logout }) => (
+const EditAddress = ({ user, addAddress }) => (
   <div className="col-md-6">
     <form className="form-horizontal" action='' method="POST"
       onSubmit={evt => {
         evt.preventDefault()
+        addAddress(user.id, 'shippingAddress', evt.target.firstName.value, evt.target.lastName.value, evt.target.streetAddress.value, evt.target.premise.value, evt.target.administrativeArea.value, evt.target.locality.value, evt.target.postalZipCode.value)
       } }>
       <fieldset>
         <div id="legend">
           <legend className="">Edit Address</legend>
         </div>
         <div className="control-group">
-          <label className="control-label" htmlFor="fullName">Full Name</label>
+          <label className="control-label" htmlFor="firstName">First Name</label>
           <div className="controls">
-            <input type="text" id="fullName" name="fullName" placeholder="" className="input-xlarge"/>
+            <input type="text" id="firstName" name="firstName" placeholder="" className="input-xlarge"/>
+          </div>
+        </div>
+        <div className="control-group">
+          <label className="control-label" htmlFor="lastName">Last Name</label>
+          <div className="controls">
+            <input type="text" id="lastName" name="lastName" placeholder="" className="input-xlarge"/>
           </div>
         </div>
         <div className="control-group">
@@ -60,6 +66,12 @@ const EditAddress = ({ user, logout }) => (
   </div>
 )
 
+/* -----------------    CONTAINER     ------------------ */
+
+import {addAddress} from 'APP/app/reducers/user-reducer'
+import {connect} from 'react-redux'
+
 export default connect(
-  ({ auth }) => ({ user: auth })
+  ({ auth }) => ({ user: auth }),
+  {addAddress}
 )(EditAddress)

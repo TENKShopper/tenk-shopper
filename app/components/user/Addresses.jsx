@@ -5,7 +5,7 @@ import {Link} from 'react-router'
 const Addresses = ({ user, logout }) => (
   <div className="addressList">
     <p>
-      <Link to={`users/${user.id}/addresses/editAddress`} className="btn btn-primary btn-lg">Add New Address</Link>
+      <Link to={`/users/${user.id}/addresses/editAddress`} className="btn btn-primary btn-lg">Add New Address</Link>
     </p>
     <ul className="addressBox">
       <h3>Default Shipping Address</h3>
