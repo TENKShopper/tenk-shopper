@@ -1,6 +1,6 @@
 'use strict'
 
-const { TEXT } = require('sequelize')
+const { TEXT, INTEGER } = require('sequelize')
 
 module.exports = db => db.define('reviews', {
   body: {
@@ -10,6 +10,14 @@ module.exports = db => db.define('reviews', {
         args: 30,
         msg: 'Review must be 30 characters in length'
       }
+    }
+  },
+  rating: {
+    type: INTEGER,
+    defaultValue: 5,
+    validate: {
+      min: 0,
+      max: 5
     }
   }
 })

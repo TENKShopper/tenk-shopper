@@ -38,6 +38,23 @@ module.exports = db => db.define('products', {
   available: {
     type: BOOLEAN,
     defaultValue: true
+  },
+  avgRating: {
+    type: INTEGER,
+    defaultValue: 5,
+    validate: {
+      min: 0,
+      max: 5
+    },
+    get: () => {
+      return this.reviews.reduce((sumRatings, review) => sumRatings + review.rating, 0) / this.reviews.length
+    }
+  }
+}, {
+  defaultScope: {
+    include: [
+      { model: db.model('reviews') }
+    ]
   }
 })
 
