@@ -105,7 +105,6 @@ passport.use(new (require('passport-local').Strategy)(
       .then(user => {
         console.log('user', user)
         if (!user) {
-          console.log('meow in here')
           debug('authenticate user(email: "%s") did fail: no such user', email)
           return done(null, false, { message: 'Login incorrect' })
         }

@@ -1,9 +1,13 @@
 import React from 'react'
+import {Modal, NavBar, ButtonDropdown} from 'simple-react-bootstrap'
+import {Link} from 'react-router'
 
 export const WhoAmI = ({ user, logout }) => (
-  <div className="whoami">
-    <span className="whoami-user-name">{user && user.name}</span>
-    <button className="logout" onClick={logout}>Logout</button>
+  <div>
+    <Link to={`/users/${user.id}/orders`}><NavBar.Item className="whoami-userName">{user.userName}</NavBar.Item></Link>
+    <div>
+      <button className="btn default" onClick={logout}>Logout</button>
+    </div>
   </div>
 )
 

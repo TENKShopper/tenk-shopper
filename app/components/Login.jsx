@@ -1,6 +1,6 @@
 import React from 'react'
-import NavBarMain from './NavBar'
 import Signup from './Signup'
+import {browserHistory} from 'react-router'
 
 export const Auth = (props) => (
   <div>
@@ -9,6 +9,7 @@ export const Auth = (props) => (
         onSubmit={evt => {
           evt.preventDefault()
           props.login(evt.target.username.value, evt.target.password.value)
+          browserHistory.push('/')
         } }>
       <fieldset>
         <div id="legend">

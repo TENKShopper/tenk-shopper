@@ -1,8 +1,10 @@
 import React from 'react'
 import {Link} from 'react-router'
 import {Modal, NavBar, ButtonDropdown} from 'simple-react-bootstrap'
+import WhoAmI from './WhoAmI'
+import {connect} from 'react-redux'
 
-const NavBarMain = (props) => {
+const NavBarMain = ({user}) => {
   return (
       <NavBar>
       <NavBar.Header>
@@ -44,10 +46,12 @@ const NavBarMain = (props) => {
           </div>
       </NavBar.Form>
       <NavBar.Nav className="pull-right">
-        <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>
+        {user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>}
       </NavBar.Nav>
   </NavBar>
   )
 }
 
-export default NavBarMain
+export default connect(
+  ({ auth }) => ({ user: auth })
+)(NavBarMain)
