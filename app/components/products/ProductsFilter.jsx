@@ -72,6 +72,7 @@ class ProductsFilter extends Component {
   }
 
   render() {
+    console.log("this.props.products", this.props.products)
     return (
       <div className="products-view" >
         <div className="col-md-3">
@@ -162,7 +163,7 @@ class ProductsFilter extends Component {
 const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
-    products: dummyProducts,
+    products: state.products,
     categories: dummyCategories
   }
 }

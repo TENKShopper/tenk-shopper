@@ -91,7 +91,6 @@ const photos = {
   Pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
   Shoes: 'https://thumbs.dreamstime.com/x/old-shoe-boot-cartoon-clip-art-illustration-36390217.jpg'
 }
-const collections = ['Spring 17', 'Winter 16']
 
 function createProduct() {
   const clothType = clothingTypes[Math.floor(Math.random() * clothingTypes.length)]
@@ -103,7 +102,7 @@ function createProduct() {
     description: product + ' ' + description,
     price: Math.floor(Math.random() * 50 + 10),
     inventory: 50,
-    categories: collections[Math.round(Math.random())],
+    categories: ['Spring 17', 'Winter 16'][Math.round(Math.random())],
     gender: sex,
     type: clothType,
     photos: [photos[clothType]],

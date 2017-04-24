@@ -57,7 +57,11 @@ module.exports = db => db.define('products', {
       max: 5
     },
     get: () => {
-      return this.reviews.reduce((sumRatings, review) => sumRatings + review.rating, 0) / this.reviews.length
+      if (this.reviews) {
+        return this.reviews.reduce((sumRatings, review) => sumRatings + review.rating, 0) / this.reviews.length
+      } else {
+        return 5
+      }
     }
   }
 }, {
