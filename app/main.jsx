@@ -9,17 +9,20 @@ import store from './store'
 /* ------ Components ------ */
 
 import App from './components/App'
+import Home from './components/Home'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/productsFilter'
-import User from './components/User'
-import Orders from './components/Orders'
+import User from './components/user/User'
+import Orders from './components/user/Orders'
 import Auth from './components/Login'
 
 render(
   <Provider store={ store }>
     <Router history={ browserHistory }>
       <Route path="/" component={ App } >
+        <IndexRedirect to="/home" />
+        <Route path="/home" component={ Home } />
         {/* Update to split Login and Signup into two separate components rendered in Auth */}
         <Route path="/authenticate" component={ Auth } />
         <Route path="/products" component={ Products } />
