@@ -18,3 +18,7 @@
     height: 45px;
     margin: auto;
 }
+
+li {
+    list-style-type: none;
+}
