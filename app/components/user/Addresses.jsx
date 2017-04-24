@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
-function Addresses({ user, logout, shippingAddresses }) {
+function Addresses({ user, logout }) {
   return (
   <div className="addressList">
     <p>
