@@ -1,3 +1,5 @@
+// OB/IJM: dead code, keep out of master
+
 // import {GET_ALL_PRODUCTS} from '../actions/constants'
 //
 // export default function(state = [], action){

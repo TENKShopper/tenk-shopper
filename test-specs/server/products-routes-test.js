@@ -41,7 +41,7 @@ describe('Products API', () => {
       .then(res => {
         expect(res.body[0].id).to.equal(1)
         expect(res.body.length).to.equal(2)
-        expect(res.status).to.equal(200)
+        expect(res.status).to.equal(200) // OB/IJM: could do `.expect(200)` up above instead of here
         done()
       })
       .catch(done)
@@ -62,15 +62,14 @@ describe('Products API', () => {
 
   describe('/api/products/:id', () => {
 
-    it('can GET a specific product by id', done => {
-      request(app)
+    // OB/IJM: can drop done and instead return a promise
+    it('can GET a specific product by id', () => {
+      return request(app)
       .get('/api/products/1')
       .then(res => {
         expect(res.body.name).to.equal('Blue Suede Shoes')
         expect(res.body.available).to.be.true
-        done()
       })
-      .catch(done)
     })
 
     it('can PUT to update a specific product...', done => {
