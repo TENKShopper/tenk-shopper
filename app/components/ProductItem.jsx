@@ -48,6 +48,5 @@ export default class ProductItem extends Component {
       </div>
     )
   }
-  // event.stopPropagation()
-  // removeProduct(product.id)
+  
 }
