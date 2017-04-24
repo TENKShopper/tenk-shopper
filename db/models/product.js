@@ -32,8 +32,7 @@ module.exports = db => db.define('products', {
     }
   },
   collections: {
-    type: ARRAY(STRING),
-    defaultValue: ['Spring 17']
+    type: ARRAY(STRING)
   },
   gender: {
     type: ENUM('MEN', 'WOMEN', 'UNISEX'),

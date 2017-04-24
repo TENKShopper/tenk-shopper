@@ -102,7 +102,7 @@ function createProduct() {
     description: product + ' ' + description,
     price: Math.floor(Math.random() * 50 + 10),
     inventory: 50,
-    categories: ['Spring 17', 'Winter 16'][Math.round(Math.random())],
+    collections: [['Spring 17', 'Winter 16'][Math.round(Math.random())]],
     gender: sex,
     type: clothType,
     photos: [photos[clothType]],

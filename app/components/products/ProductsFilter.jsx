@@ -17,46 +17,6 @@ import ProductItem from './ProductItem'
 import RefineProductSelection from './RefineProductSelection'
 import NewProductForm from './NewProductForm'
 
-/* ----- DUMMY DATA ----- */
-
-const dummyProducts = [
-  {
-    name: 'Blue Suede Shoes',
-    categories: ['Spring 17'],
-    available: true,
-    id: 1,
-    photos: ['http://placehold.it/150x150'],
-    price: '$35.00'
-  },
-  {
-    name: 'Red Canvas Shoes',
-    categories: ['Spring 17'],
-    available: false,
-    id: 2,
-    photos: ['http://placehold.it/150x150']
-  },
-  {
-    name: 'Green Trunks',
-    categories: ['Spring 17'],
-    gender: 'Male',
-    size: 'L',
-    available: true,
-    id: 3,
-    photos: ['http://placehold.it/150x150']
-  },
-  {
-    name: 'Black Boots',
-    categories: ['Winter 16'],
-    gender: 'Unisex',
-    size: 'L',
-    available: true,
-    id: 4,
-    photos: ['http://placehold.it/150x150']
-  }
-]
-
-const dummyCategories = ['Spring 17', 'Winter 16']
-
 /* ----- COMPONENT ----- */
 
 class ProductsFilter extends Component {
@@ -73,6 +33,7 @@ class ProductsFilter extends Component {
 
   render() {
     console.log("this.props.products", this.props.products)
+    console.log("this.props.collections", this.props.collections)
     return (
       <div className="products-view" >
         <div className="col-md-3">
@@ -131,9 +92,9 @@ class ProductsFilter extends Component {
               placeholder="Select a collection"
               onChange={evt => this.setState({ categoryQuery: evt.target.value })}
             >
-              <option value="Select a category">Select a category</option>
-              { this.props.categories
-                .map(category => <option value={category}>{category}</option>)
+              <option value="Display all">Select a collection</option>
+              { this.props.collections
+                .map(collection => <option value={collection}>{collection}</option>)
               }
             </select>
           </div>
@@ -148,8 +109,8 @@ class ProductsFilter extends Component {
           , matchesNameQuery = nameMatch.test(product.name)
           , viewable = this.props.isAdmin ? true : product.available
 
-    if (this.state.categoryQuery) {
-      return product.categories.includes(this.state.categoryQuery) && matchesNameQuery && viewable
+    if (this.state.collectionQuery) {
+      return product.collections.includes(this.state.collectionQuery) && matchesNameQuery && viewable
     }
 
     return matchesNameQuery && viewable
@@ -164,7 +125,14 @@ const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
     products: state.products,
-    categories: dummyCategories
+    collections: state.products ? state.products.map(product => product.collections)
+      // [['Spring 17'], ['Fall 16'], ['Spring 17']]
+      .reduce((flatArray, collectionArray) => {
+        return flatArray.concat(...collectionArray)
+      },
+      [])
+      // ['Spring 17', 'Fall 16', 'Spring 17']
+      .filter((collection, index, origArray) => origArray.indexOf(collection) === index) : null
   }
 }
 
