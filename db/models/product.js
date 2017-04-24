@@ -36,8 +36,8 @@ module.exports = db => db.define('products', {
     defaultValue: ['Spring 17']
   },
   gender: {
-    type: ENUM('Male', 'Female', 'Unisex'),
-    defaultValue: 'Unisex'
+    type: ENUM('MEN', 'WOMEN', 'UNISEX'),
+    defaultValue: 'UNISEX'
   },
   size: {
     type: ENUM('S', 'M', 'L'),
