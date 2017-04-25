@@ -12,7 +12,7 @@ function Addresses({ user, logout }) {
       <h3>Default Shipping Address</h3>
         {
           user.shippingAddresses && user.shippingAddresses.map(address => (
-            <ul className="vList">
+            <ul className="vList" key={address.id}>
               <li>{address.fullName}</li>
               <li>{address.streetAddress}</li>
               <li>{address.premise}</li>

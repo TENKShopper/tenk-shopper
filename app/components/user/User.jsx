@@ -5,9 +5,14 @@ import UserSidebar from './UserSidebar'
 
 const User = ({ user, logout, children }) => (
   <div>
+    <div>
+      <legend id="accountTitle">My Account</legend>
+    </div>
     <UserSidebar />
-    <div className="col-md-9">
-      {children}
+    <div className="vertical-line">
+      <div className="col-md-9">
+        {children}
+      </div>
     </div>
   </div>
 )
