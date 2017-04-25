@@ -10,6 +10,7 @@ import App from './components/App'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
 import Auth from './components/authenticate/LoginSignup'
+import GuestCheckout from './components/authenticate/GuestCheckout'
 import ShoppingCart from './components/ShoppingCart'
 import Products from './components/products/AllProducts'
 import SingleProduct from './components/products/SingleProduct'
@@ -18,6 +19,7 @@ import Orders from './components/user/Orders'
 import Order from './components/user/Order'
 import Addresses from './components/user/Addresses'
 import EditAddress from './components/user/EditAddress'
+import ReviewOrder from './components/user/ReviewOrder'
 
 import { fetchProducts } from './reducers/products-reducer'
 import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
@@ -47,6 +49,8 @@ const Routes = ({ fetchInitialData }) => (
         <Route path="addresses/editAddress" component={EditAddress} />
         <Route path="settings" component={User} />
       </Route>
+      <Route path="/checkout/login" component={GuestCheckout} />
+      <Route path="/checkout/reviewOrder" component={ReviewOrder} />
     </Route>
     <Route path='*' component={NotFound} />
   </Router>
