@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { Modal, NavBar, ButtonDropdown } from 'simple-react-bootstrap'
-import WhoAmI from './WhoAmI'
+import WhoAmI from './authenticate/WhoAmI'
 
 /* ------ COMPONENT ------ */
 

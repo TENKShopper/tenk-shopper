@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
-function Addresses({ user, logout }) {
-  return (
+/* ------ COMPONENT ------ */
+
+const Addresses = ({ user }) => (
   <div className="addressList">
     <p>
       <Link to={`/users/${user.id}/addresses/editAddress`} className="btn btn-primary btn-lg">Add New Address</Link>
@@ -27,8 +27,11 @@ function Addresses({ user, logout }) {
         }
     </ul>
   </div>
-  )
-}
+)
+
+/* ------ CONTAINER ------ */
+
+import {connect} from 'react-redux'
 
 export default connect(
   ({ auth }) => ({ user: auth })

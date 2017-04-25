@@ -1,8 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
-const UserSidebar = ({ user, logout }) => (
+/* ------ COMPONENT ------ */
+
+const UserSidebar = ({ user }) => (
   <div>
     <div className="col-md-3 list-group">
       <Link to={`/users/${user.id}/orders`} className="list-group-item active">Orders</Link>
@@ -14,6 +15,10 @@ const UserSidebar = ({ user, logout }) => (
     <div className="vertical-line"></div>
   </div>
 )
+
+/* ------ CONTAINER ------ */
+
+import {connect} from 'react-redux'
 
 export default connect(
   ({ auth }) => ({ user: auth })

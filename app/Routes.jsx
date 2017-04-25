@@ -7,15 +7,14 @@ import { connect, Provider } from 'react-redux'
 import store from './store'
 
 import App from './components/App'
-import WhoAmI from './components/WhoAmI'
+import Home from './components/Home'
 import NotFound from './components/NotFound'
+import Auth from './components/authenticate/LoginSignup'
 import Products from './components/products/ProductsFilter'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
 import Addresses from './components/user/Addresses'
 import EditAddress from './components/user/EditAddress'
-import Auth from './components/LoginSignup'
-import Home from './components/Home'
 
 import { fetchProducts } from './reducers/products-reducer'
 

@@ -6,7 +6,7 @@ import {Link} from 'react-router'
 export const WhoAmI = ({ user, logout }) => (
   <div className="whoami">
     <Link id="navUserProfile" to={`/users/${user.id}/orders`}>{user.userName}</Link>
-    <button className="btn default" onClick={logout}>Logout</button>
+    <button id="logout-btn" className="btn default" onClick={logout}>Logout</button>
   </div>
 )
 
