@@ -1,14 +1,13 @@
 import React from 'react'
-import { browserHistory } from 'react-router'
-import Signup from './Signup'
+import {browserHistory} from 'react-router'
 
-const Auth = (props) => (
+export const Login = ({ login }) => (
   <div>
     <div className="col-md-6">
       <form className="form-horizontal" action='' method="POST"
         onSubmit={evt => {
           evt.preventDefault()
-          props.login(evt.target.username.value, evt.target.password.value)
+          login(evt.target.email.value, evt.target.password.value)
           browserHistory.push('/')
         } }>
       <fieldset>
@@ -18,7 +17,7 @@ const Auth = (props) => (
         <div className="control-group">
           <label className="control-label" htmlFor="email">Email</label>
           <div className="controls">
-            <input type="text" id="email" name="email" placeholder="" className="input-xlarge" />
+            <input type="text" id="email" name="email" placeholder="" className="input-xlarge"/>
           </div>
         </div>
         <div className="control-group">
@@ -71,16 +70,15 @@ const Auth = (props) => (
         </p>
       </div>
     </div>
-    <Signup />
   </div>
 )
 
 /* -----------------    CONTAINER     ------------------ */
 
-import { login } from 'APP/app/reducers/auth-reducer'
-import { connect } from 'react-redux'
+import {login} from 'APP/app/reducers/auth-reducer'
+import {connect} from 'react-redux'
 
 export default connect(
   state => ({}),
-  { login },
-)(Auth)
+  {login},
+)(Login)

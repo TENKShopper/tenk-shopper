@@ -12,7 +12,6 @@ router.param('addressType', (req, res, next, addressType) => {
   if (addressType !== 'billingAddress' && addressType !== 'shippingAddress') {
     return res.sendStatus(404)
   }
-
   req.addressType = addressType === 'billingAddress' ? 'BillingAddresses' : 'ShippingAddresses'
   next()
 })
@@ -31,8 +30,8 @@ router.route('/:addressType')
 })
 .delete(mustBeLoggedIn, (req, res, next) => {
   req.targetUser['remove' + req.addressType]()
-  .then(() => res.sendStatus(204))
-  .catch(next)
+ .then(() => res.sendStatus(204))
+ .catch(next)
 })
 
 /* --------- INDIVIDUAL ADDRESS ----------- */
