@@ -5,7 +5,7 @@ import {browserHistory} from 'react-router'
 
 export const Login = ({ login }) => (
   <div>
-    <div className="col-md-6">
+    <div className="col-md-5" id="login-comp">
       <form className="form-horizontal" action='' method="POST"
         onSubmit={evt => {
           evt.preventDefault()

@@ -10,10 +10,12 @@ import App from './components/App'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
 import Auth from './components/authenticate/LoginSignup'
+import ShoppingCart from './components/ShoppingCart'
 import Products from './components/products/ProductsFilter'
 import SingleProduct from './components/products/SingleProduct'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
+import Order from './components/user/Order'
 import Addresses from './components/user/Addresses'
 import EditAddress from './components/user/EditAddress'
 import Cart from './components/shoppingCart'
@@ -29,11 +31,13 @@ const Routes = ({ fetchInitialData }) => (
       <IndexRedirect to="/home" />
       <Route path="/home" component={Home} />
       <Route path="/authenticate" component={Auth} />
+      <Route path="/shoppingCart" component={ ShoppingCart } />
       <Route path="/products" component={Products} />
       <Route path='/products/:id' component={SingleProduct} onEnter={fetchSelectedProduct} />
       <Route path="/cart" component={Cart} />
       <Route path="/users/:userId" component={User}>
         <Route path="orders" component={Orders} />
+        <Route path="orders/1" component={ Order } />
         <Route path="reviews" component={User} />
         <Route path="addresses" component={Addresses} />
         <Route path="addresses/editAddress" component={EditAddress} />
@@ -44,6 +48,7 @@ const Routes = ({ fetchInitialData }) => (
   </Router>
 )
 
+      // {/* <Route path='/products/:id' component = {SingleProduct} /> */}
 /* ------ CONTAINER ------ */
 
 const mapStateToProps = null
