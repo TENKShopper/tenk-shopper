@@ -10,6 +10,7 @@ import App from './components/App'
 import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
 import Products from './components/products/ProductsFilter'
+import SingleProduct from './components/products/SingleProduct'
 import User from './components/User'
 import Orders from './components/Orders'
 import Auth from './components/Login'
@@ -24,6 +25,7 @@ const Routes = ({ fetchInitialData }) => (
         {/* Update to split Login and Signup into two separate components rendered in Auth */}
         <Route path="/authenticate" component={ Auth } />
         <Route path="/products" component={ Products } />
+        <Route path='/products/:id' component = {SingleProduct} />
         <Route path="/users/:userId" component={User}>
           <Route path="/users/:userId/orders" component={Orders} />
           <Route path="/users/:userId/reviews" component={User} />
