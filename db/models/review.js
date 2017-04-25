@@ -12,14 +12,14 @@ module.exports = db => db.define('reviews', {
       }
     }
   },
-  // rating: {
-  //   type: INTEGER,
-  //   defaultValue: 5,
-  //   validate: {
-  //     min: 0,
-  //     max: 5
-  //   }
-  // }
+  rating: {
+    type: INTEGER,
+    defaultValue: 5,
+    validate: {
+      min: 0,
+      max: 5
+    }
+  }
 })
 
 module.exports.associations = (Review, {Product, User}) => {

@@ -9,10 +9,8 @@ const User = ({ user, logout, children }) => (
       <legend id="accountTitle">My Account</legend>
     </div>
     <UserSidebar />
-    <div className="vertical-line">
-      <div className="col-md-9">
+    <div className="col-md-8">
         {children}
-      </div>
     </div>
   </div>
 )
