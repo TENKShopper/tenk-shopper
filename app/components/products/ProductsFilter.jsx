@@ -26,9 +26,13 @@ class ProductsFilter extends Component {
     this.state = {
       nameQuery: '',
       collectionQuery: null,
+      selectedCheckboxes: []
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
+    this.renderRefineProductSelection = this.renderRefineProductSelection.bind(this)
     this.filterProducts = this.filterProducts.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.toggleCheckbox = this.toggleCheckbox.bind(this)
   }
 
   render() {
@@ -38,7 +42,7 @@ class ProductsFilter extends Component {
           {/* TODO: create renderNewProductWidget functionality */}
           { this.props.isAdmin ? <NewProductForm /> : null }
           { this.renderProductsFilter() }
-          { this.state.collectionQuery ? <RefineProductSelection /> : null }
+          { this.state.collectionQuery ? this.renderRefineProductSelection() : null }
         </div>
         <div className="col-md-9">
           { this.props.products
@@ -70,10 +74,11 @@ class ProductsFilter extends Component {
           </div>
           <div>
             <input
+              name="nameQuery"
               type="text"
               placeholder="Input product name"
               className="form-like"
-              onChange={evt => this.setState({ nameQuery: evt.target.value })}
+              onChange={this.handleInputChange}
             />
           </div>
         </div>
@@ -87,8 +92,9 @@ class ProductsFilter extends Component {
           </div>
           <div>
             <select
+              name="collectionQuery"
               placeholder="Select a collection"
-              onChange={evt => this.setState({ collectionQuery: evt.target.value })}
+              onChange={this.handleInputChange}
             >
               <option value="Display all">Select a collection</option>
               { this.props.collections
@@ -101,7 +107,110 @@ class ProductsFilter extends Component {
     )
   }
 
-  /* TODO: think through categories */
+  renderRefineProductSelection() {
+    return (
+      <div>
+        <span><hr /></span>
+        <h4>Refine Selection</h4>
+        <form>
+          <h5>Gender</h5>
+          <label>Male</label>
+          <input
+            name="selectsMale"
+            type="checkbox"
+            value="Male"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <label>Female</label>
+          <input
+            name="selectsFemale"
+            type="checkbox"
+            value="Female"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <label>Unisex</label>
+          <input
+            name="selectsUnisex"
+            type="checkbox"
+            value="Unisex"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <h5>Clothing Type</h5>
+          <label>Shirts</label>
+          <input
+            name="selectsShirts"
+            type="checkbox"
+            value="Shirts"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <label>Pants</label>
+          <input
+            name="selectsPants"
+            type="checkbox"
+            value="pants"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <label>Shoes</label>
+          <input
+            name="selectsShoes"
+            type="checkbox"
+            value="Shoes"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <h5>Size</h5>
+          <label>S</label>
+          <input
+            name="selectsSmall"
+            type="checkbox"
+            value="Small"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <label>M</label>
+          <input
+            name="selectsMedium"
+            type="checkbox"
+            value="Medium"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+          <label>L</label>
+          <input
+            name="largeQuery"
+            type="checkbox"
+            value="Large"
+            className="product-selection-checkbox"
+            onChange={this.toggleCheckbox}
+          />
+        </form>
+      </div>
+    )
+  }
+
+  handleInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  toggleCheckbox(label) {
+    if (this.state.selectedCheckboxes.contains(label)) {
+      this.setState({
+        selectedCheckboxes: this.state.selectedCheckboxes.filter(checkbox => checkbox !== label)
+      })
+    } else {
+      this.setState({
+        selectedCheckboxes: this.state.selectedCheckboxes.concat(label)
+      })
+    }
+  }
+
   filterProducts(product) {
     const nameMatch = new RegExp(this.state.nameQuery, 'i')
           , matchesNameQuery = nameMatch.test(product.name)
@@ -110,7 +219,6 @@ class ProductsFilter extends Component {
     if (this.state.collectionQuery) {
       return product.collections.includes(this.state.collectionQuery) && matchesNameQuery && viewable
     }
-
     return matchesNameQuery && viewable
   }
 

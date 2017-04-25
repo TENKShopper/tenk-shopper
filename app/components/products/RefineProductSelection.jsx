@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 class RefineProductSelection extends Component {
   constructor(props) {
     super(props)
+    this.handleCheckboxChange
   }
   render() {
     return (
