@@ -19,6 +19,7 @@ import EditAddress from './components/user/EditAddress'
 import Cart from './components/shoppingCart'
 
 import { fetchProducts } from './reducers/products-reducer'
+import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
 
 /* ------ COMPONENT ------ */
 
@@ -29,7 +30,7 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/home" component={Home} />
       <Route path="/authenticate" component={Auth} />
       <Route path="/products" component={Products} />
-      <Route path='/products/:id' component={SingleProduct} />
+      <Route path='/products/:id' component={SingleProduct} onEnter={fetchSelectedProduct} />
       <Route path="/cart" component={Cart} />
       <Route path="/users/:userId" component={User}>
         <Route path="orders" component={Orders} />
@@ -50,6 +51,9 @@ const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchProducts())
+  },
+  fetchSelectedProduct: () => {
+    dispatch(fetchSelectedProduct())
   }
 })
 
