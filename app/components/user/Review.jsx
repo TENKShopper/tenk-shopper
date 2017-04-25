@@ -1,10 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} 'react-router'
+import {Link} from 'react-router'
 
-
- const Review = ({review}) =>(
-  <div className ='review'>
+const Review = ({ review }) => (
+  <div className='review'>
     <p>
       {review.body}
     </p>

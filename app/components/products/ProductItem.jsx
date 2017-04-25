@@ -19,13 +19,14 @@ export default class ProductItem extends Component {
           <Link
             className="media-body"
             activeClassName="active"
-            to={`/products/${product.id}`}>
-            <h4 className="media-heading tucked">
-              <span placeholder="A product">{product.name}</span>
-            </h4>
-            <h5 className="tucked">
-              <span>${product.price}</span>
-            </h5>
+            to={`/products/${product.id}`}
+          >
+              <h4 className="media-heading tucked">
+                <span placeholder="A product">{product.name}</span>
+              </h4>
+              <h5 className="tucked">
+                <span>${product.price}</span>
+              </h5>
           </Link>
           <button>
 
