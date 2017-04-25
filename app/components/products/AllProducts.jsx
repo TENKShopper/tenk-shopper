@@ -13,6 +13,8 @@ The display renders all the ProductItem components delineated by the Products pr
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { groupByCollection } from '../utils'
+
 import NewProductForm from './NewProductForm'
 import ProductItem from './ProductItem'
 import ProductsFilter from './ProductsFilter'
@@ -63,6 +65,7 @@ class AllProducts extends Component {
     })
   }
 
+  // todo: look into using a Set here
   toggleCheckbox = event => {
     const label = event.target.value
         , field = event.target.name + 'Query'
@@ -77,30 +80,42 @@ class AllProducts extends Component {
     }
   }
 
-  filterProducts = product => {
-    const nameMatch = new RegExp(this.state.nameQuery, 'i')
-          // Checks whether the product's name matches the input
-          , matchesNameQuery = nameMatch.test(product.name)
-          // Checks whether the product is available
-          , viewable = this.props.isAdmin ? true : product.available
-          // Checks whether the product matches refinement selectors
-          , genderChecked =
-            this.state.genderQuery.length === 0 ||
-            this.state.genderQuery.includes(product.gender)
-          , sizeChecked =
-            this.state.sizeQuery.length === 0 ||
-            this.state.sizeQuery.includes(product.size)
-          , typeChecked =
-            this.state.typeQuery.length === 0 ||
-            this.state.typeQuery.includes(product.type)
-          , checked = genderChecked && sizeChecked && typeChecked
-          // Checks whether the product matches the currently selected collection
-          , inCollection =
-              this.state.collectionQuery === 'All' ||
-              this.state.collectionQuery === null ||
-              product.collections.includes(this.state.collectionQuery)
+  inCollection(product) {
+    return this.state.collectionQuery === 'All' ||
+    this.state.collectionQuery === null ||
+    product.collections.includes(this.state.collectionQuery)
+  }
 
-    return inCollection && matchesNameQuery && viewable && checked
+  genderChecked = (product) => {
+    return this.state.genderQuery.length === 0 ||
+      this.state.genderQuery.includes(product.gender)
+  }
+
+  sizeChecked = (product) => {
+    return this.state.sizeQuery.length === 0 ||
+      this.state.sizeQuery.includes(product.size)
+  }
+
+  typeChecked = (product) => {
+    return this.state.typeQuery.length === 0 ||
+      this.state.typeQuery.includes(product.type)
+  }
+
+  matchesNameQuery = (product) => {
+    const nameMatch = new RegExp(this.state.nameQuery, 'i')
+    return nameMatch.test(product.name)
+  }
+
+  viewable = (product) => {
+    return this.props.isAdmin ? true : product.available
+  }
+
+  checked = (product) => {
+    return this.genderChecked(product) && this.sizeChecked(product) && this.typeChecked(product)
+  }
+
+  filterProducts = product => {
+    return this.inCollection(product) && this.matchesNameQuery(product) && this.viewable(product) && this.checked(product)
   }
 }
 
@@ -111,11 +126,7 @@ const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
     products: state.products,
-    collections: state.products ? state.products.map(product => product.collections)
-      .reduce((flatArray, collectionArray) => {
-        return flatArray.concat(...collectionArray)
-      }, [])
-      .filter((collection, index, origArray) => origArray.indexOf(collection) === index) : null
+    collections: state.products ? groupByCollection(state.products) : null
   }
 }
 
