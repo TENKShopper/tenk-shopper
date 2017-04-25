@@ -48,10 +48,14 @@ export default (pendingOrders = [], action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
+export const fetchPendingOrder = (order, product, userId) => dispatch => {
+  axios.get('/api/userSessions/', {pendingOrder: order})
+    .then(res => dispatch(addToCart(res.data)))
+    .catch(err => console.error('Failed to add to cart:', err))
+}
+
 export const createPendingOrder = (order, product, userId) => dispatch => {
   axios.post('/api/userSessions/', {pendingOrder: order})
-    .then(res => {
-      return dispatch(addToCart(res.data))
-    })
+    .then(res => dispatch(addToCart(res.data)))
     .catch(err => console.error('Failed to add to cart:', err))
 }

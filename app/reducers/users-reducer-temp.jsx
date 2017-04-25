@@ -1,5 +1,3 @@
-//TODO: make this a reducer for just the "selectedProduct" part of state
-
 import axios from 'axios'
 
 /* -----------------    ACTIONS     ------------------ */
@@ -11,13 +9,12 @@ const REMOVE = 'REMOVE_USER'
 
 /* ------------   ACTION CREATORS     ------------------ */
 
-const init = userList => ({ type: INITIALIZE, userList})
-const create = user => ({ type: CREATE_USER, user})
-const update = user => ({ type: UPDATE_ACCOUNT, user })
-const remove = user => ({ type: REMOVE_USER, user})
+const init = userList => ({ type: INITIALIZE, userList })
+const create = user => ({ type: CREATE, user })
+const update = user => ({ type: UPDATE, user })
+const remove = user => ({ type: REMOVE, user })
 
 /* ------------       REDUCER     ------------------ */
-
 
 export default (users = [], action) => {
   switch (action.type) {

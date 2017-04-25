@@ -9,8 +9,8 @@ const router = require('express').Router()
 module.exports = router
 
 router.param('addressType', (req, res, next, addressType) => {
-  if (addressType !== 'billingAddress' || addressType !== 'shippingAddress') {
-    res.sendStatus(404).end()
+  if (addressType !== 'billingAddress' && addressType !== 'shippingAddress') {
+    return res.sendStatus(404)
   }
   console.log('what WHAT WHAT')
   req.addressType = addressType === 'billingAddress' ? 'BillingAddresses' : 'ShippingAddresses'
@@ -20,15 +20,16 @@ router.param('addressType', (req, res, next, addressType) => {
 router.route('/:addressType')
 .get(mustBeLoggedIn, (req, res, next) => {
   req.targetUser['get' + req.addressType]()
-  .then(shippingInfos => {
-    res.json(shippingInfos)
-  })
+  .then(shippingInfos => res.json(shippingInfos))
   .catch(next)
 })
 .post(mustBeLoggedIn, (req, res, next) => {
+  console.log('GOT TO POST ROUTE')
   Address.create(req.body)
   .then(newAddress => req.targetUser['add' + req.addressType]([newAddress]))
-  .then(() => res.json(req.targetUser))
+  .then(() => {
+    res.json(req.targetUser)
+  })
   .catch(next)
 })
 .delete(mustBeLoggedIn, (req, res, next) => {
@@ -42,9 +43,7 @@ router.route('/:addressType')
 router.route('/:addressType/:addressId')
 .get(mustBeLoggedIn, (req, res, next) => {
   req.targetUser['get' + req.addressType]({id: req.params.addressId})
-  .then(shippingInfos => {
-    res.json(shippingInfos)
-  })
+  .then(shippingInfos => res.json(shippingInfos))
   .catch(next)
 })
 .put(mustBeLoggedIn, (req, res, next) => {
