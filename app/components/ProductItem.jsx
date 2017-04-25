@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-
 export default class ProductItem extends Component {
   constructor() {
     super()
@@ -14,7 +13,7 @@ export default class ProductItem extends Component {
       <div className="list-group-item min-content product-item">
         <div className="media">
           <div className="media-left media-middle icon-container">
-            <img className="media-object img-circle product-list-photo" src={product.photos[0]} />
+            <img className="media-object img-circle" src={product.photos[0]} />
           </div>
           <Link
             className="media-body"

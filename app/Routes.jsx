@@ -11,6 +11,7 @@ import Home from './components/Home'
 import NotFound from './components/NotFound'
 import Auth from './components/authenticate/LoginSignup'
 import Products from './components/products/ProductsFilter'
+import SingleProduct from './components/products/SingleProduct'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
 import Addresses from './components/user/Addresses'
@@ -27,6 +28,7 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/home" component={ Home } />
       <Route path="/authenticate" component={ Auth } />
       <Route path="/products" component={ Products } />
+      <Route path='/products/:id' component = {SingleProduct} />
       <Route path="/users/:userId" component={ User }>
         <Route path="orders" component={ Orders } />
         <Route path="reviews" component={ User } />
