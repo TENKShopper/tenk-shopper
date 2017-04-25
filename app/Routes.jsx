@@ -28,7 +28,7 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/home" component={ Home } />
       <Route path="/authenticate" component={ Auth } />
       <Route path="/products" component={ Products } />
-      <Route path='/products/:id' component = {SingleProduct} />
+      // <Route path='/products/:id' component = {SingleProduct} />
       <Route path="/users/:userId" component={ User }>
         <Route path="orders" component={ Orders } />
         <Route path="reviews" component={ User } />
