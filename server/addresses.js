@@ -12,7 +12,7 @@ router.param('addressType', (req, res, next, addressType) => {
   if (addressType !== 'billingAddress' && addressType !== 'shippingAddress') {
     return res.sendStatus(404)
   }
-  console.log('what WHAT WHAT')
+
   req.addressType = addressType === 'billingAddress' ? 'BillingAddresses' : 'ShippingAddresses'
   next()
 })
@@ -24,12 +24,9 @@ router.route('/:addressType')
   .catch(next)
 })
 .post(mustBeLoggedIn, (req, res, next) => {
-  console.log('GOT TO POST ROUTE')
   Address.create(req.body)
   .then(newAddress => req.targetUser['add' + req.addressType]([newAddress]))
-  .then(() => {
-    res.json(req.targetUser)
-  })
+  .then(() => res.json(req.targetUser))
   .catch(next)
 })
 .delete(mustBeLoggedIn, (req, res, next) => {
