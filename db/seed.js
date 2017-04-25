@@ -84,7 +84,7 @@ const products = {
   Shoes: ['DISNEY MAROON SLIPPERS', 'NIKE AIR MAX 90 ULTRA 2.0 BREATHE']
 }
 const descriptions = ['is fabulous!', 'is great for any occasion.', 'is binary', 'is classy and elegant.', 'features a soft, fluffy feel!', 'has a gently snug, relaxed fit', 'is ideal for relaxing at home.']
-const genders = ['MEN', 'WOMEN', 'UNISEX']
+const genders = ['Male', 'Female', 'Unisex']
 const clothingTypes = ['Shirts', 'Pants', 'Shoes']
 const photos = {
   Shirts: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
@@ -98,12 +98,13 @@ function createProduct() {
   const description = descriptions[Math.floor(Math.random() * descriptions.length)]
   const sex = genders[Math.floor(Math.random() * 3)]
   return {
-    name: sex + ' ' + product,
+    name: sex.toUpperCase() + ' ' + product,
     description: product + ' ' + description,
     price: Math.floor(Math.random() * 50 + 10),
     inventory: 50,
     collections: [['Spring 17', 'Winter 16'][Math.round(Math.random())]],
     gender: sex,
+    size: ['Small', 'Medium', 'Large'][Math.floor(Math.random() * 3)],
     type: clothType,
     photos: [photos[clothType]],
     available: [true, false][Math.round(Math.random())]

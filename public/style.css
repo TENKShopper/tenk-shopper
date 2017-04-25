@@ -1,6 +1,23 @@
+li {
+  list-style-type: none;
+}
+
 .product-list-photo {
   height: 150px;
   width: 150px;
+}
+
+input.product-selection-checkbox {
+  margin-left: 10px
+}
+
+.product-selector {
+  margin-left: 20px
+}
+
+#product-selection-collectionfilter {
+  margin-top: 20px;
+  margin-bottom: 20px
 }
 
 .jumbotron {
@@ -24,6 +41,6 @@
     margin: auto;
 }
 
-li {
-    list-style-type: none;
-}
+
+
+

@@ -36,24 +36,20 @@ class ProductsFilter extends Component {
   }
 
   render() {
+    console.log("this.props.products", this.props.products)
     return (
       <div className="products-view" >
         <div className="col-md-3">
           {/* TODO: create renderNewProductWidget functionality */}
-          { this.props.isAdmin ? <NewProductForm /> : null }
-          { this.renderProductsFilter() }
-          { this.state.collectionQuery ? this.renderRefineProductSelection() : null }
+          {this.props.isAdmin ? <NewProductForm /> : null}
+          {this.renderProductsFilter()}
+          {this.state.collectionQuery ? this.renderRefineProductSelection() : null}
         </div>
         <div className="col-md-9">
-          { this.props.products
+          {this.props.products
             .filter(this.filterProducts)
-            .map(product => {
-              return (
-                <div>
-                  <ProductItem key={product.id} removeProduct={this.props.removeProduct} product={product} />
-                </div>
-              )
-            }) }
+            .map(product => <ProductItem key={product.id} removeProduct={this.props.removeProduct} product={product} />
+            )}
         </div>
       </div>
     )
@@ -65,12 +61,12 @@ class ProductsFilter extends Component {
     return (
       <div>
 
-        <div>
+        <div id="product-selection-textsearch">
           <div className="media-left media-middle icon-container">
             <div className="glyphicon glyphicon-search" />
           </div>
           <div className="media-body media-middle">
-            <h4>Search by Product Name</h4>
+            <h4>SEARCH BY PRODUCT NAME</h4>
           </div>
           <div>
             <input
@@ -83,12 +79,12 @@ class ProductsFilter extends Component {
           </div>
         </div>
 
-        <div>
+        <div id="product-selection-collectionfilter">
           <div className="media-left media-middle icon-container">
             <div className="glyphicon glyphicon-filter" />
           </div>
           <div className="media-body media-middle">
-            <h4>Filter by Collection</h4>
+            <h4>FILTER BY COLLECTION</h4>
           </div>
           <div>
             <select
@@ -96,9 +92,9 @@ class ProductsFilter extends Component {
               placeholder="Select a collection"
               onChange={this.handleInputChange}
             >
-              <option value="Display all">Select a collection</option>
-              { this.props.collections
-                .map(collection => <option value={collection}>{collection}</option>)
+              <option value="All" key='all'>Select a collection</option>
+              { this.props.collections.map(collection =>
+                <option value={collection} key={collection}>{collection}</option>)
               }
             </select>
           </div>
@@ -111,83 +107,52 @@ class ProductsFilter extends Component {
     return (
       <div>
         <span><hr /></span>
-        <h4>Refine Selection</h4>
+        <div className="media-left media-middle icon-container">
+          <div className="glyphicon glyphicon-chevron-down" />
+        </div>
+        <div className="media-body media-middle">
+          <h4>REFINE SELECTION</h4>
+        </div>
         <form>
           <h5>Gender</h5>
-          <label>Male</label>
-          <input
-            name="selectsMale"
-            type="checkbox"
-            value="Male"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
-          <label>Female</label>
-          <input
-            name="selectsFemale"
-            type="checkbox"
-            value="Female"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
-          <label>Unisex</label>
-          <input
-            name="selectsUnisex"
-            type="checkbox"
-            value="Unisex"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
+          {['MEN', 'WOMEN', 'UNISEX'].map(label => (
+            <div className="product-selector" key={label}>
+              <label>{label}</label>
+              <input
+                name={'selects' + label}
+                type="checkbox"
+                value={label}
+                className="product-selection-checkbox"
+                onChange={this.toggleCheckbox}
+              />
+            </div>
+          ))}
           <h5>Clothing Type</h5>
-          <label>Shirts</label>
-          <input
-            name="selectsShirts"
-            type="checkbox"
-            value="Shirts"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
-          <label>Pants</label>
-          <input
-            name="selectsPants"
-            type="checkbox"
-            value="pants"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
-          <label>Shoes</label>
-          <input
-            name="selectsShoes"
-            type="checkbox"
-            value="Shoes"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
+          {['Shirts', 'Pants', 'Shoes'].map(label => (
+            <div className="product-selector" key={label}>
+              <label>{label}</label>
+              <input
+                name={'selects' + label}
+                type="checkbox"
+                value={label}
+                className="product-selection-checkbox"
+                onChange={this.toggleCheckbox}
+              />
+            </div>
+          ))}
           <h5>Size</h5>
-          <label>S</label>
-          <input
-            name="selectsSmall"
-            type="checkbox"
-            value="Small"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
-          <label>M</label>
-          <input
-            name="selectsMedium"
-            type="checkbox"
-            value="Medium"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
-          <label>L</label>
-          <input
-            name="largeQuery"
-            type="checkbox"
-            value="Large"
-            className="product-selection-checkbox"
-            onChange={this.toggleCheckbox}
-          />
+          {['Small', 'Medium', 'Large'].map(label => (
+            <div className="product-selector" key={label}>
+              <label>{label}</label>
+              <input
+                name={'selects' + label}
+                type="checkbox"
+                value={label}
+                className="product-selection-checkbox"
+                onChange={this.toggleCheckbox}
+              />
+            </div>
+          ))}
         </form>
       </div>
     )
@@ -200,7 +165,7 @@ class ProductsFilter extends Component {
   }
 
   toggleCheckbox(label) {
-    if (this.state.selectedCheckboxes.contains(label)) {
+    if (this.state.selectedCheckboxes.includes(label)) {
       this.setState({
         selectedCheckboxes: this.state.selectedCheckboxes.filter(checkbox => checkbox !== label)
       })
@@ -215,13 +180,16 @@ class ProductsFilter extends Component {
     const nameMatch = new RegExp(this.state.nameQuery, 'i')
           , matchesNameQuery = nameMatch.test(product.name)
           , viewable = this.props.isAdmin ? true : product.available
+          , checked = this.state.selectedCheckboxes.includes(product.gender || product.size || product.type)
+          , hasChecks = this.state.selectedCheckboxes.length > 0
+          , inCollection = product.collections.includes(this.state.collectionQuery)
 
-    if (this.state.collectionQuery) {
-      return product.collections.includes(this.state.collectionQuery) && matchesNameQuery && viewable
+    if (this.state.collectionQuery === 'All' || this.state.collectionQuery === null) {
+      return hasChecks ? matchesNameQuery && viewable && checked : matchesNameQuery && viewable
+    } else {
+      return hasChecks ? inCollection && matchesNameQuery && viewable && checked : inCollection && matchesNameQuery && viewable
     }
-    return matchesNameQuery && viewable
   }
-
 }
 
 /* ----- CONTAINER ----- */
