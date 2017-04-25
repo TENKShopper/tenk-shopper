@@ -56,3 +56,8 @@ div.vertical-line{
 #logout-btn {
   vertical-align: middle;
 }
+
+.glyphicon.glyphicon-shopping-cart {
+    font-size: 33px;
+    padding: 5px 0px 0px 20px;
+}

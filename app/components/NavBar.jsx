@@ -20,6 +20,9 @@ const NavBarMain = ({ user }) => {
         </NavBar.Brand>
         <NavBar.Toggle />
       </NavBar.Header>
+      <NavBar.Item className="pull-right">
+        <a href="/shoppingCart" className="glyphicon glyphicon-shopping-cart"></a>
+      </NavBar.Item>
       <NavBar.Nav className="pull-right">
         {user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>}
       </NavBar.Nav>
