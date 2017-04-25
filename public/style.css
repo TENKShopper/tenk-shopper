@@ -2,6 +2,8 @@ li {
   list-style-type: none;
 }
 
+/* ----- AllProducts ----- */
+
 .product-list-photo {
   height: 150px;
   width: 150px;
@@ -19,6 +21,18 @@ input.product-selection-checkbox {
   margin-top: 20px;
   margin-bottom: 20px
 }
+
+/* ----- SingleProduct ----- */
+
+.singleProductPhoto {
+  display: inline-block
+}
+
+.singleProductName {
+  display: inline-block
+}
+
+/* ----- Homepage ----- */
 
 .jumbotron {
   background-image: url("../spring.jpg");
@@ -42,9 +56,13 @@ input.product-selection-checkbox {
     margin: auto;
 }
 
+/* ----- User ----- */
+
 #accountTitle {
   font-size: 50px;
 }
+
+/* ----- Auth ----- */
 
 div.vertical-line{
     width: 1px;
@@ -60,6 +78,8 @@ div.vertical-line{
 #signup-comp {
   padding: 80px 40px 40px 80px;
 }
+
+/* ----- NavBar ----- */
 
 #navUserProfile {
   font-size: 1.4em;
