@@ -4,25 +4,31 @@ import { Link } from 'react-router'
 import Review from '../user/Review'
 
 function SingleProduct({ selectedProduct }) {
-  console.log("selectedProduct", selectedProduct)
   return (
     <div className='singleProduct'>
 
-      <h2>{ selectedProduct.name }</h2>
+      <div className='singleProductPhotos'>
+        {selectedProduct.photos && renderPhoto(selectedProduct.photos[0])}
+      </div>
+
+      <div className='singleProductName'>
+        <h2>{selectedProduct.name}</h2>
+      </div>
+
+      <div className=''>
+      </div>
+
       <div className="list-group-item min-content single-product">
         <div className="media">
-          <div className="media-left media-middle icon-container">
-            <img className="media-object img-circle product-list-photo" src={ selectedProduct.photos && selectedProduct.photos[0] } />
-          </div>
           <Link
             className="media-body"
             activeClassName="active"
-            to={`/products/${ selectedProduct.id }`}>
+            to={`/products/${selectedProduct.id}`}>
 
             <h5 className="tucked">
-              <span>{ selectedProduct.description }</span>
-              <span>{ selectedProduct.price }</span>
-              <span>{ selectedProduct.avgRating }</span>
+              <span>{selectedProduct.description}</span>
+              <span>{selectedProduct.price}</span>
+              <span>{selectedProduct.avgRating}</span>
             </h5>
           </Link>
         </div>
@@ -32,7 +38,7 @@ function SingleProduct({ selectedProduct }) {
       </div>
 
       <div>
-      {/* TODO: write logic for selectedProduct to arrive from state
+        {/* TODO: write logic for selectedProduct to arrive from state
         { selectedProduct.reviews.map(function(review) {
           return <Review review={review} />
         }) }
@@ -40,6 +46,11 @@ function SingleProduct({ selectedProduct }) {
       </div>
     </div>
   )
+}
+
+const renderPhoto = photo => {
+  const photoStyle = { width: '300px', height: '400px' }
+  return (<img className="d-block img-fluid" src={photo} style={photoStyle} />)
 }
 
 const mapStatetoProps = (state) => {
