@@ -26,9 +26,15 @@ class ProductsFilter extends Component {
     this.state = {
       nameQuery: '',
       collectionQuery: null,
+      genderQuery: [],
+      typeQuery: [],
+      sizeQuery: []
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
+    this.renderRefineProductSelection = this.renderRefineProductSelection.bind(this)
     this.filterProducts = this.filterProducts.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.toggleCheckbox = this.toggleCheckbox.bind(this)
   }
 
   render() {
@@ -36,20 +42,15 @@ class ProductsFilter extends Component {
       <div className="products-view" >
         <div className="col-md-3">
           {/* TODO: create renderNewProductWidget functionality */}
-          { this.props.isAdmin ? <NewProductForm /> : null }
-          { this.renderProductsFilter() }
-          { this.state.collectionQuery ? <RefineProductSelection /> : null }
+          {this.props.isAdmin ? <NewProductForm /> : null}
+          {this.renderProductsFilter()}
+          {this.state.collectionQuery ? this.renderRefineProductSelection() : null}
         </div>
         <div className="col-md-9">
-          { this.props.products
+          {this.props.products
             .filter(this.filterProducts)
-            .map(product => {
-              return (
-                <div>
-                  <ProductItem key={product.id} removeProduct={this.props.removeProduct} product={product} />
-                </div>
-              )
-            }) }
+            .map(product => <ProductItem key={product.id} removeProduct={this.props.removeProduct} product={product} />
+            )}
         </div>
       </div>
     )
@@ -61,38 +62,39 @@ class ProductsFilter extends Component {
     return (
       <div>
 
-        <div>
+        <div id="product-selection-textsearch">
           <div className="media-left media-middle icon-container">
             <div className="glyphicon glyphicon-search" />
           </div>
           <div className="media-body media-middle">
-            <h4>Search by Product Name</h4>
+            <h4>SEARCH BY PRODUCT NAME</h4>
           </div>
           <div>
             <input
+              name="nameQuery"
               type="text"
               placeholder="Input product name"
               className="form-like"
-              onChange={evt => this.setState({ nameQuery: evt.target.value })}
+              onChange={this.handleInputChange}
             />
           </div>
         </div>
 
-        <div>
+        <div id="product-selection-collectionfilter">
           <div className="media-left media-middle icon-container">
             <div className="glyphicon glyphicon-filter" />
           </div>
           <div className="media-body media-middle">
-            <h4>Filter by Collection</h4>
+            <h4>FILTER BY COLLECTION</h4>
           </div>
           <div>
             <select
-              placeholder="Select a collection"
-              onChange={evt => this.setState({ collectionQuery: evt.target.value })}
+              name="collectionQuery"
+              onChange={this.handleInputChange}
             >
-              <option value="Display all">Select a collection</option>
-              { this.props.collections
-                .map(collection => <option value={collection}>{collection}</option>)
+              <option value="All" key='all'>Show all</option>
+              { this.props.collections.map(collection =>
+                <option value={collection} key={collection}>{collection}</option>)
               }
             </select>
           </div>
@@ -101,19 +103,106 @@ class ProductsFilter extends Component {
     )
   }
 
-  /* TODO: think through categories */
-  filterProducts(product) {
-    const nameMatch = new RegExp(this.state.nameQuery, 'i')
-          , matchesNameQuery = nameMatch.test(product.name)
-          , viewable = this.props.isAdmin ? true : product.available
-
-    if (this.state.collectionQuery) {
-      return product.collections.includes(this.state.collectionQuery) && matchesNameQuery && viewable
-    }
-
-    return matchesNameQuery && viewable
+  renderRefineProductSelection() {
+    return (
+      <div>
+        <span><hr /></span>
+        <div className="media-left media-middle icon-container">
+          <div className="glyphicon glyphicon-chevron-down" />
+        </div>
+        <div className="media-body media-middle">
+          <h4>REFINE SELECTION</h4>
+        </div>
+        <form>
+          <h5>Gender</h5>
+          {['Male', 'Female', 'Unisex'].map(label => (
+            <div className="product-selector" key={label}>
+              <label>{label}</label>
+              <input
+                name='gender'
+                type="checkbox"
+                value={label}
+                className="product-selection-checkbox"
+                onChange={this.toggleCheckbox}
+              />
+            </div>
+          ))}
+          <h5>Clothing Type</h5>
+          {['Shirts', 'Pants', 'Shoes'].map(label => (
+            <div className="product-selector" key={label}>
+              <label>{label}</label>
+              <input
+                name='type'
+                type="checkbox"
+                value={label}
+                className="product-selection-checkbox"
+                onChange={this.toggleCheckbox}
+              />
+            </div>
+          ))}
+          <h5>Size</h5>
+          {['Small', 'Medium', 'Large'].map(label => (
+            <div className="product-selector" key={label}>
+              <label>{label}</label>
+              <input
+                name='size'
+                type="checkbox"
+                value={label}
+                className="product-selection-checkbox"
+                onChange={this.toggleCheckbox}
+              />
+            </div>
+          ))}
+        </form>
+      </div>
+    )
   }
 
+  handleInputChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  toggleCheckbox(event) {
+    const label = event.target.value
+        , field = event.target.name + 'Query'
+    if (this.state[field].includes(label)) {
+      this.setState({
+        [field]: this.state[field].filter(checkbox => checkbox !== label)
+      })
+    } else {
+      this.setState({
+        [field]: this.state[field].concat(label)
+      })
+    }
+  }
+
+  filterProducts(product) {
+    const nameMatch = new RegExp(this.state.nameQuery, 'i')
+          // Checks whether the product's name matches the input
+          , matchesNameQuery = nameMatch.test(product.name)
+          // Checks whether the product is available
+          , viewable = this.props.isAdmin ? true : product.available
+          // Checks whether the product matches refinement selectors
+          , genderChecked =
+            this.state.genderQuery.length === 0 ||
+            this.state.genderQuery.includes(product.gender)
+          , sizeChecked =
+            this.state.sizeQuery.length === 0 ||
+            this.state.sizeQuery.includes(product.size)
+          , typeChecked =
+            this.state.typeQuery.length === 0 ||
+            this.state.typeQuery.includes(product.type)
+          , checked = genderChecked && sizeChecked && typeChecked
+          // Checks whether the product matches the currently selected collection
+          , inCollection =
+              this.state.collectionQuery === 'All' ||
+              this.state.collectionQuery === null ||
+              product.collections.includes(this.state.collectionQuery)
+
+    return inCollection && matchesNameQuery && viewable && checked
+  }
 }
 
 /* ----- CONTAINER ----- */

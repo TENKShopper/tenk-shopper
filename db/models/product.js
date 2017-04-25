@@ -35,11 +35,11 @@ module.exports = db => db.define('products', {
     type: ARRAY(STRING)
   },
   gender: {
-    type: ENUM('MEN', 'WOMEN', 'UNISEX'),
-    defaultValue: 'UNISEX'
+    type: ENUM('Male', 'Female', 'Unisex'),
+    defaultValue: 'Unisex'
   },
   size: {
-    type: ENUM('S', 'M', 'L'),
+    type: ENUM('Small', 'Medium', 'Large'),
   },
   type: {
     type: ENUM('Shirts', 'Pants', 'Shoes')

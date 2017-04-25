@@ -1,6 +1,23 @@
+li {
+  list-style-type: none;
+}
+
 .product-list-photo {
   height: 150px;
   width: 150px;
+}
+
+input.product-selection-checkbox {
+  margin-left: 10px
+}
+
+.product-selector {
+  margin-left: 20px
+}
+
+#product-selection-collectionfilter {
+  margin-top: 20px;
+  margin-bottom: 20px
 }
 
 .jumbotron {
@@ -24,10 +41,6 @@
     margin: auto;
 }
 
-li {
-    list-style-type: none;
-}
-
 #accountTitle {
   font-size: 50px;
 }
@@ -36,9 +49,7 @@ div.vertical-line{
     width: 1px;
     background-color: lightgray;
     height: 500px;
-    float: left; /* Causes the line to float to left of content.
-      You can instead use position:absolute or display:inline-block
-      if this fits better with your design */
+    float: left;
   }
 
 .whoAmI {
