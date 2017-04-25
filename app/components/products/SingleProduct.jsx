@@ -20,13 +20,18 @@ function SingleProduct({ selectedProduct }) {
       </div>
 
       <div className='singleProductQty'>
+        <input
+          name="quantity"
+          type="number"
+          onChange={generateLineItem}
+        />
       </div>
 
       <div className='singleProductDesc'>
         <p>{selectedProduct.description}</p>
       </div>
 
-      <div className='singleProductButton'>
+      <div className='addProductButton'>
         <button>
         </button>
       </div>
@@ -45,6 +50,10 @@ function SingleProduct({ selectedProduct }) {
 const renderPhoto = photo => {
   const photoStyle = { width: '300px', height: '400px' }
   return (<img className="d-block img-fluid" src={photo} style={photoStyle} />)
+}
+
+const generateLineItem = event => {
+  const quantity = event.target.value
 }
 
 const mapStatetoProps = (state) => {
