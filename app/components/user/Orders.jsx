@@ -1,5 +1,6 @@
 import React from 'react'
-import {connect} from 'react-redux'
+
+/* ------ COMPONENT ------ */
 
 const Orders = (props) => (
   <table className="table table-striped table-hover">
@@ -33,6 +34,10 @@ const Orders = (props) => (
    </tbody>
  </table>
 )
+
+/* ------ CONTAINER ------ */
+
+import {connect} from 'react-redux'
 
 export default connect(
 )(Orders)

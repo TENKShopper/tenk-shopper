@@ -1,6 +1,8 @@
 import React from 'react'
 import {browserHistory} from 'react-router'
 
+/* ------ COMPONENT ------ */
+
 export const Login = ({ login }) => (
   <div>
     <div className="col-md-6">
@@ -73,7 +75,7 @@ export const Login = ({ login }) => (
   </div>
 )
 
-/* -----------------    CONTAINER     ------------------ */
+/* ------ CONTAINER ------ */
 
 import {login} from 'APP/app/reducers/auth-reducer'
 import {connect} from 'react-redux'

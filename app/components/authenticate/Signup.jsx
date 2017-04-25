@@ -1,6 +1,8 @@
 import React from 'react'
 import {browserHistory} from 'react-router'
 
+/* ------ COMPONENT ------ */
+
 const Signup = ({signup}) => (
   <div className="col-md-6">
     <form className="form-horizontal" action='' method="POST"
@@ -79,7 +81,7 @@ const Signup = ({signup}) => (
   </div>
 )
 
-/* -----------------    CONTAINER     ------------------ */
+/* ------ CONTAINER ------ */
 
 import {signup} from 'APP/app/reducers/auth-reducer'
 import {connect} from 'react-redux'
