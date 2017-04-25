@@ -8,13 +8,13 @@ export const REMOVE = 'REMOVE_PRODUCT'
 const UPDATE        = 'UPDATE_PRODUCT'
 const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 
+
 /* ------------   ACTION CREATORS     ------------------ */
 
 const init   = products => ({ type: INITIALIZE, products })
-export const create = product => ({ type: CREATE, product })
+const create = product => ({ type: CREATE, product })
 const remove = id    => ({ type: REMOVE, id })
 const update = product  => ({ type: UPDATE, product })
-export const selectProduct = selectedProduct => ({ type: GET_SINGLE_PRODUCT, selectedProduct})
 
 
 /* ------------       REDUCER     ------------------ */
@@ -35,8 +35,6 @@ export default (products = [], action) => {
         action.product.id === product.id ? action.product : product
       ))
 
-    case GET_SINGLE_PRODUCT: return action.selectedProduct
-
     default:
       return products
   }
@@ -47,12 +45,6 @@ export default (products = [], action) => {
 export const fetchProducts = () => dispatch => {
   axios.get('/api/products')
        .then(res => dispatch(init(res.data)))
-}
-
-{/* TODO: dispatch appropriate action for front-end need */}
-export const fetchProduct = id => dispatch => {
-  axios.get(`/api/products/${id}`)
-      .then(res => dispatch())
 }
 
 export const removeProduct = id => dispatch => {
