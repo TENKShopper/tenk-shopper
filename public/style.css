@@ -27,3 +27,37 @@
 li {
     list-style-type: none;
 }
+
+#accountTitle {
+  font-size: 50px;
+}
+
+div.vertical-line{
+    width: 1px;
+    background-color: lightgray;
+    height: 500px;
+    float: left; /* Causes the line to float to left of content.
+      You can instead use position:absolute or display:inline-block
+      if this fits better with your design */
+  }
+
+.whoAmI {
+  clear: both;
+}
+
+#navUserProfile {
+  font-size: 1.4em;
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  vertical-align: bottom;
+}
+
+#logout-btn {
+  vertical-align: middle;
+}
+
+.glyphicon.glyphicon-shopping-cart {
+    font-size: 33px;
+    padding: 5px 0px 0px 20px;
+}
