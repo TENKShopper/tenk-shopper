@@ -10,6 +10,7 @@ const NavBarMain = ({ user }) => {
     <NavBar>
       <NavBar.Header>
         <NavBar.Brand>
+          {/* OB/DY: define inline styles ahead-of-time */}
           <a href="/" style={{ cursor: 'pointer' }}>TENK</a>
         </NavBar.Brand>
         <NavBar.Toggle />
@@ -21,9 +22,11 @@ const NavBarMain = ({ user }) => {
         <NavBar.Toggle />
       </NavBar.Header>
       <NavBar.Item className="pull-right">
+        {/* OB/DY: consider using `<Link to...>` */}
         <a href="/shoppingCart" className="glyphicon glyphicon-shopping-cart"></a>
       </NavBar.Item>
       <NavBar.Nav className="pull-right">
+        {/* OB/DY: always active? */}
         { user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item> }
       </NavBar.Nav>
     </NavBar>

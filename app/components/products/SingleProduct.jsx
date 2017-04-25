@@ -48,3 +48,12 @@ const mapStatetoProps = (state) => {
 }
 
 export default connect(mapStatetoProps)(SingleProduct)
+
+// // OB/DY: other cool thing
+// const SingleProductRoute = ({fetchSelectedProduct}) => (
+//   <Route path='/products/:id' component={SingleProduct} onEnter={fetchSelectedProduct} />
+// );
+
+// const SingleProductRouteContainer = connect(null, {
+//   fetchSelectedProduct
+// });

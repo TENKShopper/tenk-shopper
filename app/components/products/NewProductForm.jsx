@@ -42,6 +42,7 @@ class NewProductForm extends Component {
       </div>
     )
   }
+  // OB/DY: consider "implicit bind" (coined by Damon Ye on April 24th 2017) submitNewProduct = (event) => {...}
   submitNewProduct(event) {
     event.preventDefault()
     const product = {

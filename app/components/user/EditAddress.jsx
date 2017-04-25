@@ -8,6 +8,7 @@ const EditAddress = ({ user, addAddress }) => (
     <form className="form-horizontal" action='' method="POST"
       onSubmit={evt => {
         evt.preventDefault()
+        // OB/DY: that's a lot of inline arguments, maybe pass one argument as an object
         addAddress(user.id, 'shippingAddress', evt.target.firstName.value, evt.target.lastName.value, evt.target.streetAddress.value, evt.target.premise.value, evt.target.administrativeArea.value, evt.target.locality.value, evt.target.postalZipCode.value)
       } }>
       <fieldset>

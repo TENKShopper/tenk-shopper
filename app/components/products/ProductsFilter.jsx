@@ -116,6 +116,7 @@ class ProductsFilter extends Component {
         <form>
           <h5>Gender</h5>
           {['Male', 'Female', 'Unisex'].map(label => (
+            {/* OB/DY: could make this div a component (it repeats later) */}
             <div className="product-selector" key={label}>
               <label>{label}</label>
               <input
@@ -158,6 +159,14 @@ class ProductsFilter extends Component {
     )
   }
 
+  // OB/DY: neat thing with destructuring
+  /*
+  handleInputChange({target: {name, value}}) {
+    this.setState({
+      [name]: value
+    })
+  }
+  */
   handleInputChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -166,14 +175,15 @@ class ProductsFilter extends Component {
 
   toggleCheckbox(event) {
     const label = event.target.value
-        , field = event.target.name + 'Query'
+        , field = event.target.name + 'Query' // sizeQuery
     if (this.state[field].includes(label)) {
+      // OB/DY: consider Set instead of array (sublinear lookup / add time)
       this.setState({
         [field]: this.state[field].filter(checkbox => checkbox !== label)
       })
     } else {
       this.setState({
-        [field]: this.state[field].concat(label)
+        [field]: this.state[field].concat(label) // OB/DY: there's also...spread
       })
     }
   }
@@ -201,6 +211,7 @@ class ProductsFilter extends Component {
               this.state.collectionQuery === null ||
               product.collections.includes(this.state.collectionQuery)
 
+    // OB/DY: consider splitting into four functions (four different things are happening)
     return inCollection && matchesNameQuery && viewable && checked
   }
 }
@@ -212,6 +223,7 @@ const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
     products: state.products,
+    // OB/DY: consider making this into a utility method (`groupBy`?)
     collections: state.products ? state.products.map(product => product.collections)
       .reduce((flatArray, collectionArray) => {
         return flatArray.concat(...collectionArray)
@@ -222,6 +234,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    // OB/DY: some dead code, not quite dead yet though, should be dead
     // addProduct
     // removeProduct
   }

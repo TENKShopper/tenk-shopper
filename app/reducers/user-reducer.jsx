@@ -62,6 +62,7 @@ export const removeUser = id => dispatch => {
    .catch(err => console.error(`Removing user: ${id} unsuccesful`, err))
 }
 
+// OB/DY: consider "flattening out" API so taht /api/addresses is its own endpoint
 export const addAddress = (userId, addressType, address) => dispatch => {
   axios.post(`/api/users/${userId}/addresses/${addressType}`, address)
    .then(res => dispatch(update(res.data)))

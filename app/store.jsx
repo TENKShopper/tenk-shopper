@@ -10,7 +10,7 @@ const store = createStore(
   rootReducer,
   composeWithDevTools(
     applyMiddleware(
-      createLogger({collapsed: true}),
+      createLogger({collapsed: true}), // OB/DY: might want to have these middleware reversed
       thunkMiddleware
     )
   )
