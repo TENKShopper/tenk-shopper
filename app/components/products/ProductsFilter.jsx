@@ -90,10 +90,9 @@ class ProductsFilter extends Component {
           <div>
             <select
               name="collectionQuery"
-              placeholder="Select a collection"
               onChange={this.handleInputChange}
             >
-              <option value="All" key='all'>Select a collection</option>
+              <option value="All" key='all'>Show all</option>
               { this.props.collections.map(collection =>
                 <option value={collection} key={collection}>{collection}</option>)
               }

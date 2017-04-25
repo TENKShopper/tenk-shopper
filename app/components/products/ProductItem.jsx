@@ -25,9 +25,12 @@ export default class ProductItem extends Component {
               <span placeholder="A product">{product.name}</span>
             </h4>
             <h5 className="tucked">
-              <span>{product.price}</span>
+              <span>${product.price}</span>
             </h5>
           </Link>
+          <button>
+
+          </button>
         </div>
 
         {this.props.isAdmin ? this.renderRemoveProduct() : null}
