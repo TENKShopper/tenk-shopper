@@ -49,12 +49,16 @@ input.product-selection-checkbox {
 div.vertical-line{
     width: 1px;
     background-color: lightgray;
-    height: 500px;
+    height: 700px;
     float: left;
   }
 
-.whoAmI {
-  clear: both;
+#login-comp {
+  padding: 80px 40px 40px 80px;
+}
+
+#signup-comp {
+  padding: 80px 40px 40px 80px;
 }
 
 #navUserProfile {

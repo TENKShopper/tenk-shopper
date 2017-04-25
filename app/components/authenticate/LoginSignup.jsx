@@ -7,6 +7,7 @@ import Login from './Login'
 const Auth = (props) => (
   <div>
     <Login />
+    <div className="vertical-line"></div>
     <Signup />
   </div>
 )
