@@ -70,7 +70,7 @@ const EditAddress = ({ user, addAddress }) => (
 
 /* ------ CONTAINER ------ */
 
-import {addAddress} from 'APP/app/reducers/user-reducer'
+import {addAddress} from 'APP/app/reducers/users-reducer'
 import {connect} from 'react-redux'
 
 export default connect(

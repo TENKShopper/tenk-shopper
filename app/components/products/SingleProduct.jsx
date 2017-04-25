@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import Review from '../user/Review'
 
 function SingleProduct({ selectedProduct }) {
+  console.log("selectedProduct", selectedProduct)
   return (
     <div className='singleProduct'>
 
@@ -16,7 +17,7 @@ function SingleProduct({ selectedProduct }) {
           <Link
             className="media-body"
             activeClassName="active"
-            to={`/products/${selectedProduct.id}`}>
+            to={`/products/${ selectedProduct.id }`}>
 
             <h5 className="tucked">
               <span>{ selectedProduct.description }</span>

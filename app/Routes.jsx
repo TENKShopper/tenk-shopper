@@ -10,7 +10,7 @@ import App from './components/App'
 import Home from './components/Home'
 import NotFound from './components/NotFound'
 import Auth from './components/authenticate/LoginSignup'
-import Products from './components/products/ProductsFilter'
+import Products from './components/products/AllProducts'
 import SingleProduct from './components/products/SingleProduct'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
@@ -21,6 +21,13 @@ import Cart from './components/shoppingCart'
 import { fetchProducts } from './reducers/products-reducer'
 import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
 
+/* ------ HELPER FUNCTIONS ------ */
+
+const onSelectedProduct = (nextRouterState) => {
+  console.log("nextRouterState.params.productId", nextRouterState.params.productId)
+  store.dispatch(fetchSelectedProduct(nextRouterState.params.productId))
+}
+
 /* ------ COMPONENT ------ */
 
 const Routes = ({ fetchInitialData }) => (
@@ -30,7 +37,7 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/home" component={Home} />
       <Route path="/authenticate" component={Auth} />
       <Route path="/products" component={Products} />
-      <Route path='/products/:id' component={SingleProduct} onEnter={fetchSelectedProduct} />
+      <Route path="/products/:productId" component={SingleProduct} onEnter={onSelectedProduct} />
       <Route path="/cart" component={Cart} />
       <Route path="/users/:userId" component={User}>
         <Route path="orders" component={Orders} />
@@ -51,9 +58,6 @@ const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchProducts())
-  },
-  fetchSelectedProduct: () => {
-    dispatch(fetchSelectedProduct())
   }
 })
 

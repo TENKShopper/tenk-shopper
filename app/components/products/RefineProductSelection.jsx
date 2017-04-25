@@ -1,103 +1,34 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class RefineProductSelection extends Component {
-  constructor(props) {
-    super(props)
-    this.handleCheckboxChange
-  }
+import RefineProductCheckboxes from './RefineProductCheckboxes'
+
+export default class RefineProductSelection extends Component {
   render() {
     return (
       <div>
         <span><hr /></span>
-        <h4>Refine Selection</h4>
+        <div className="media-left media-middle icon-container">
+          <div className="glyphicon glyphicon-chevron-down" />
+        </div>
+        <div className="media-body media-middle">
+          <h4>REFINE SELECTION</h4>
+        </div>
         <form>
           <h5>Gender</h5>
-          <label>Male</label>
-          <input
-            name="selectsMale"
-            type="checkbox"
-            value="Male"
-            onChange={this.handleCheckboxChange}
-          />
-          <label>Female</label>
-          <input
-            name="selectsFemale"
-            type="checkbox"
-            value="Female"
-            onChange={this.handleCheckboxChange}
-          />
-          <label>Unisex</label>
-          <input
-            name="selectsUnisex"
-            type="checkbox"
-            value="Unisex"
-            onChange={this.handleCheckboxChange}
-          />
+          {['Male', 'Female', 'Unisex'].map(label => (
+            <RefineProductCheckboxes key={label} field='gender' toggleCheckbox={this.props.toggleCheckbox} label={label} />
+          ))}
           <h5>Clothing Type</h5>
-          <label>Shirts</label>
-          <input
-            name="selectsShirts"
-            type="checkbox"
-            value="Shirts"
-            onChange={this.handleCheckboxChange}
-          />
-          <label>Pants</label>
-          <input
-            name="selectsPants"
-            type="checkbox"
-            value="pants"
-            onChange={this.handleCheckboxChange}
-          />
-          <label>Shoes</label>
-          <input
-            name="selectsShoes"
-            type="checkbox"
-            value="Shoes"
-            onChange={this.handleCheckboxChange}
-          />
+          {['Shirts', 'Pants', 'Shoes'].map(label => (
+            <RefineProductCheckboxes key={label} field='type' toggleCheckbox={this.props.toggleCheckbox} label={label} />
+          ))}
           <h5>Size</h5>
-          <label>S</label>
-          <input
-            name="selectsSmall"
-            type="checkbox"
-            value="Small"
-            onChange={this.handleCheckboxChange}
-          />
-          <label>M</label>
-          <input
-            name="selectsMedium"
-            type="checkbox"
-            value="Medium"
-            onChange={this.handleCheckboxChange}
-          />
-          <label>L</label>
-          <input
-            name="selectsLarge"
-            type="checkbox"
-            value="Large"
-            onChange={this.handleCheckboxChange}
-          />
+          {['Small', 'Medium', 'Large'].map(label => (
+            <RefineProductCheckboxes key={label} field='size' toggleCheckbox={this.props.toggleCheckbox} label={label} />
+          ))}
         </form>
       </div>
     )
   }
 }
-
-/* ----- CONTAINER ----- */
-
-// TODO: revisit what state to pass to props
-const mapStateToProps = (state) => {
-  return {
-    isAdmin: state.currentUser && state.currentUser.isAdmin,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // addProduct
-    // removeProduct
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RefineProductSelection)

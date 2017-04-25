@@ -1,5 +1,3 @@
-//TODO: make this a reducer for just the "selectedProduct" part of state
-
 import axios from 'axios'
 
 /* -----------------    ACTIONS     ------------------ */
