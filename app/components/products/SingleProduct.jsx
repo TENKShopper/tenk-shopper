@@ -15,30 +15,24 @@ function SingleProduct({ selectedProduct }) {
         <h2>{selectedProduct.name}</h2>
       </div>
 
-      <div className=''>
+      <div className='singleProductPrice'>
+        <h4>{selectedProduct.price}</h4>
       </div>
 
-      <div className="list-group-item min-content single-product">
-        <div className="media">
-          <Link
-            className="media-body"
-            activeClassName="active"
-            to={`/products/${selectedProduct.id}`}>
-
-            <h5 className="tucked">
-              <span>{selectedProduct.description}</span>
-              <span>{selectedProduct.price}</span>
-              <span>{selectedProduct.avgRating}</span>
-            </h5>
-          </Link>
-        </div>
+      <div className='singleProductQty'>
       </div>
-      <div>
-        {/* add to cart button will go here */}
+
+      <div className='singleProductDesc'>
+        <p>{selectedProduct.description}</p>
+      </div>
+
+      <div className='singleProductButton'>
+        <button>
+        </button>
       </div>
 
       <div>
-        {/* TODO: write logic for selectedProduct to arrive from state
+        {/*
         { selectedProduct.reviews.map(function(review) {
           return <Review review={review} />
         }) }

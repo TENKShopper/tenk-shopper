@@ -24,7 +24,13 @@ input.product-selection-checkbox {
 
 /* ----- SingleProduct ----- */
 
+.singleProductPhoto {
+  display: inline-block
+}
 
+.singleProductName {
+  display: inline-block
+}
 
 /* ----- Homepage ----- */
 
