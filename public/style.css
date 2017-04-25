@@ -22,10 +22,11 @@ input.product-selection-checkbox {
 
 .jumbotron {
   background-image: url("../spring.jpg");
-  background-size: contain;
   background-repeat: no-repeat;
-  min-height: 500px;
-  position: relative;
+  background-size: cover;
+  background: contain;
+  width: 100%; /* make sure to define width to fill container */
+  height: 700px;
 }
 
 #jumbobutton {
@@ -33,7 +34,7 @@ input.product-selection-checkbox {
   display : block;
   width   : 100px;
   position: absolute;
-    top: 70%;
+    top: 50%;
     bottom: 0;
     left: 0;
     right: 0;
@@ -48,12 +49,16 @@ input.product-selection-checkbox {
 div.vertical-line{
     width: 1px;
     background-color: lightgray;
-    height: 500px;
+    height: 700px;
     float: left;
   }
 
-.whoAmI {
-  clear: both;
+#login-comp {
+  padding: 80px 40px 40px 80px;
+}
+
+#signup-comp {
+  padding: 80px 40px 40px 80px;
 }
 
 #navUserProfile {

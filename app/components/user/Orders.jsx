@@ -1,8 +1,9 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 /* ------ COMPONENT ------ */
 
-const Orders = (props) => (
+const Orders = ({ user }) => (
   <table className="table table-striped table-hover">
     <thead>
       <tr>
@@ -15,7 +16,7 @@ const Orders = (props) => (
     <tbody>
      <tr>
        <td>3/26/2017</td>
-       <td>3808439075</td>
+       <td><Link to={`/users/${user.id}/orders/1`}>3808439075</Link></td>
        <td>4/1/2017</td>
        <td>1Z849EW10351211223</td>
      </tr>
@@ -40,4 +41,5 @@ const Orders = (props) => (
 import {connect} from 'react-redux'
 
 export default connect(
+  ({ auth }) => ({ user: auth })
 )(Orders)

@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 /* ----- DUMMY DATA ----- */
-const dummyOrder = {
+const dummyOrder = [{
   product: {
     id: 1,
     name: 'T-Shirt',
@@ -11,17 +12,28 @@ const dummyOrder = {
   },
   quantity: 2,
   totalPrice: 1000,
-}
+  id: 12345
+}, {
+  product: {
+    id: 2,
+    name: 'Pants',
+    image: 'http://www.how-to-draw-funny-cartoons.com/image-files/cartoon-pants-5.gif',
+    price: 30,
+  },
+  quantity: 3,
+  totalPrice: 90,
+  id: 12346
+}]
 
 /* ----- COMPONENT ----- */
 
 const cartComponent = (props) => {
   return (
     <div className="cart-view" >
-      <table id="order-table" className="order-list">
+      <table id="order-table" className="table table-striped table-hover">
         <thead className="table-headers">
           <tr>
-          <th className="section-header first-section" colspan="2">Product</th>
+          <th className="section-header first-section">Product</th>
           <th className="section-header second-section">Quantity</th>
           <th className="section-header third-section">PRICE</th>
           <th className="section-header forth-section">Total PRICE</th>
@@ -36,7 +48,7 @@ const cartComponent = (props) => {
         </tbody>
       </table>
       <div className="button">
-        <button className="">CHECKOUT</button>
+        <button className="btn btn-default">CHECKOUT</button>
       </div>
       <div className="subtotal-price">
 
@@ -53,28 +65,28 @@ const cartComponent = (props) => {
     // price of each unit
     // total price
     return dummyOrder.map(order => (
-      <tr>
+      <tr key={order.id}>
         <td className ="order-product-detail">
           <div className="product-image">
-            <img src = {`${dummyOrder.product.image}`} />
+            <img src = {`${order.product.image}`} />
           </div>
           <div className="product-name">
-            <Link to={`/products/${dummyOrder.product.id}`}>
-              {dummyOrder.product.name}
+            <Link to={`/products/${order.product.id}`}>
+              {order.product.name}
             </Link>
           </div>
         </td>
         <td className ="order-product-quantity">
           <div className="product-quantity">
-            {dummyOrder.quantity}
+            {order.quantity}
             {/* REMOVE BUTTON? */}
           </div>
         </td>
         <td className ="order-product-price">
-            {dummyOrder.product.price}
+            {order.product.price}
         </td>
         <td className ="order-total-price">
-            {dummyOrder.totalPrice}
+            {order.totalPrice}
         </td>
       </tr>
     ))
