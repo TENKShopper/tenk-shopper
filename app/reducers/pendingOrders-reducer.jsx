@@ -54,6 +54,7 @@ export const fetchPendingOrder = (order, product, userId) => dispatch => {
     .catch(err => console.error('Failed to add to cart:', err))
 }
 
+// OB/DY: I prefer objects instead of positional paremeters
 export const createPendingOrder = (order, product, userId) => dispatch => {
   axios.post('/api/userSessions/', {pendingOrder: order})
     .then(res => dispatch(addToCart(res.data)))

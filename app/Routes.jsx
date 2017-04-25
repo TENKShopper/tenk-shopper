@@ -23,7 +23,7 @@ import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
 
 /* ------ COMPONENT ------ */
 
-const Routes = ({ fetchInitialData }) => (
+const Routes = ({ fetchInitialData }) => ( // OB/DY: bug here, should also capture `fetchSelectedProduct`
   <Router history={browserHistory}>
     <Route path="/" component={App} onEnter={fetchInitialData} >
       <IndexRedirect to="/home" />
@@ -36,6 +36,7 @@ const Routes = ({ fetchInitialData }) => (
         <Route path="orders" component={Orders} />
         <Route path="reviews" component={User} />
         <Route path="addresses" component={Addresses} />
+        {/* OB/DY: url could just be addresses/edit */}
         <Route path="addresses/editAddress" component={EditAddress} />
         <Route path="settings" component={User} />
       </Route>
@@ -48,6 +49,13 @@ const Routes = ({ fetchInitialData }) => (
 
 const mapStateToProps = null
 
+// OB/DY: can do shorthand here
+/*
+const mapDispatchToProps = {
+  fetchInitialData: fetchProducts,
+  fetchSelectedProduct
+};
+*/
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchProducts())
