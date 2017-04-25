@@ -84,8 +84,6 @@ const products = {
   Shoes: ['DISNEY MAROON SLIPPERS', 'NIKE AIR MAX 90 ULTRA 2.0 BREATHE']
 }
 const descriptions = ['is fabulous!', 'is great for any occasion.', 'is binary', 'is classy and elegant.', 'features a soft, fluffy feel!', 'has a gently snug, relaxed fit', 'is ideal for relaxing at home.']
-const genders = ['Male', 'Female', 'Unisex']
-const clothingTypes = ['Shirts', 'Pants', 'Shoes']
 const photos = {
   Shirts: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
   Pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
@@ -93,10 +91,10 @@ const photos = {
 }
 
 function createProduct() {
-  const clothType = clothingTypes[Math.floor(Math.random() * clothingTypes.length)]
+  const clothType = ['Shirts', 'Pants', 'Shoes'][Math.floor(Math.random() * 3)]
   const product = products[clothType][Math.floor(Math.random() * products[clothType].length)]
   const description = descriptions[Math.floor(Math.random() * descriptions.length)]
-  const sex = genders[Math.floor(Math.random() * 3)]
+  const sex = ['Male', 'Female', 'Unisex'][Math.floor(Math.random() * 3)]
   return {
     name: sex.toUpperCase() + ' ' + product,
     description: product + ' ' + description,
@@ -113,7 +111,7 @@ function createProduct() {
 
 function createProductList() {
   const productList = {}
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 20; i++) {
     productList[i] = createProduct()
   }
 

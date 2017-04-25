@@ -26,7 +26,9 @@ class ProductsFilter extends Component {
     this.state = {
       nameQuery: '',
       collectionQuery: null,
-      selectedCheckboxes: []
+      genderQuery: [],
+      typeQuery: [],
+      sizeQuery: []
     }
     this.renderProductsFilter = this.renderProductsFilter.bind(this)
     this.renderRefineProductSelection = this.renderRefineProductSelection.bind(this)
@@ -36,7 +38,6 @@ class ProductsFilter extends Component {
   }
 
   render() {
-    console.log("this.props.products", this.props.products)
     return (
       <div className="products-view" >
         <div className="col-md-3">
@@ -115,11 +116,11 @@ class ProductsFilter extends Component {
         </div>
         <form>
           <h5>Gender</h5>
-          {['MEN', 'WOMEN', 'UNISEX'].map(label => (
+          {['Male', 'Female', 'Unisex'].map(label => (
             <div className="product-selector" key={label}>
               <label>{label}</label>
               <input
-                name={'selects' + label}
+                name='gender'
                 type="checkbox"
                 value={label}
                 className="product-selection-checkbox"
@@ -132,7 +133,7 @@ class ProductsFilter extends Component {
             <div className="product-selector" key={label}>
               <label>{label}</label>
               <input
-                name={'selects' + label}
+                name='type'
                 type="checkbox"
                 value={label}
                 className="product-selection-checkbox"
@@ -145,7 +146,7 @@ class ProductsFilter extends Component {
             <div className="product-selector" key={label}>
               <label>{label}</label>
               <input
-                name={'selects' + label}
+                name='size'
                 type="checkbox"
                 value={label}
                 className="product-selection-checkbox"
@@ -164,31 +165,44 @@ class ProductsFilter extends Component {
     })
   }
 
-  toggleCheckbox(label) {
-    if (this.state.selectedCheckboxes.includes(label)) {
+  toggleCheckbox(event) {
+    const label = event.target.value
+        , field = event.target.name + 'Query'
+    if (this.state[field].includes(label)) {
       this.setState({
-        selectedCheckboxes: this.state.selectedCheckboxes.filter(checkbox => checkbox !== label)
+        [field]: this.state[field].filter(checkbox => checkbox !== label)
       })
     } else {
       this.setState({
-        selectedCheckboxes: this.state.selectedCheckboxes.concat(label)
+        [field]: this.state[field].concat(label)
       })
     }
   }
 
   filterProducts(product) {
     const nameMatch = new RegExp(this.state.nameQuery, 'i')
+          // Checks whether the product's name matches the input
           , matchesNameQuery = nameMatch.test(product.name)
+          // Checks whether the product is available
           , viewable = this.props.isAdmin ? true : product.available
-          , checked = this.state.selectedCheckboxes.includes(product.gender || product.size || product.type)
-          , hasChecks = this.state.selectedCheckboxes.length > 0
-          , inCollection = product.collections.includes(this.state.collectionQuery)
+          // Checks whether the product matches refinement selectors
+          , genderChecked =
+            this.state.genderQuery.length === 0 ||
+            this.state.genderQuery.includes(product.gender)
+          , sizeChecked =
+            this.state.sizeQuery.length === 0 ||
+            this.state.sizeQuery.includes(product.size)
+          , typeChecked =
+            this.state.typeQuery.length === 0 ||
+            this.state.typeQuery.includes(product.type)
+          , checked = genderChecked && sizeChecked && typeChecked
+          // Checks whether the product matches the currently selected collection
+          , inCollection =
+              this.state.collectionQuery === 'All' ||
+              this.state.collectionQuery === null ||
+              product.collections.includes(this.state.collectionQuery)
 
-    if (this.state.collectionQuery === 'All' || this.state.collectionQuery === null) {
-      return hasChecks ? matchesNameQuery && viewable && checked : matchesNameQuery && viewable
-    } else {
-      return hasChecks ? inCollection && matchesNameQuery && viewable && checked : inCollection && matchesNameQuery && viewable
-    }
+    return inCollection && matchesNameQuery && viewable && checked
   }
 }
 
