@@ -7,15 +7,13 @@ import { connect, Provider } from 'react-redux'
 import store from './store'
 
 import App from './components/App'
-import Home from './components/Home'
+import WhoAmI from './components/WhoAmI'
 import NotFound from './components/NotFound'
-import Auth from './components/authenticate/LoginSignup'
 import Products from './components/products/ProductsFilter'
-import SingleProduct from './components/products/SingleProduct'
-import User from './components/user/User'
 import Orders from './components/user/Orders'
-import Addresses from './components/user/Addresses'
-import EditAddress from './components/user/EditAddress'
+import User from './components/user/User'
+import Auth from './components/Login'
+import Cart from './components/shoppingCart'
 
 import { fetchProducts } from './reducers/products-reducer'
 
@@ -24,18 +22,16 @@ import { fetchProducts } from './reducers/products-reducer'
 const Routes = ({ fetchInitialData }) => (
   <Router history={ browserHistory }>
       <Route path="/" component={ App } onEnter={ fetchInitialData } >
-      <IndexRedirect to="/home" />
-      <Route path="/home" component={ Home } />
-      <Route path="/authenticate" component={ Auth } />
-      <Route path="/products" component={ Products } />
-      <Route path='/products/:id' component = {SingleProduct} />
-      <Route path="/users/:userId" component={ User }>
-        <Route path="orders" component={ Orders } />
-        <Route path="reviews" component={ User } />
-        <Route path="addresses" component={ Addresses } />
-        <Route path="addresses/editAddress" component={ EditAddress } />
-        <Route path="settings" component={ User } />
-      </Route>
+        {/* Update to split Login and Signup into two separate components rendered in Auth */}
+        <Route path="/authenticate" component={ Auth } />
+        <Route path="/products" component={ Products } />
+        <Route path="/cart" component={ Cart } />
+        <Route path="/users/:userId" component={User}>
+          <Route path="/users/:userId/orders" component={Orders} />
+          <Route path="/users/:userId/reviews" component={User} />
+          <Route path="/users/:userId/addresses" component={User} />
+          <Route path="/users/:userId/settings" component={User} />
+        </Route>
       </Route>
       <Route path='*' component={ NotFound } />
     </Router>

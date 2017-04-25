@@ -36,4 +36,3 @@ router.route('/:id')
   })
   .catch(next)
 })
-

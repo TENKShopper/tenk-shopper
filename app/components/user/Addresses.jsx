@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router'
 
-function Addresses({ user, logout, shippingAddresses }) {
-  return (
+/* ------ COMPONENT ------ */
+
+const Addresses = ({ user }) => (
   <div className="addressList">
     <p>
       <Link to={`/users/${user.id}/addresses/editAddress`} className="btn btn-primary btn-lg">Add New Address</Link>
@@ -12,7 +12,7 @@ function Addresses({ user, logout, shippingAddresses }) {
       <h3>Default Shipping Address</h3>
         {
           user.shippingAddresses && user.shippingAddresses.map(address => (
-            <ul className="vList">
+            <ul className="vList" key={address.id}>
               <li>{address.fullName}</li>
               <li>{address.streetAddress}</li>
               <li>{address.premise}</li>
@@ -27,8 +27,11 @@ function Addresses({ user, logout, shippingAddresses }) {
         }
     </ul>
   </div>
-  )
-}
+)
+
+/* ------ CONTAINER ------ */
+
+import {connect} from 'react-redux'
 
 export default connect(
   ({ auth }) => ({ user: auth })

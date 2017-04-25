@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router'
 
+/* ------ COMPONENT ------ */
+
 const EditAddress = ({ user, addAddress }) => (
   <div className="col-md-6">
     <form className="form-horizontal" action='' method="POST"
@@ -66,7 +68,7 @@ const EditAddress = ({ user, addAddress }) => (
   </div>
 )
 
-/* -----------------    CONTAINER     ------------------ */
+/* ------ CONTAINER ------ */
 
 import {addAddress} from 'APP/app/reducers/user-reducer'
 import {connect} from 'react-redux'

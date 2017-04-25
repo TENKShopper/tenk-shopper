@@ -1,16 +1,24 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {Link} from 'react-router'
 import UserSidebar from './UserSidebar'
 
-const User = ({ user, logout, children }) => (
+/* ------ COMPONENT ------ */
+
+const User = ({ user, children }) => (
   <div>
+    <div>
+      <legend id="accountTitle">My Account</legend>
+    </div>
     <UserSidebar />
-    <div className="col-md-9">
-      {children}
+    <div className="col-md-8">
+        {children}
     </div>
   </div>
 )
+
+/* ------ CONTAINER ------ */
+
+import {connect} from 'react-redux'
 
 export default connect(
   ({ auth }) => ({ user: auth })

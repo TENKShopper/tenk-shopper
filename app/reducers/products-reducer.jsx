@@ -14,6 +14,8 @@ const init   = products => ({ type: INITIALIZE, products })
 export const create = product => ({ type: CREATE, product })
 const remove = id    => ({ type: REMOVE, id })
 const update = product  => ({ type: UPDATE, product })
+export const selectProduct = selectedProduct => ({ type: GET_SINGLE_PRODUCT, selectedProduct})
+
 
 /* ------------       REDUCER     ------------------ */
 
@@ -32,6 +34,9 @@ export default (products = [], action) => {
       return products.map(product => (
         action.product.id === product.id ? action.product : product
       ))
+
+    case GET_SINGLE_PRODUCT: return action.selectedProduct
+
     default:
       return products
   }
