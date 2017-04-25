@@ -24,12 +24,16 @@ input.product-selection-checkbox {
 
 /* ----- SingleProduct ----- */
 
-.singleProductPhoto {
-  display: inline-block
+.singleProductWrapper {
+  overflow: hidden
 }
 
-.singleProductName {
-  display: inline-block
+.singleProductPhotos {
+  float: left
+}
+
+.singleProductInfo {
+  float: left
 }
 
 /* ----- Homepage ----- */
