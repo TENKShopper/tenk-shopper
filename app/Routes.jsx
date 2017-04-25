@@ -11,6 +11,7 @@ import Home from './components/Home'
 import NotFound from './components/NotFound'
 import Auth from './components/authenticate/LoginSignup'
 import ShoppingCart from './components/ShoppingCart'
+import Products from './components/products/AllProducts'
 import SingleProduct from './components/products/SingleProduct'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
@@ -24,7 +25,6 @@ import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
 /* ------ HELPER FUNCTIONS ------ */
 
 const onSelectedProduct = (nextRouterState) => {
-  console.log("nextRouterState.params.productId", nextRouterState.params.productId)
   store.dispatch(fetchSelectedProduct(nextRouterState.params.productId))
 }
 
