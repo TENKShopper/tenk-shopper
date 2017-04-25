@@ -46,7 +46,7 @@ const Routes = ({ fetchInitialData }) => (
         <Route path="orders/1" component={ Order } />
         <Route path="reviews" component={User} />
         <Route path="addresses" component={Addresses} />
-        <Route path="addresses/editAddress" component={EditAddress} />
+        <Route path="addresses/edit" component={EditAddress} />
         <Route path="settings" component={User} />
       </Route>
       <Route path="/checkout/login" component={GuestCheckout} />
