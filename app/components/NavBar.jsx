@@ -24,7 +24,7 @@ const NavBarMain = ({ user }) => {
         <a href="/shoppingCart" className="glyphicon glyphicon-shopping-cart"></a>
       </NavBar.Item>
       <NavBar.Nav className="pull-right">
-        {user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item>}
+        { user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item> }
       </NavBar.Nav>
     </NavBar>
   )
@@ -35,5 +35,5 @@ const NavBarMain = ({ user }) => {
 import { connect } from 'react-redux'
 
 export default connect(
-    ({ auth }) => ({ user: auth })
+  ({ auth }) => ({ user: auth })
 )(NavBarMain)

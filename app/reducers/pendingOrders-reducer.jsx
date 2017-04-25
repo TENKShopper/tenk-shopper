@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { updateUser } from './users-reducer-temp'
+import { updateUser } from './users-reducer'
 
 /* -----------------    ACTIONS     ------------------ */
 
