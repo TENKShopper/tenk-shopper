@@ -11,17 +11,22 @@ import Home from './components/Home'
 import NotFound from './components/NotFound'
 import Auth from './components/authenticate/LoginSignup'
 import ShoppingCart from './components/ShoppingCart'
-import Products from './components/products/ProductsFilter'
 import SingleProduct from './components/products/SingleProduct'
 import User from './components/user/User'
 import Orders from './components/user/Orders'
 import Order from './components/user/Order'
 import Addresses from './components/user/Addresses'
 import EditAddress from './components/user/EditAddress'
-import Cart from './components/shoppingCart'
 
 import { fetchProducts } from './reducers/products-reducer'
 import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
+
+/* ------ HELPER FUNCTIONS ------ */
+
+const onSelectedProduct = (nextRouterState) => {
+  console.log("nextRouterState.params.productId", nextRouterState.params.productId)
+  store.dispatch(fetchSelectedProduct(nextRouterState.params.productId))
+}
 
 /* ------ COMPONENT ------ */
 
@@ -31,10 +36,9 @@ const Routes = ({ fetchInitialData }) => (
       <IndexRedirect to="/home" />
       <Route path="/home" component={Home} />
       <Route path="/authenticate" component={Auth} />
-      <Route path="/shoppingCart" component={ ShoppingCart } />
       <Route path="/products" component={Products} />
-      <Route path='/products/:id' component={SingleProduct} onEnter={fetchSelectedProduct} />
-      <Route path="/cart" component={Cart} />
+      <Route path="/products/:productId" component={SingleProduct} onEnter={onSelectedProduct} />
+      <Route path="/shoppingCart" component={ShoppingCart} />
       <Route path="/users/:userId" component={User}>
         <Route path="orders" component={Orders} />
         <Route path="orders/1" component={ Order } />
@@ -56,9 +60,6 @@ const mapStateToProps = null
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
     dispatch(fetchProducts())
-  },
-  fetchSelectedProduct: () => {
-    dispatch(fetchSelectedProduct())
   }
 })
 

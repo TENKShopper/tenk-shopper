@@ -1,5 +1,3 @@
-//TODO: make this a reducer for just the "selectedProduct" part of state
-
 import axios from 'axios'
 
 /* -----------------    ACTIONS     ------------------ */
@@ -14,7 +12,7 @@ const selectProduct = selectedProduct => ({ type: GET_SINGLE_PRODUCT, selectedPr
 
 /* ------------       REDUCER     ------------------ */
 
-export default (selectedProduct = null, action) => {
+export default (selectedProduct = {}, action) => {
   switch (action.type) {
 
     case GET_SINGLE_PRODUCT:
