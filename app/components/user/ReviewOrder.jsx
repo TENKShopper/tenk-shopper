@@ -54,6 +54,10 @@ const ReviewOrder = ({ user }) => {
       </div>
       <div className="review-order-detail">
         {user && <Addresses user={user} />}
+        <hr></hr>
+      </div>
+      <div className="pull-right" id="submit-order-btn">
+        <button className="btn btn-lg btn-success">PLACE YOUR ORDER NOW</button>
       </div>
     </div>
   )
