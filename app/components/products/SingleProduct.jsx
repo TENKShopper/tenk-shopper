@@ -2,20 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Review from '../user/Review'
-
+import {addReview} from '../../reducers/reviews-reducer'
 import { createPendingOrder } from '../../reducers/pendingOrders-reducer'
 
-function SingleProduct({ addLineItem, selectedProduct, user }) {
-
-  const handleLineItem = event => {
-    event.preventDefault()
-    const productOrder = {
-      product: selectedProduct,
-      quantity: event.target.quantity.value,
-      orderPrice: event.target.quantity.value * selectedProduct.price
-    }
-    return addLineItem(productOrder)
-  }
+function SingleProduct({ addReview, selectedProduct , user }) {
 
   return (
     <div className='singleProductWrapper'>
@@ -52,16 +42,41 @@ function SingleProduct({ addLineItem, selectedProduct, user }) {
         <div className='singleProductDesc'>
           <p>{selectedProduct.description}</p>
         </div>
+
       </div>
 
       <div>
-        {/*
-        { selectedProduct.reviews.map(function(review) {
+
+        {selectedProduct.reviews && selectedProduct.reviews.map(function(review) {
           return <Review review={review} />
         }) }
-      */}
+
       </div>
+      {user ? renderReviewSubmit() : null}
     </div>
+  )
+}
+
+  const handleLineItem = event => {
+    event.preventDefault()
+    const productOrder = {
+      product: selectedProduct,
+      quantity: event.target.quantity.value,
+      orderPrice: event.target.quantity.value * selectedProduct.price
+    }
+    return addLineItem(productOrder)
+  }
+
+  const renderReviewSubmit = () => {
+    return(
+      <form onSubmit={ (e)=> {
+          e.preventDefault()
+          addReview(e.target.value)
+        }
+      }>
+      <textarea type="text" className ='review-submit' />
+      <button type="submit">Submit Review</button>
+    </form>
   )
 }
 
@@ -80,6 +95,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   addLineItem: (productOrder, userId) => {
     dispatch(createPendingOrder(productOrder, userId))
+  },
+  addReview: (review) => {
+     dispatch(addReview(review))
   }
 })
 
