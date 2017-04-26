@@ -4,7 +4,20 @@ import { Link } from 'react-router'
 import Review from '../user/Review'
 import {addReview} from '../../reducers/reviews-reducer'
 
-function SingleProduct({ selectedProduct }) {
+function SingleProduct({ onSubmit, selectedProduct , user }) {
+
+  const renderReviewSubmit = () => {
+    return(
+      <form onSubmit={ (e)=> {
+          e.preventDefault()
+          onSubmit()
+        }
+      }>
+      <textarea type="text" className ='review-submit' />
+      <button type="submit">Submit Review</button>
+    </form>
+  )
+}
   return (
     <div className='singleProduct'>
 
@@ -33,30 +46,21 @@ function SingleProduct({ selectedProduct }) {
       </div>
 
       <div className='addProductButton'>
-        <button>
-        </button>
+
       </div>
 
       <div>
-        {/*
-        { selectedProduct.review.map(function(review) {
+
+        {selectedProduct.reviews && selectedProduct.reviews.map(function(review) {
           return <Review review={review} />
         }) }
-      */}
+
       </div>
+      {user ? renderReviewSubmit() : null}
     </div>
   )
 }
 
-const renderReviewSubmit = () => {
-    return(
-      <form onSubmit={ (e)=> {onSubmit}  }>
-         <input type="text" />
-        <label> Submit New Review </label>
-        <button type="submit">Submit Review</button>
-      </form>
-    )
-}
 
 
 const renderPhoto = photo => {
@@ -70,15 +74,15 @@ const generateLineItem = event => {
 
 const mapStatetoProps = (state) => {
   return {
-    selectedProduct: state.selectedProduct
+    selectedProduct: state.selectedProduct,
+    user: state.auth
   }
 }
 
 const mapDispatchToProps = (dispatch) =>{
   return {
     onSubmit: () => {
-      const action = addReview
-      dispatch(action)
+      dispatch(addReview())
     }
   }
 

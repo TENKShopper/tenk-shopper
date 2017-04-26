@@ -97,3 +97,12 @@ div.vertical-line{
     font-size: 33px;
     padding: 5px 0px 0px 20px;
 }
+
+
+/* review submit */
+
+.review-submit{
+  width: 300px;
+  height: 200px;
+
+}

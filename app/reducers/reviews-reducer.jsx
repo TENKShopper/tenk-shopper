@@ -16,7 +16,7 @@ const remove = review => ({ type: REMOVE_REVIEW, review})
 
 /* ------------       REDUCER     ------------------ */
 
-export default (users = [], action) => {
+export default (reviews = [], action) => {
   switch (action.type) {
   case INITIALIZE:
     return [action.reviewList]
@@ -26,7 +26,7 @@ export default (users = [], action) => {
 
   case UPDATE:
     return reviews.map(review => (
-     user.id === action.review.id ? action.review : review
+     review.id === action.review.id ? action.review : review
    ))
 
   case REMOVE:
@@ -39,18 +39,18 @@ export default (users = [], action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchUsers = () => dispatch => {
+export const fetchReviews = () => dispatch => {
   axios.get('/api/reviews')
       .then(res => dispatch(init(res.data)))
 }
 
 export const addReview = review => dispatch => {
-  axios.post('/api/reviews', user)
+  axios.post('/api/reviews', review)
       .then(res => dispatch(create(res.data)))
       .catch(err => console.error(`Creating review: unsuccesful`, err))
 }
 
-export const updateUser = (id, review) => dispatch => {
+export const updateReviews = (id, review) => dispatch => {
   axios.put(`/api/reviews/${id}`, review)
       .then(res => dispatch(update(res.data)))
       .catch(err => console.error(`Updating review: ${review} unsuccesful`, err))
