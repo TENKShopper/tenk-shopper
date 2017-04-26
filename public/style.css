@@ -24,12 +24,32 @@ input.product-selection-checkbox {
 
 /* ----- SingleProduct ----- */
 
-.singleProductPhoto {
-  display: inline-block
+.singleProductWrapper {
+  overflow: hidden
 }
 
-.singleProductName {
-  display: inline-block
+.singleProductPhotos {
+  float: left
+}
+
+.singleProductInfo {
+  float: left
+}
+
+.form-wrapper {
+  overflow: hidden
+}
+
+.singleProductPrice {
+  float: left
+}
+
+.form-quantity {
+  float: left
+}
+
+.order-button {
+  float: right
 }
 
 /* ----- Homepage ----- */
