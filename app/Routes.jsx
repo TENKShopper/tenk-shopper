@@ -25,7 +25,6 @@ import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
 /* ------ HELPER FUNCTIONS ------ */
 
 const onSelectedProduct = (nextRouterState) => {
-  console.log("nextRouterState.params.productId", nextRouterState.params.productId)
   store.dispatch(fetchSelectedProduct(nextRouterState.params.productId))
 }
 
