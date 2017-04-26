@@ -60,10 +60,10 @@ export const createPendingOrder = (productOrder, userId) => dispatch => {
     .catch(err => console.error('Failed to add to cart:', err))
 }
 
-export const checkoutOrder = (productOrders, orderDetail) => dispatch => {
+export const checkoutOrder = (productOrders, orderDetail, shippingAddress, billingAddress) => dispatch => {
   // also have to bulk add all the line items
   axios.all([
-    axios.post('/api/users/checkoutOrders', {productOrders, orderDetail}),
+    axios.post('/api/users/checkoutOrders', {productOrders, orderDetail, shippingAddress, billingAddress}),
     axios.delete('/api/userSessions')
   ])
     .then(res => {

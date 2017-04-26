@@ -8,7 +8,7 @@ module.exports = db => db.define('orders', {
 
 module.exports.associations = (Order, { User, Address, LineItem, Product }) => {
   Order.belongsTo(User)
-  Order.hasOne(Address, {as: 'shippingAddress'})
-  Order.hasOne(Address, {as: 'billingAddress'})
+  Order.belongsTo(Address, {as: 'shippingAddress', foreignKey: 'shippingAddressOrder'})
+  Order.belongsTo(Address, {as: 'billingAddress', foreignKey: 'billingAddressOrder'})
   Order.belongsToMany(Product, { through: LineItem })
 }

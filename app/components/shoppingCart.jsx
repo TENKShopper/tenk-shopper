@@ -4,27 +4,16 @@ import { Link } from 'react-router'
 import { checkoutOrder } from '../reducers/pendingOrders-reducer'
 
 /* ----- DUMMY DATA ----- */
-const dummyOrder = [{
-  product: {
-    id: 1,
-    name: 'T-Shirt',
-    image: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
-    price: 500,
-  },
-  quantity: 2,
-  orderPrice: 1000,
-  id: 12345
-}, {
-  product: {
-    id: 2,
-    name: 'Pants',
-    image: 'http://www.how-to-draw-funny-cartoons.com/image-files/cartoon-pants-5.gif',
-    price: 30,
-  },
-  quantity: 3,
-  orderPrice: 90,
-  id: 12346
-}]
+const dummyAddress = {
+  id: 1,
+  country: 'USA',
+  firstName: 'Kido Kido',
+  lastName: 'Kido',
+  administrativeArea: 'NY',
+  locality: 'NYC',
+  postalZipCode: '12345',
+  streetAddress: '123 Kido Lane'
+}
 
 /* ----- COMPONENT ----- */
 
@@ -101,7 +90,7 @@ const cartComponent = ({checkoutOrder, pendingOrders}) => {
   }
 
   function checkout(event) {
-    return checkoutOrder(pendingOrders, {shipping: 'International'})
+    return checkoutOrder(pendingOrders, {shipping: 'International'}, dummyAddress, dummyAddress)
   }
 }
 /* ----- CONTAINER ----- */
@@ -112,7 +101,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   // needs to dispatch a function that can bulk add all line items in cart to users
-  checkoutOrder: (pendingOrders, orderDetail) => dispatch(checkoutOrder(pendingOrders, orderDetail))
+  checkoutOrder: (pendingOrders, orderDetail, shippingAddress, billingAddress) => dispatch(checkoutOrder(pendingOrders, orderDetail, shippingAddress, billingAddress))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(cartComponent)

@@ -68,12 +68,18 @@ router.route('/checkoutOrders')
 .post(mustBeLoggedIn, (req, res, next) => {
   Order.create(req.body.orderDetail)
   .then(newOrder => {
-    Promise.all(req.body.productOrders.map(order => {
-      newOrder.addProduct(order.product.id, {
+    const asyncOrders = req.body.productOrders.map(order => {
+      return newOrder.addProduct(order.product.id, {
         orderPrice: order.orderPrice,
         quantity: order.quantity
       })
-    }))
+    })
+    console.log(req.body.shippingAddress)
+    Promise.all([
+      newOrder.setShippingAddress(req.body.shippingAddress.id),
+      newOrder.setBillingAddress(req.body.billingAddress.id),
+      asyncOrders
+    ])
     .then(() => req.user.addOrders([newOrder]))
     .then(() => res.status(201).json(req.user))
   })
