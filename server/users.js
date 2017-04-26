@@ -1,5 +1,7 @@
 'use strict'
+const Promise = require('bluebird')
 
+const passport = require('passport')
 const db = require('APP/db')
 const User = db.model('users'),
   Address = db.model('addresses'),
@@ -35,7 +37,13 @@ router.route('/')
 })
 .post((req, res, next) => {
   User.create(req.body)
-  .then(user => res.status(201).json(user))
+  .then(user => {
+    req.login(user, (err) => {
+      if (!err) res.redirect('/')
+      else next(err)
+    })
+    // res.status(201).send(user)
+  })
   .catch(next)
 })
 
@@ -43,9 +51,7 @@ router.route('/:userId')
 .get(mustBeLoggedIn, (req, res, next) => res.json(req.targetUser))
 .put(mustBeLoggedIn, (req, res, next) => {
   req.targetUser.update(req.body)
-  .then(updatedUser => {
-    res.status(201).json(updatedUser)
-  })
+  .then(updatedUser => res.status(201).send(updatedUser))
   .catch(next)
 })
 .delete(forbidden('Must be admin user'), (req, res, next) => {
@@ -55,3 +61,21 @@ router.route('/:userId')
 })
 
 router.use('/:userId/addresses', require('./addresses'))
+
+/* ------------- USER ORDER -------------- */
+
+router.route('/checkoutOrders')
+.post(mustBeLoggedIn, (req, res, next) => {
+  Order.create(req.body.orderDetail)
+  .then(newOrder => {
+    Promise.all(req.body.productOrders.map(order => {
+      newOrder.addProduct(order.product.id, {
+        orderPrice: order.orderPrice,
+        quantity: order.quantity
+      })
+    }))
+    .then(() => req.user.addOrders([newOrder]))
+    .then(() => res.status(201).json(req.user))
+  })
+  .catch(next)
+})

@@ -8,12 +8,13 @@ import { createPendingOrder } from '../../reducers/pendingOrders-reducer'
 function SingleProduct({ addLineItem, selectedProduct, user }) {
 
   const handleLineItem = event => {
+    event.preventDefault()
     const productOrder = {
-      productId: selectedProduct.id,
+      product: selectedProduct,
       quantity: event.target.quantity.value,
       orderPrice: event.target.quantity.value * selectedProduct.price
     }
-    return user ? addLineItem(productOrder, user.id) : addLineItem(productOrder)
+    return addLineItem(productOrder)
   }
 
   return (

@@ -11,7 +11,7 @@ const REMOVE = 'REMOVE_USER'
 
 const init = userList => ({ type: INITIALIZE, userList })
 const create = user => ({ type: CREATE, user })
-const update = user => ({ type: UPDATE, user })
+export const update = user => ({ type: UPDATE, user })
 const remove = user => ({ type: REMOVE, user })
 
 /* ------------       REDUCER     ------------------ */

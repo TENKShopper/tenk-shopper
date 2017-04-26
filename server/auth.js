@@ -97,7 +97,6 @@ passport.deserializeUser(
 passport.use(new (require('passport-local').Strategy)(
   (email, password, done) => {
     debug('will authenticate user(email: "%s")', email)
-    console.log('email', email)
     User.findOne({
       where: {email},
       attributes: {include: ['password_digest']}
@@ -122,7 +121,9 @@ passport.use(new (require('passport-local').Strategy)(
   }
 ))
 
-auth.get('/whoami', (req, res) => res.send(req.user))
+auth.get('/whoami', (req, res) => {
+  res.send(req.user)
+})
 
 // POST requests for local login:
 auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'}))

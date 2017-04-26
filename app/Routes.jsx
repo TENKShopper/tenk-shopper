@@ -21,11 +21,16 @@ import EditAddress from './components/user/EditAddress'
 
 import { fetchProducts } from './reducers/products-reducer'
 import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
+import { fetchPendingOrder } from './reducers/pendingOrders-reducer'
 
 /* ------ HELPER FUNCTIONS ------ */
 
 const onSelectedProduct = (nextRouterState) => {
   store.dispatch(fetchSelectedProduct(nextRouterState.params.productId))
+}
+
+const onShoppingCart = (nextRouterState) => {
+  store.dispatch(fetchPendingOrder())
 }
 
 /* ------ COMPONENT ------ */
@@ -38,7 +43,7 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/authenticate" component={Auth} />
       <Route path="/products" component={Products} />
       <Route path="/products/:productId" component={SingleProduct} onEnter={onSelectedProduct} />
-      <Route path="/shoppingCart" component={ShoppingCart} />
+      <Route path="/shoppingCart" component={ShoppingCart} onEnter={onShoppingCart}/>
       <Route path="/users/:userId" component={User}>
         <Route path="orders" component={Orders} />
         <Route path="orders/1" component={ Order } />
