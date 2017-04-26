@@ -72,3 +72,16 @@ export const checkoutOrder = (productOrders, orderDetail, shippingAddress, billi
     })
     .catch(err => console.error('Failed to checkout cart', err))
 }
+
+export const checkoutOrderAsGuest = (productOrders, orderDetail, shippingAddress, billingAddress, user) => dispatch => {
+  // also have to bulk add all the line items
+  axios.all([
+    axios.post('/api/users/guest/checkoutOrders', {productOrders, orderDetail, shippingAddress, billingAddress, user}),
+    axios.delete('/api/userSessions')
+  ])
+    .then(res => {
+      dispatch(update(res[0].data))
+      dispatch(checkoutCart())
+    })
+    .catch(err => console.error('Failed to checkout cart', err))
+}
