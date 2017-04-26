@@ -4,13 +4,13 @@ import { Link } from 'react-router'
 import Review from '../user/Review'
 import {addReview} from '../../reducers/reviews-reducer'
 
-function SingleProduct({ onSubmit, selectedProduct , user }) {
+function SingleProduct({ addReview, selectedProduct , user }) {
 
   const renderReviewSubmit = () => {
     return(
       <form onSubmit={ (e)=> {
           e.preventDefault()
-          onSubmit()
+          addReview(e.target.value)
         }
       }>
       <textarea type="text" className ='review-submit' />
@@ -81,8 +81,8 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>{
   return {
-    onSubmit: () => {
-      dispatch(addReview())
+    addReview: (review) => {
+      dispatch(addReview(review))
     }
   }
 
