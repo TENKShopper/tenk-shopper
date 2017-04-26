@@ -85,9 +85,9 @@ const products = {
 }
 const descriptions = ['is fabulous!', 'is great for any occasion.', 'is binary', 'is classy and elegant.', 'features a soft, fluffy feel!', 'has a gently snug, relaxed fit', 'is ideal for relaxing at home.']
 const photos = {
-  Shirts: 'http://demandware.edgesuite.net/aawj_prd/on/demandware.static/-/Library-Sites-CTShirtsSharedLibrary/default/dw9877fa95/images/plp-tooltip_fit-shirt-extraslim.jpg',
-  Pants: 'https://lh4.ggpht.com/o43b2VB6Dl-g75RD7D0Q2Mhb7aFzSKjGkq3TOPuKyJapxY6l6OhLd0jqYfE1Nsa5Z12y%3Dw300',
-  Shoes: 'https://thumbs.dreamstime.com/x/old-shoe-boot-cartoon-clip-art-illustration-36390217.jpg'
+  Shirts: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_08_175597?$prod$',
+  Pants: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_64_173699?$prod$',
+  Shoes: 'https://uniqlo.scene7.com/is/image/UNIQLO/goods_18_184806?$prod$'
 }
 
 function createProduct() {
