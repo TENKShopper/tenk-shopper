@@ -12,23 +12,17 @@ const GuestCheckout = ({ login, signup }) => (
         <form className="form-horizontal" action='' method="POST"
           onSubmit={evt => {
             evt.preventDefault()
-            signup(evt.target.username.value, evt.target.email.value)
-            browserHistory.push('/checkout/reviewOrder/:orderId')
+            signup(evt.target.userName.value, evt.target.email.value)
+            browserHistory.push('/checkout/reviewOrder')
           } }>
           <fieldset>
             <div id="legend">
               <legend className="">Checkout As Guest</legend>
             </div>
             <div className="control-group">
-              <label className="control-label" htmlFor="firstName">First Name</label>
+              <label className="control-label" htmlFor="userName">Username</label>
               <div className="controls">
-                <input type="text" id="firstName" name="firstName" className="input-xlarge"/>
-              </div>
-            </div>
-            <div className="control-group">
-              <label className="control-label" htmlFor="lastName">Last Name</label>
-              <div className="controls">
-                <input type="text" id="lastName" name="lastName" className="input-xlarge"/>
+                <input type="text" id="userName" name="userName" className="input-xlarge"/>
               </div>
             </div>
             <div className="control-group">

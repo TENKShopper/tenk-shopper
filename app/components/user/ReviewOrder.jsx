@@ -53,7 +53,7 @@ const ReviewOrder = ({ user }) => {
         <hr></hr>
       </div>
       <div className="review-order-detail">
-        <Addresses user={user} />
+        {user && <Addresses user={user} />}
       </div>
     </div>
   )
