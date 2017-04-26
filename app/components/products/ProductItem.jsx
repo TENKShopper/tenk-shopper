@@ -28,9 +28,6 @@ export default class ProductItem extends Component {
                 <span>${product.price}</span>
               </h5>
           </Link>
-          <button>
-
-          </button>
         </div>
 
         {this.props.isAdmin ? this.renderRemoveProduct() : null}

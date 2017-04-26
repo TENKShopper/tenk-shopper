@@ -31,3 +31,7 @@ export const fetchSelectedProduct = id => dispatch => {
   axios.get(`/api/products/${id}`)
       .then(res => dispatch(selectProduct(res.data)))
 }
+
+export const addProductToLineItem = product => dispatch => {
+  axios.post(`/api/`)
+}

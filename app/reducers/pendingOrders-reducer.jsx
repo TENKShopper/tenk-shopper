@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { updateUser } from './users-reducer'
+import { update } from './users-reducer'
 
 /* -----------------    ACTIONS     ------------------ */
 
@@ -48,14 +48,27 @@ export default (pendingOrders = [], action) => {
 
 /* ------------       DISPATCHERS     ------------------ */
 
-export const fetchPendingOrder = (order, product, userId) => dispatch => {
-  axios.get('/api/userSessions/', {pendingOrder: order})
-    .then(res => dispatch(addToCart(res.data)))
+export const fetchPendingOrder = () => dispatch => {
+  axios.get('/api/userSessions/')
+    .then(res => dispatch(init(res.data)))
     .catch(err => console.error('Failed to add to cart:', err))
 }
 
-export const createPendingOrder = (order, product, userId) => dispatch => {
-  axios.post('/api/userSessions/', {pendingOrder: order})
-    .then(res => dispatch(addToCart(res.data)))
+export const createPendingOrder = (productOrder, userId) => dispatch => {
+  axios.post('/api/userSessions/', {productOrder})
+    .then(res => dispatch(addToCart(productOrder)))
     .catch(err => console.error('Failed to add to cart:', err))
+}
+
+export const checkoutOrder = (productOrders, orderDetail) => dispatch => {
+  // also have to bulk add all the line items
+  axios.all([
+    axios.post('/api/users/checkoutOrders', {productOrders, orderDetail}),
+    axios.delete('/api/userSessions')
+  ])
+    .then(res => {
+      dispatch(update(res[0].data))
+      dispatch(checkoutCart())
+    })
+    .catch(err => console.error('Failed to checkout cart', err))
 }
