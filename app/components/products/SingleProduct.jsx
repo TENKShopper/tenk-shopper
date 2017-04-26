@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Review from '../user/Review'
+import {addReview} from '../.reducers/reviews-reducer'
 
 function SingleProduct({ selectedProduct }) {
   return (
@@ -37,15 +38,26 @@ function SingleProduct({ selectedProduct }) {
       </div>
 
       <div>
-        {/*
+
         { selectedProduct.reviews.map(function(review) {
           return <Review review={review} />
         }) }
-      */}
+
       </div>
     </div>
   )
 }
+
+const renderReviewSubmit = () => {
+    return(
+      <form onSubmit={ (e)=> {onSubmit}  }>
+         <input type="text" />
+        <label> Submit New Review </label>
+        <button type="submit">Submit Review</button>
+      </form>
+    )
+}
+
 
 const renderPhoto = photo => {
   const photoStyle = { width: '300px', height: '400px' }
@@ -62,4 +74,14 @@ const mapStatetoProps = (state) => {
   }
 }
 
-export default connect(mapStatetoProps)(SingleProduct)
+const mapDispatchToProps = (dispatch) =>{
+  return {
+    onSubmit => {
+      const action = addReview()
+      dispatch(action)
+    }
+  }
+
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(SingleProduct)
