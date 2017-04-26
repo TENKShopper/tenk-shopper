@@ -65,7 +65,6 @@ class AllProducts extends Component {
     })
   }
 
-  // todo: look into using a Set here
   toggleCheckbox = event => {
     const label = event.target.value
       , field = event.target.name + 'Query'
@@ -121,7 +120,6 @@ class AllProducts extends Component {
 
 /* ----- CONTAINER ----- */
 
-// TODO: revisit what state to pass to props
 const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
@@ -130,11 +128,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // addProduct
-    // removeProduct
-  }
-}
+const mapDispatchToProps = null
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
+export default connect(mapStateToProps)(AllProducts)
