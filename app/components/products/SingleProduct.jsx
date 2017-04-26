@@ -16,25 +16,22 @@ function SingleProduct({ selectedProduct }) {
           <h2>{selectedProduct.name}</h2>
         </div>
 
-        <div className='singleProductPrice'>
-          <h4>${selectedProduct.price}.00</h4>
-        </div>
-
-        <form className='form-horizontal'
+        <form className='form-wrapper'
           method='POST'
           onSubmit={handleLineItem}>
-          <div className="control-group">
-            <label className="control-label">Qty</label>
-            <div className="controls">
-              <input
-                name="quantity"
-                type="number"
-              />
-            </div>
+          <div className='singleProductPrice'>
+            <h4>${selectedProduct.price}.00</h4>
           </div>
-          <div className="control-group">
+          <div className="form-quantity">
+            <label>Qty</label>
+            <input
+              name="quantity"
+              type="number"
+            />
+          </div>
+          <div className="order-button">
             <button className="btn btn-success">
-              Add to Order
+              Add to Cart
           </button>
           </div>
         </form>

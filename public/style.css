@@ -36,6 +36,22 @@ input.product-selection-checkbox {
   float: left
 }
 
+.form-wrapper {
+  overflow: hidden
+}
+
+.singleProductPrice {
+  float: left
+}
+
+.form-quantity {
+  float: left
+}
+
+.order-button {
+  float: right
+}
+
 /* ----- Homepage ----- */
 
 .jumbotron {
