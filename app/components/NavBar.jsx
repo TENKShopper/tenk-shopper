@@ -10,18 +10,18 @@ const NavBarMain = ({ user }) => {
     <NavBar>
       <NavBar.Header>
         <NavBar.Brand>
-          <a href="/" style={{ cursor: 'pointer' }}>TENK</a>
+          <Link to="/" style={{ cursor: 'pointer' }}>TENK</Link>
         </NavBar.Brand>
         <NavBar.Toggle />
       </NavBar.Header>
       <NavBar.Header>
         <NavBar.Brand>
-          <a href="/products" style={{ cursor: 'pointer' }}>SHOP ALL</a>
+          <Link to="/products" style={{ cursor: 'pointer' }}>SHOP ALL</Link>
         </NavBar.Brand>
         <NavBar.Toggle />
       </NavBar.Header>
       <NavBar.Item className="pull-right">
-        <a href="/shoppingCart" className="glyphicon glyphicon-shopping-cart"></a>
+        <Link to="/shoppingCart" className="glyphicon glyphicon-shopping-cart"></Link>
       </NavBar.Item>
       <NavBar.Nav className="pull-right">
         { user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item> }

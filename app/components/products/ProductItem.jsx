@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-
 export default class ProductItem extends Component {
   constructor() {
     super()
@@ -28,9 +27,6 @@ export default class ProductItem extends Component {
                 <span>${product.price}</span>
               </h5>
           </Link>
-          <button>
-
-          </button>
         </div>
 
         {this.props.isAdmin ? this.renderRemoveProduct() : null}

@@ -24,12 +24,32 @@ input.product-selection-checkbox {
 
 /* ----- SingleProduct ----- */
 
-.singleProductPhoto {
-  display: inline-block
+.singleProductWrapper {
+  overflow: hidden
 }
 
-.singleProductName {
-  display: inline-block
+.singleProductPhotos {
+  float: left
+}
+
+.singleProductInfo {
+  float: left
+}
+
+.form-wrapper {
+  overflow: hidden
+}
+
+.singleProductPrice {
+  float: left
+}
+
+.form-quantity {
+  float: left
+}
+
+.order-button {
+  float: right
 }
 
 /* ----- Homepage ----- */
@@ -94,8 +114,54 @@ div.vertical-line{
 }
 
 .glyphicon.glyphicon-shopping-cart {
-    font-size: 33px;
-    padding: 5px 0px 0px 20px;
+  font-size: 33px;
+  padding: 5px 0px 0px 20px;
+}
+
+.product-detail {
+  text-align: left
+}
+
+#cartCheckout-btn {
+  position: relative;
+  right: 30px
+}
+
+.cart-view {
+  font-size: 20px
+}
+
+.first-section {
+  position: relative;
+  left: 40px
+}
+
+.second-section {
+  position: relative;
+  right: 35px;
+}
+
+.third-section {
+  position: relative;
+  right: 10px;
+}
+
+.forth-section {
+  position: relative;
+  right: 30px;
+}
+
+.order-subtotal {
+  position: relative;
+  right: 21px;
+}
+
+.review-order-detail {
+  padding: 5px 50px;
+}
+
+#submit-order-btn {
+  padding: 10px 20px;
 }
 
 

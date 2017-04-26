@@ -37,17 +37,17 @@ class AllProducts extends Component {
 
   render() {
     return (
-      <div className="products-view" >
-        <div className="col-md-3">
-          {/* TODO: create NewProductForm functionality */}
+      <div className="products-view">
+        <div className="col-md-2">
+          <h3>Shop</h3>
           {this.props.isAdmin ? <NewProductForm /> : null}
 
           <ProductsFilter handleInputChange={this.handleInputChange} collections={this.props.collections} />
 
           {this.state.collectionQuery ? <RefineProductSelection toggleCheckbox={this.toggleCheckbox} /> : null}
-
         </div>
         <div className="col-md-9">
+          <h3>Click to view item</h3>
           {this.props.products
             .filter(this.filterProducts)
             .map(product => <ProductItem key={product.id} removeProduct={this.props.removeProduct} product={product} />
@@ -65,10 +65,9 @@ class AllProducts extends Component {
     })
   }
 
-  // todo: look into using a Set here
   toggleCheckbox = event => {
     const label = event.target.value
-        , field = event.target.name + 'Query'
+      , field = event.target.name + 'Query'
     if (this.state[field].includes(label)) {
       this.setState({
         [field]: this.state[field].filter(checkbox => checkbox !== label)
@@ -82,8 +81,8 @@ class AllProducts extends Component {
 
   inCollection(product) {
     return this.state.collectionQuery === 'All' ||
-    this.state.collectionQuery === null ||
-    product.collections.includes(this.state.collectionQuery)
+      this.state.collectionQuery === null ||
+      product.collections.includes(this.state.collectionQuery)
   }
 
   genderChecked = (product) => {
@@ -121,7 +120,6 @@ class AllProducts extends Component {
 
 /* ----- CONTAINER ----- */
 
-// TODO: revisit what state to pass to props
 const mapStateToProps = (state) => {
   return {
     isAdmin: state.currentUser && state.currentUser.isAdmin,
@@ -130,11 +128,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // addProduct
-    // removeProduct
-  }
-}
+const mapDispatchToProps = null
 
-export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)
+export default connect(mapStateToProps)(AllProducts)

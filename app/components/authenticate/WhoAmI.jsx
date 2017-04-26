@@ -1,12 +1,16 @@
 import React from 'react'
 import {Link} from 'react-router'
+import {browserHistory} from 'react-router'
 
 /* ------ COMPONENT ------ */
 
 export const WhoAmI = ({ user, logout }) => (
   <div className="whoami">
     <Link id="navUserProfile" to={`/users/${user.id}/orders`}>{user.userName}</Link>
-    <button id="logout-btn" className="btn default" onClick={logout}>Logout</button>
+    <button id="logout-btn" className="btn default" onClick={() => {
+      logout()
+      browserHistory.push('/')
+    } } >Logout</button>
   </div>
 )
 
