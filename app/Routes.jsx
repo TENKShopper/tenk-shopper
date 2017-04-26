@@ -24,6 +24,8 @@ import ReviewOrder from './components/user/ReviewOrder'
 import { fetchProducts } from './reducers/products-reducer'
 import { fetchSelectedProduct } from './reducers/selectedProduct-reducer'
 import { fetchPendingOrder } from './reducers/pendingOrders-reducer'
+import { fetchOrders } from './reducers/orders-reducer'
+import { fetchSelectedOrder } from './reducers/selectedOrder-reducer'
 
 /* ------ HELPER FUNCTIONS ------ */
 
@@ -33,6 +35,14 @@ const onSelectedProduct = (nextRouterState) => {
 
 const onShoppingCart = (nextRouterState) => {
   store.dispatch(fetchPendingOrder())
+}
+
+const onOrders = (nextRouterState) => {
+  store.dispatch(fetchOrders())
+}
+
+const onSelectedOrder = (nextRouterState) => {
+  store.dispatch(fetchSelectedOrder(nextRouterState.params.orderId))
 }
 
 /* ------ COMPONENT ------ */
@@ -47,8 +57,8 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/products/:productId" component={SingleProduct} onEnter={onSelectedProduct} />
       <Route path="/shoppingCart" component={ShoppingCart} onEnter={onShoppingCart}/>
       <Route path="/users/:userId" component={User}>
-        <Route path="orders" component={Orders} />
-        <Route path="orders/1" component={ Order } />
+        <Route path="orders" component={Orders} onEnter={onOrders}/>
+        <Route path="orders/:orderId" component={Order} onEnter={onSelectedOrder}/>
         <Route path="reviews" component={User} />
         <Route path="addresses" component={Addresses} />
         <Route path="addresses/edit" component={EditAddress} />
@@ -61,7 +71,6 @@ const Routes = ({ fetchInitialData }) => (
   </Router>
 )
 
-      // {/* <Route path='/products/:id' component = {SingleProduct} /> */}
 /* ------ CONTAINER ------ */
 
 const mapStateToProps = null
