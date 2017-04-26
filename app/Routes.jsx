@@ -55,10 +55,10 @@ const Routes = ({ fetchInitialData }) => (
       <Route path="/authenticate" component={Auth} />
       <Route path="/products" component={Products} />
       <Route path="/products/:productId" component={SingleProduct} onEnter={onSelectedProduct} />
-      <Route path="/shoppingCart" component={ShoppingCart}/>
+      <Route path="/shoppingCart" component={ShoppingCart} onEnter={onShoppingCart} />
       <Route path="/users/:userId" component={User}>
         <Route path="orders" component={Orders} onEnter={onOrders}/>
-        <Route path="orders/:orderId" component={Order} onEnter={onSelectedOrder}/>
+        <Route path="orders/:orderId" component={Order} onEnter={onSelectedOrder} />
         <Route path="reviews" component={User} />
         <Route path="addresses" component={Addresses} />
         <Route path="addresses/edit" component={EditAddress} />
@@ -77,7 +77,6 @@ const mapStateToProps = null
 
 const mapDispatchToProps = dispatch => ({
   fetchInitialData: () => {
-    dispatch(fetchPendingOrder())
     dispatch(fetchProducts())
   }
 })
