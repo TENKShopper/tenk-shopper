@@ -3,7 +3,20 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Review from '../user/Review'
 
-function SingleProduct({ selectedProduct }) {
+import { createPendingOrder } from '../../reducers/pendingOrders-reducer'
+
+function SingleProduct({ addLineItem, selectedProduct, user }) {
+
+  const handleLineItem = event => {
+    event.preventDefault()
+    const productOrder = {
+      product: selectedProduct,
+      quantity: event.target.quantity.value,
+      orderPrice: event.target.quantity.value * selectedProduct.price
+    }
+    return addLineItem(productOrder)
+  }
+
   return (
     <div className='singleProductWrapper'>
 
@@ -52,10 +65,6 @@ function SingleProduct({ selectedProduct }) {
   )
 }
 
-const handleLineItem = event => {
-
-}
-
 const renderPhoto = photo => {
   const photoStyle = { width: '300px', height: '400px' }
   return (<img className="d-block img-fluid" src={photo} style={photoStyle} />)
@@ -63,13 +72,14 @@ const renderPhoto = photo => {
 
 const mapStateToProps = state => {
   return {
-    selectedProduct: state.selectedProduct
+    selectedProduct: state.selectedProduct,
+    user: state.auth
   }
 }
 
 const mapDispatchToProps = dispatch => ({
-  addLineItem: (productOrder) => {
-    dispatch(addProductToLineItem(productOrder))
+  addLineItem: (productOrder, userId) => {
+    dispatch(createPendingOrder(productOrder, userId))
   }
 })
 
