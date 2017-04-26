@@ -6,7 +6,7 @@ import {Link} from 'react-router'
 const Addresses = ({ user }) => (
   <div className="addressList">
     <p>
-      <Link to={`/users/${user.id}/addresses/editAddress`} className="btn btn-primary btn-lg">Add New Address</Link>
+      <Link to={`/users/${user.id}/addresses/edit`} className="btn btn-primary btn-lg">Add New Address</Link>
     </p>
     <ul className="addressBox">
       <h3>Default Shipping Address</h3>
@@ -20,7 +20,7 @@ const Addresses = ({ user }) => (
               <li>{address.locality}</li>
               <li>{address.postalZipCode}</li>
               <li className="action">
-                <Link to={`users/${user.id}/addresses/editAddress/`} className="btn btn-primary btn-sm">Edit Address</Link>
+                <Link to={`users/${user.id}/addresses/edit/`} className="btn btn-primary btn-sm">Edit Address</Link>
               </li>
             </ul>
           ))

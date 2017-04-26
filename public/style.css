@@ -155,3 +155,11 @@ div.vertical-line{
   position: relative;
   right: 21px;
 }
+
+.review-order-detail {
+  padding: 5px 50px;
+}
+
+#submit-order-btn {
+  padding: 10px 20px;
+}
