@@ -8,7 +8,15 @@ const EditAddress = ({ user, addAddress }) => (
     <form className="form-horizontal" action='' method="POST"
       onSubmit={evt => {
         evt.preventDefault()
-        addAddress(user.id, 'shippingAddress', evt.target.firstName.value, evt.target.lastName.value, evt.target.streetAddress.value, evt.target.premise.value, evt.target.administrativeArea.value, evt.target.locality.value, evt.target.postalZipCode.value)
+        addAddress(user.id, 'shippingAddress', {
+          firstName: evt.target.firstName.value,
+          lastName: evt.target.lastName.value,
+          streetAddress: evt.target.streetAddress.value,
+          premise: evt.target.premise.value,
+          administrativeArea: evt.target.administrativeArea.value,
+          locality: evt.target.locality.value,
+          postalZipCode: evt.target.postalZipCode.value
+        })
       } }>
       <fieldset>
         <div id="legend">

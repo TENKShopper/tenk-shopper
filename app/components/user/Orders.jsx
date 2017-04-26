@@ -3,35 +3,27 @@ import {Link} from 'react-router'
 
 /* ------ COMPONENT ------ */
 
-const Orders = ({ user }) => (
+const Orders = ({ user, orders }) => (
   <table className="table table-striped table-hover">
     <thead>
       <tr>
         <th>Order Date</th>
         <th>Order Number</th>
-        <th>Shipping Date</th>
+        <th>Shipping Method</th>
         <th>Tracking Number</th>
       </tr>
     </thead>
     <tbody>
-     <tr>
-       <td>3/26/2017</td>
-       <td><Link to={`/users/${user.id}/orders/1`}>3808439075</Link></td>
-       <td>4/1/2017</td>
-       <td>1Z849EW10351211223</td>
-     </tr>
-     <tr>
-       <td>4/21/2017</td>
-       <td>4610684904</td>
-       <td>4/24/2017</td>
-       <td>1ZA4562R0360215646</td>
-     </tr>
-     <tr>
-       <td>4/24/2017</td>
-       <td>3405265668</td>
-       <td>Processing</td>
-       <td>1ZA4562R0332128114</td>
-     </tr>
+      {
+        orders && orders.map(order => (
+          <tr key={order.id}>
+            <td>{order.created_at.slice(0, 10)}</td>
+            <td><Link to={`/users/${user.id}/orders/${order.id}`}>{Math.floor(Math.random()*500) + 234820934}</Link></td>
+            <td>{order.created_at.slice(0, 10)}</td>
+            <td>1Z849EW10351211223</td>
+          </tr>
+          ))
+      }
    </tbody>
  </table>
 )
@@ -40,6 +32,12 @@ const Orders = ({ user }) => (
 
 import {connect} from 'react-redux'
 
-export default connect(
-  ({ auth }) => ({ user: auth })
-)(Orders)
+const mapStateToProps = (state) => ({
+  orders: state.orders,
+  user: state.auth
+})
+
+const mapDispatchToProps = (dispatch) => ({
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders)

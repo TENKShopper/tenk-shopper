@@ -57,7 +57,7 @@ const ReviewOrder = ({ user }) => {
         <hr></hr>
       </div>
       <div className="pull-right" id="submit-order-btn">
-        <button className="btn btn-lg btn-success">PLACE YOUR ORDER NOW</button>
+        <button className="btn btn-lg btn-success">PLACE ORDER</button>
       </div>
     </div>
   )

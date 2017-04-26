@@ -6,6 +6,8 @@ const rootReducer = combineReducers({
   selectedProduct: require('./selectedProduct-reducer').default,
   auth: require('./auth-reducer').default,
   cart: require('./pendingOrders-reducer').default,
+  orders: require('./orders-reducer').default,
+  selectedOrder: require('./selectedOrder-reducer').default,
 })
 
 export default rootReducer
