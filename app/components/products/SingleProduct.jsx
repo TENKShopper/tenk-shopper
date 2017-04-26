@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import Review from '../user/Review'
-import {addReview} from '../.reducers/reviews-reducer'
+import {addReview} from '../../reducers/reviews-reducer'
 
 function SingleProduct({ selectedProduct }) {
   return (
@@ -38,11 +38,11 @@ function SingleProduct({ selectedProduct }) {
       </div>
 
       <div>
-
-        { selectedProduct.reviews.map(function(review) {
+        {/*
+        { selectedProduct.review.map(function(review) {
           return <Review review={review} />
         }) }
-
+      */}
       </div>
     </div>
   )
@@ -76,8 +76,8 @@ const mapStatetoProps = (state) => {
 
 const mapDispatchToProps = (dispatch) =>{
   return {
-    onSubmit => {
-      const action = addReview()
+    onSubmit: () => {
+      const action = addReview
       dispatch(action)
     }
   }
