@@ -51,7 +51,6 @@ const cartComponent = ({checkoutOrder, pendingOrders}) => {
             <td colSpan="4"/>
             <td>
               <button className="btn btn-default" id="cartCheckout" onClick={checkout} >CHECKOUT</button>
-              {pendingOrders.length === 0 && document.getElementById('cartCheckout').setAttribute('disabled')}
             </td>
           </tr>
         </tbody>
