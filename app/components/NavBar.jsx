@@ -24,7 +24,7 @@ const NavBarMain = ({ user }) => {
         <Link to="/shoppingCart" className="glyphicon glyphicon-shopping-cart"></Link>
       </NavBar.Item>
       <NavBar.Nav className="pull-right">
-        { user ? <WhoAmI /> : <NavBar.Item active={true} href="/authenticate">LOGIN/SIGNUP</NavBar.Item> }
+        { user ? <WhoAmI /> : <NavBar.Brand><Link to='/authenticate'>LOGIN/SIGNUP</Link></NavBar.Brand> }
       </NavBar.Nav>
     </NavBar>
   )

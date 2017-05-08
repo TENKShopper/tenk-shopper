@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {whoami} from './auth-reducer'
 /* -----------------    ACTIONS     ------------------ */
 
 const INITIALIZE = 'INITALIZE_USER'
@@ -70,7 +70,10 @@ export const addAddress = (userId, addressType, address) => dispatch => {
 
 export const updateAddress = (userId, addressType, addressId, address) => dispatch => {
   axios.put(`/api/users/${userId}/addresses/${addressType}/${addressId}`, address)
-    .then(res => dispatch(update(res.data)))
+    .then(res => {
+      dispatch(whoami())
+      dispatch(update(res.data))
+    })
     .catch(err => console.error(`Updating address: ${addressType} unsuccessfull`, err))
 }
 

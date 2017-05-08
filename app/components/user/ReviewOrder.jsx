@@ -1,5 +1,7 @@
 import React from 'react'
 import Addresses from './Addresses'
+import { Link } from 'react-router'
+import { checkoutOrder } from '../../reducers/pendingOrders-reducer'
 
 /* ------ DUMMY DATA ------ */
 
@@ -10,13 +12,28 @@ const order = {
   id: '12345673434'
 }
 
+const dummyAddress = {
+  id: 1,
+  country: 'USA',
+  firstName: 'Kido Kido',
+  lastName: 'Kido',
+  administrativeArea: 'NY',
+  locality: 'NYC',
+  postalZipCode: '12345',
+  streetAddress: '123 Kido Lane'
+}
+
 const lineitems = [{qty: '1', orderPrice: '15', name: 'Blue Shoes', id: 1},
                    {qty: '2', orderPrice: '10', name: 'Short Sleeve Shirt', id: 2}]
 
 /* ------ COMPONENT ------ */
 
-const ReviewOrder = ({ user }) => {
-  console.log('user in review order', user)
+const ReviewOrder = ({ user, checkoutOrder, pendingOrders }) => {
+
+  function checkout(event) {
+    return checkoutOrder(pendingOrders, {shipping: 'International'}, dummyAddress, dummyAddress)
+  }
+
   return (
     <div>
       <div className="review-order-detail">
@@ -57,7 +74,9 @@ const ReviewOrder = ({ user }) => {
         <hr></hr>
       </div>
       <div className="pull-right" id="submit-order-btn">
-        <button className="btn btn-lg btn-success">PLACE ORDER</button>
+        <Link to='/'>
+          <button className="btn btn-lg btn-success" onClick={checkout}>PLACE ORDER</button>
+        </Link>
       </div>
     </div>
   )
@@ -67,6 +86,14 @@ const ReviewOrder = ({ user }) => {
 
 import {connect} from 'react-redux'
 
-export default connect(
-  ({ auth }) => ({ user: auth })
-)(ReviewOrder)
+const mapStateToProps = (state) => ({
+  pendingOrders: state.cart,
+  user: state.auth
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  // needs to dispatch a function that can bulk add all line items in cart to users
+  checkoutOrder: (pendingOrders, orderDetail, shippingAddress, billingAddress) => dispatch(checkoutOrder(pendingOrders, orderDetail, shippingAddress, billingAddress))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewOrder)

@@ -11,6 +11,7 @@ const EditAddress = ({ user, addAddress }) => (
         addAddress(user.id, 'shippingAddress', {
           firstName: evt.target.firstName.value,
           lastName: evt.target.lastName.value,
+          country: evt.target.country.value,
           streetAddress: evt.target.streetAddress.value,
           premise: evt.target.premise.value,
           administrativeArea: evt.target.administrativeArea.value,
@@ -32,6 +33,12 @@ const EditAddress = ({ user, addAddress }) => (
           <label className="control-label" htmlFor="lastName">Last Name</label>
           <div className="controls">
             <input type="text" id="lastName" name="lastName" placeholder="" className="input-xlarge"/>
+          </div>
+        </div>
+        <div className="control-group">
+          <label className="control-label" htmlFor="country">Country</label>
+          <div className="controls">
+            <input type="text" id="country" name="country" placeholder="" className="input-xlarge"/>
           </div>
         </div>
         <div className="control-group">
@@ -67,9 +74,11 @@ const EditAddress = ({ user, addAddress }) => (
           </div>
         </div>
         <div className="control-group">
-          <div className="controls">
-            <button className="btn btn-success">Add New Address</button>
-          </div>
+          <Link to={`/users/${user.id}/addresses`}>
+            <div className="controls">
+              <button className="btn btn-success">Add New Address</button>
+            </div>
+          </Link>
         </div>
       </fieldset>
     </form>

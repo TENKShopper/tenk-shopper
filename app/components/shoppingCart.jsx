@@ -17,7 +17,7 @@ const dummyAddress = {
 
 /* ----- COMPONENT ----- */
 
-const cartComponent = ({checkoutOrder, pendingOrders}) => {
+const cartComponent = ({checkoutOrder, pendingOrders, user}) => {
   return (
     <div className="cart-view" >
       <table id="order-table" className="table table-striped table-hover">
@@ -38,9 +38,17 @@ const cartComponent = ({checkoutOrder, pendingOrders}) => {
           </tr>
           <tr>
             <td colSpan="4"/>
-            <td>
-              <button className="btn btn-default" id="cartCheckout" onClick={checkout} >CHECKOUT</button>
-            </td>
+              <td>
+                {user ?
+                  <Link to ='/checkout/reviewOrder'>
+                    <button className="btn btn-default" id="cartCheckout">CHECKOUT</button>
+                  </Link>
+                  :
+                  <Link to = '/checkout/login'>
+                    <button className="btn btn-default" id="cartCheckout">CHECKOUT AS GUEST</button>
+                  </Link>
+                }
+              </td>
           </tr>
         </tbody>
       </table>
@@ -96,7 +104,8 @@ const cartComponent = ({checkoutOrder, pendingOrders}) => {
 /* ----- CONTAINER ----- */
 
 const mapStateToProps = (state) => ({
-  pendingOrders: state.cart
+  pendingOrders: state.cart,
+  user: state.auth
 })
 
 const mapDispatchToProps = (dispatch) => ({
